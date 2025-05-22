@@ -2,7 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package paygarum_groupe_37b;
+package View;
+
+import controller.controller;
+import javax.swing.JOptionPane;
+
+
 
 /**
  *
@@ -29,7 +34,7 @@ public class Registration extends javax.swing.JFrame {
         FrameBox = new javax.swing.JPanel();
         greeting = new javax.swing.JLabel();
         num = new javax.swing.JTextField();
-        password = new javax.swing.JPasswordField();
+        pass = new javax.swing.JPasswordField();
         text1 = new javax.swing.JLabel();
         text2 = new javax.swing.JLabel();
         registerButton = new javax.swing.JButton();
@@ -37,8 +42,8 @@ public class Registration extends javax.swing.JFrame {
         text4 = new javax.swing.JLabel();
         DateOfBirth_Days = new javax.swing.JComboBox<>();
         text5 = new javax.swing.JLabel();
+        DateOfBirth_Year = new javax.swing.JComboBox<>();
         DateOfBirth_Months = new javax.swing.JComboBox<>();
-        DateOfBirth_Months1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
@@ -55,9 +60,9 @@ public class Registration extends javax.swing.JFrame {
             }
         });
 
-        password.addActionListener(new java.awt.event.ActionListener() {
+        pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordActionPerformed(evt);
+                passActionPerformed(evt);
             }
         });
 
@@ -91,17 +96,17 @@ public class Registration extends javax.swing.JFrame {
 
         text5.setText("Password");
 
-        DateOfBirth_Months.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010" }));
-        DateOfBirth_Months.addActionListener(new java.awt.event.ActionListener() {
+        DateOfBirth_Year.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010" }));
+        DateOfBirth_Year.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DateOfBirth_MonthsActionPerformed(evt);
+                DateOfBirth_YearActionPerformed(evt);
             }
         });
 
-        DateOfBirth_Months1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
-        DateOfBirth_Months1.addActionListener(new java.awt.event.ActionListener() {
+        DateOfBirth_Months.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        DateOfBirth_Months.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DateOfBirth_Months1ActionPerformed(evt);
+                DateOfBirth_MonthsActionPerformed(evt);
             }
         });
 
@@ -110,26 +115,26 @@ public class Registration extends javax.swing.JFrame {
         FrameBoxLayout.setHorizontalGroup(
             FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FrameBoxLayout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
+                .addContainerGap(71, Short.MAX_VALUE)
                 .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(FrameBoxLayout.createSequentialGroup()
                         .addComponent(text4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DateOfBirth_Days, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DateOfBirth_Days, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(FrameBoxLayout.createSequentialGroup()
-                                .addComponent(DateOfBirth_Months1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(DateOfBirth_Months, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(DateOfBirth_Months, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(DateOfBirth_Year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(FrameBoxLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(FrameBoxLayout.createSequentialGroup()
                                 .addComponent(text5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(FrameBoxLayout.createSequentialGroup()
                                 .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(FrameBoxLayout.createSequentialGroup()
@@ -143,14 +148,14 @@ public class Registration extends javax.swing.JFrame {
                                     .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(num, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(num1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addGap(114, 114, 114))
+                .addGap(110, 110, 110))
         );
         FrameBoxLayout.setVerticalGroup(
             FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FrameBoxLayout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(greeting, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(42, 42, 42)
                 .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(text1)
                     .addComponent(num, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -164,14 +169,14 @@ public class Registration extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FrameBoxLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(text5))
                         .addGap(18, 18, 18)))
                 .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DateOfBirth_Days, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(text4)
-                    .addComponent(DateOfBirth_Months1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DateOfBirth_Months, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DateOfBirth_Months, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DateOfBirth_Year, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(registerButton)
                 .addGap(69, 69, 69))
@@ -182,13 +187,13 @@ public class Registration extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void DateOfBirth_Months1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DateOfBirth_Months1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DateOfBirth_Months1ActionPerformed
-
     private void DateOfBirth_MonthsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DateOfBirth_MonthsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DateOfBirth_MonthsActionPerformed
+
+    private void DateOfBirth_YearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DateOfBirth_YearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DateOfBirth_YearActionPerformed
 
     private void DateOfBirth_DaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DateOfBirth_DaysActionPerformed
         // TODO add your handling code here:
@@ -200,11 +205,56 @@ public class Registration extends javax.swing.JFrame {
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         // TODO add your handling code here:
+                try {
+            // 1. Get values from form fields with your specific names
+            String fullName = num.getText();
+            String email = num1.getText();
+            String password = new String(pass.getPassword());
+            String day = DateOfBirth_Days.getSelectedItem().toString();
+            String month = DateOfBirth_Months.getSelectedItem().toString();
+            String year = DateOfBirth_Year.getSelectedItem().toString();
+
+            // 2. Validate inputs
+            if (fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, 
+                    "Please fill all fields", 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // 3. Process registration through controller
+            controller ControllerObj = new controller(); // ✅ create an instance
+            boolean success = ControllerObj.registerUser(
+                fullName, 
+                email, 
+                password, 
+                day, 
+                month, 
+                year
+            );
+
+            // 4. Show result
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Registration successful!");
+                clearForm();
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "Registration failed. Email may already exist.", 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, 
+                "Error: " + ex.getMessage(), 
+                "Exception", 
+                JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_registerButtonActionPerformed
 
-    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_passwordActionPerformed
+    }//GEN-LAST:event_passActionPerformed
 
     private void numActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numActionPerformed
         // TODO add your handling code here:
@@ -213,6 +263,14 @@ public class Registration extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    private void clearForm() {
+        num.setText("");
+        num1.setText("");
+        pass.setText("");
+        DateOfBirth_Days.setSelectedIndex(0);
+        DateOfBirth_Months.setSelectedIndex(0);
+        DateOfBirth_Year.setSelectedIndex(0);
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -238,22 +296,20 @@ public class Registration extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Registration().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Registration().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> DateOfBirth_Days;
     private javax.swing.JComboBox<String> DateOfBirth_Months;
-    private javax.swing.JComboBox<String> DateOfBirth_Months1;
+    private javax.swing.JComboBox<String> DateOfBirth_Year;
     private javax.swing.JPanel FrameBox;
     private javax.swing.JLabel greeting;
     private javax.swing.JTextField num;
     private javax.swing.JTextField num1;
-    private javax.swing.JPasswordField password;
+    private javax.swing.JPasswordField pass;
     private javax.swing.JButton registerButton;
     private javax.swing.JLabel text1;
     private javax.swing.JLabel text2;
