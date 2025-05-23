@@ -19,7 +19,7 @@ public class MySqlConnection implements Database {
         try {
             String username = "root";
             String password = "1234";
-            String database = "r4hul";
+            String database = "Bank";
             
             // Fixed connection URL
             String url = "jdbc:mysql://localhost:3306/" + database;
