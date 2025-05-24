@@ -9,5 +9,5 @@ package Database;
  * @author NITRO
  */
 public class database_gc {
-    
+
 }
