@@ -163,7 +163,8 @@ public class Login_page extends javax.swing.JFrame {
         try{
             LoginController ControllerObj = new LoginController(); // ✅ create an instance
             boolean success = ControllerObj.logIn(email.getText(), password.getText());
-                
+            
+                         
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, 
                     "Error: " + ex.getMessage(), 

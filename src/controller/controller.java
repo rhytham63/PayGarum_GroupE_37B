@@ -34,6 +34,11 @@ public class controller {
             
   
             return dao.registerUser(user);
+           
+            
+            
+            
+            
             
         } catch (ParseException e) {
             System.out.println("Date parsing error: " + e.getMessage());

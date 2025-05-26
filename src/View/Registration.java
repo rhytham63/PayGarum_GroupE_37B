@@ -250,6 +250,13 @@ public class Registration extends javax.swing.JFrame {
                 "Exception", 
                 JOptionPane.ERROR_MESSAGE);
         }
+                
+              
+    // Open LoginFrame and close SignupFrame
+    Login_page loginFrame = new Login_page();
+    loginFrame.setVisible(true);
+    this.dispose(); // Close the signup frame
+
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
