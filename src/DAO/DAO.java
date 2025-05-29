@@ -1,8 +1,12 @@
 package DAO;
 
+
 import Database.MySqlConnection;
 import Model.User;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class DAO {
     private final MySqlConnection dbConnection;
@@ -41,4 +45,35 @@ public class DAO {
             dbConnection.closeConnection(conn);
         }
     }
+    
+    public void logIn(String username, String password) {
+        System.out.println("logging...");
+        MySqlConnection mySql = new MySqlConnection();
+        Connection conn1 = mySql.openConnection();
+        String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+
+        try (PreparedStatement pstm = conn1.prepareStatement(sql)) {
+            pstm.setString(1, username);
+            pstm.setString(2, password);
+            ResultSet rs = pstm.executeQuery();
+            System.out.println(sql+" "+username+" "+password);
+            if (rs.next()) {
+                // Login successful
+                JOptionPane.showMessageDialog(null, "Login successful");
+            } else {
+                // Login failed
+                JOptionPane.showMessageDialog(null, "Login failed: Invalid username or password");
+            }
+
+        } catch (SQLException ex) {
+           Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occurred during login");
+        } finally {
+            mySql.closeConnection(conn1);
+        }
+
+    
+}
+
+    
 }

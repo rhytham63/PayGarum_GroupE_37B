@@ -2,7 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package paygarum_groupe_37b;
+package View;
+
+import controller.LoginController;
+import controller.controller;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,7 +33,7 @@ public class Login_page extends javax.swing.JFrame {
 
         FrameBox = new javax.swing.JPanel();
         greeting = new javax.swing.JLabel();
-        num = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
         text1 = new javax.swing.JLabel();
         text2 = new javax.swing.JLabel();
@@ -47,9 +52,9 @@ public class Login_page extends javax.swing.JFrame {
         greeting.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         greeting.setText("Welcome to PayGarum !");
 
-        num.addActionListener(new java.awt.event.ActionListener() {
+        email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numActionPerformed(evt);
+                emailActionPerformed(evt);
             }
         });
 
@@ -59,13 +64,18 @@ public class Login_page extends javax.swing.JFrame {
             }
         });
 
-        text1.setText("MOBILE NUMBER :");
+        text1.setText("PHONE/EMAIL:");
 
         text2.setText("PASSWORD/PIN :");
 
         loginbutton.setBackground(new java.awt.Color(77, 91, 146));
         loginbutton.setForeground(new java.awt.Color(255, 255, 255));
         loginbutton.setText("LOGIN");
+        loginbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loginbuttonMouseClicked(evt);
+            }
+        });
         loginbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginbuttonActionPerformed(evt);
@@ -84,7 +94,7 @@ public class Login_page extends javax.swing.JFrame {
                             .addComponent(text2)
                             .addComponent(text1)
                             .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(num)
+                                .addComponent(email)
                                 .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))))
                     .addGroup(FrameBoxLayout.createSequentialGroup()
                         .addGap(96, 96, 96)
@@ -102,7 +112,7 @@ public class Login_page extends javax.swing.JFrame {
                 .addGap(63, 63, 63)
                 .addComponent(text1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(num, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(text2)
                 .addGap(7, 7, 7)
@@ -141,13 +151,28 @@ public class Login_page extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
 
-    private void numActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numActionPerformed
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_numActionPerformed
+    }//GEN-LAST:event_emailActionPerformed
 
     private void loginbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbuttonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_loginbuttonActionPerformed
+
+    private void loginbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginbuttonMouseClicked
+        try{
+            LoginController ControllerObj = new LoginController(); // ✅ create an instance
+            boolean success = ControllerObj.logIn(email.getText(), password.getText());
+            
+                         
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, 
+                    "Error: " + ex.getMessage(), 
+                    "Exception", 
+                    JOptionPane.ERROR_MESSAGE);
+            }
+          
+    }//GEN-LAST:event_loginbuttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -186,11 +211,17 @@ public class Login_page extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FrameBox;
+    private javax.swing.JTextField email;
     private javax.swing.JLabel greeting;
     private javax.swing.JButton loginbutton;
-    private javax.swing.JTextField num;
     private javax.swing.JPasswordField password;
     private javax.swing.JLabel text1;
     private javax.swing.JLabel text2;
     // End of variables declaration//GEN-END:variables
+    public String getEmail(){return email.getText();}
+    public String getPass(){return password.getText();}
+    
+    public void addAddUserListener(ActionListener listener) {
+        loginbutton.addActionListener(listener);
+    }
 }
