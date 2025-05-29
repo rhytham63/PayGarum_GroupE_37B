@@ -26,96 +26,141 @@ public class Dashboard extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDialog1 = new javax.swing.JDialog();
-        jFrame1 = new javax.swing.JFrame();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        Left_bar = new javax.swing.JPanel();
+        Right_bar = new javax.swing.JPanel();
+        Balance = new javax.swing.JLabel();
+        Coin_Image = new javax.swing.JLabel();
+        accBalance = new javax.swing.JLabel();
+        Gdmrng = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        accBalance1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        accBalance2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Tranasaction_table = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(212, 235, 253));
+        Left_bar.setBackground(new java.awt.Color(212, 235, 253));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout Left_barLayout = new javax.swing.GroupLayout(Left_bar);
+        Left_bar.setLayout(Left_barLayout);
+        Left_barLayout.setHorizontalGroup(
+            Left_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 119, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        Left_barLayout.setVerticalGroup(
+            Left_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 740, Short.MAX_VALUE)
         );
 
-        add(jPanel1);
-        jPanel1.setBounds(0, 0, 119, 740);
-        jPanel1.getAccessibleContext().setAccessibleDescription("");
+        add(Left_bar);
+        Left_bar.setBounds(0, 0, 119, 740);
+        Left_bar.getAccessibleContext().setAccessibleDescription("");
 
-        jPanel2.setBackground(new java.awt.Color(212, 235, 253));
+        Right_bar.setBackground(new java.awt.Color(212, 235, 253));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout Right_barLayout = new javax.swing.GroupLayout(Right_bar);
+        Right_bar.setLayout(Right_barLayout);
+        Right_barLayout.setHorizontalGroup(
+            Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 359, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        Right_barLayout.setVerticalGroup(
+            Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 740, Short.MAX_VALUE)
         );
 
-        add(jPanel2);
-        jPanel2.setBounds(945, 0, 359, 740);
+        add(Right_bar);
+        Right_bar.setBounds(945, 0, 359, 740);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Arcade-Zone-Business-Interactive-Fun-Hub.pptx (1).png"))); // NOI18N
-        add(jLabel1);
-        jLabel1.setBounds(143, 130, 355, 159);
+        Balance.setFont(new java.awt.Font("Jost", 1, 24)); // NOI18N
+        Balance.setForeground(new java.awt.Color(255, 255, 255));
+        Balance.setText("Rs 12,760.90");
+        add(Balance);
+        Balance.setBounds(150, 180, 180, 50);
 
-        jLabel2.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 14)); // NOI18N
-        jLabel2.setText("Account Balance");
-        add(jLabel2);
-        jLabel2.setBounds(137, 106, 128, 18);
+        Coin_Image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Coin_Image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Coin Image.png"))); // NOI18N
+        add(Coin_Image);
+        Coin_Image.setBounds(140, 130, 355, 180);
 
-        jLabel3.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 24)); // NOI18N
-        jLabel3.setText("Good Morning");
-        add(jLabel3);
-        jLabel3.setBounds(137, 14, 182, 31);
+        accBalance.setFont(new java.awt.Font("AvantGarde LT Medium", 0, 18)); // NOI18N
+        accBalance.setText("Transaction");
+        add(accBalance);
+        accBalance.setBounds(140, 350, 100, 20);
+
+        Gdmrng.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 24)); // NOI18N
+        Gdmrng.setText("Good Morning");
+        add(Gdmrng);
+        Gdmrng.setBounds(137, 14, 182, 31);
+
+        jComboBox1.setBackground(new java.awt.Color(151, 198, 237));
+        jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Credit", "Devit", "Transfer" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        add(jComboBox1);
+        jComboBox1.setBounds(230, 390, 76, 24);
+
+        accBalance1.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 14)); // NOI18N
+        accBalance1.setText("Filter By");
+        add(accBalance1);
+        accBalance1.setBounds(150, 390, 60, 18);
+        add(jSeparator1);
+        jSeparator1.setBounds(150, 320, 720, 10);
+
+        accBalance2.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 14)); // NOI18N
+        accBalance2.setText("Account Balance");
+        add(accBalance2);
+        accBalance2.setBounds(137, 106, 128, 18);
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
+
+        Tranasaction_table.setFont(new java.awt.Font("Nimbus Sans", 0, 15)); // NOI18N
+        Tranasaction_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Type", "Date", "Details", "Amount", "Balance"
+            }
+        ));
+        jScrollPane1.setViewportView(Tranasaction_table);
+
+        add(jScrollPane1);
+        jScrollPane1.setBounds(140, 430, 740, 240);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDialog jDialog1;
-    private javax.swing.JFrame jFrame1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel Balance;
+    private javax.swing.JLabel Coin_Image;
+    private javax.swing.JLabel Gdmrng;
+    private javax.swing.JPanel Left_bar;
+    private javax.swing.JPanel Right_bar;
+    private javax.swing.JTable Tranasaction_table;
+    private javax.swing.JLabel accBalance;
+    private javax.swing.JLabel accBalance1;
+    private javax.swing.JLabel accBalance2;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
