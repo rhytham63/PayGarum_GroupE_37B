@@ -44,6 +44,7 @@ public class Registration extends javax.swing.JFrame {
         text5 = new javax.swing.JLabel();
         DateOfBirth_Year = new javax.swing.JComboBox<>();
         DateOfBirth_Months = new javax.swing.JComboBox<>();
+        loginButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
@@ -110,24 +111,40 @@ public class Registration extends javax.swing.JFrame {
             }
         });
 
+        loginButton.setBackground(new java.awt.Color(77, 91, 146));
+        loginButton.setForeground(new java.awt.Color(255, 255, 255));
+        loginButton.setText("Login");
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout FrameBoxLayout = new javax.swing.GroupLayout(FrameBox);
         FrameBox.setLayout(FrameBoxLayout);
         FrameBoxLayout.setHorizontalGroup(
             FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FrameBoxLayout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
+                .addContainerGap(72, Short.MAX_VALUE)
                 .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(FrameBoxLayout.createSequentialGroup()
-                        .addComponent(text4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DateOfBirth_Days, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(FrameBoxLayout.createSequentialGroup()
+                                .addComponent(text4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(DateOfBirth_Days, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FrameBoxLayout.createSequentialGroup()
+                                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25)))
+                        .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(FrameBoxLayout.createSequentialGroup()
                                 .addComponent(DateOfBirth_Months, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(DateOfBirth_Year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(DateOfBirth_Year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(FrameBoxLayout.createSequentialGroup()
+                                .addGap(71, 71, 71)
+                                .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(FrameBoxLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -178,7 +195,9 @@ public class Registration extends javax.swing.JFrame {
                     .addComponent(DateOfBirth_Months, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DateOfBirth_Year, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
-                .addComponent(registerButton)
+                .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(registerButton)
+                    .addComponent(loginButton))
                 .addGap(69, 69, 69))
         );
 
@@ -259,6 +278,12 @@ public class Registration extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_numActionPerformed
 
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        // TODO add your handling code here:
+        new View.Login_page().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_loginButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -306,6 +331,7 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> DateOfBirth_Year;
     private javax.swing.JPanel FrameBox;
     private javax.swing.JLabel greeting;
+    private javax.swing.JButton loginButton;
     private javax.swing.JTextField num;
     private javax.swing.JTextField num1;
     private javax.swing.JPasswordField pass;
