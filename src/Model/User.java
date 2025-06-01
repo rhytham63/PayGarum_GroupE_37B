@@ -7,6 +7,7 @@ public class User {
     private String email;
     private String password;
     private Date dateOfBirth;
+    private double balance; // Add balance field
 
     // Getters and Setters
     public String getFullName() { 
@@ -35,5 +36,13 @@ public class User {
     }
     public void setDateOfBirth(Date dateOfBirth) { 
         this.dateOfBirth = dateOfBirth; 
+    }
+
+    // Add getter and setter for balance
+    public double getBalance() {
+        return balance;
+    }
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

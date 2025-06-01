@@ -1,20 +1,34 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
+
+import DAO.DAO;
+import javax.swing.*;
+import java.sql.*;
+import Database.MySqlConnection;
 
 /**
  *
  * @author r4hul
  */
-public class Dashboard extends javax.swing.JPanel {
-
+public class Dashboard extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
+      private String userEmail;
+    
     /**
-     * Creates new form Dashboard
+     * Creates new form NewJFrame
      */
-    public Dashboard() {
+    public Dashboard(String emailText) {
+        
         initComponents();
+         this.userEmail = emailText;
+         loadUserBalance();
+
+        
+        
     }
 
     /**
@@ -26,8 +40,12 @@ public class Dashboard extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Left_bar = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         Right_bar = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        accBalance3 = new javax.swing.JLabel();
+        loadMoneyButton = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         Balance = new javax.swing.JLabel();
         Coin_Image = new javax.swing.JLabel();
         accBalance = new javax.swing.JLabel();
@@ -38,62 +56,72 @@ public class Dashboard extends javax.swing.JPanel {
         accBalance2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tranasaction_table = new javax.swing.JTable();
+        load_money = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-        setLayout(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Left_bar.setBackground(new java.awt.Color(212, 235, 253));
-
-        javax.swing.GroupLayout Left_barLayout = new javax.swing.GroupLayout(Left_bar);
-        Left_bar.setLayout(Left_barLayout);
-        Left_barLayout.setHorizontalGroup(
-            Left_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 119, Short.MAX_VALUE)
-        );
-        Left_barLayout.setVerticalGroup(
-            Left_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 740, Short.MAX_VALUE)
-        );
-
-        add(Left_bar);
-        Left_bar.setBounds(0, 0, 119, 740);
-        Left_bar.getAccessibleContext().setAccessibleDescription("");
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         Right_bar.setBackground(new java.awt.Color(212, 235, 253));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Icons.png"))); // NOI18N
+
+        accBalance3.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 24)); // NOI18N
+        accBalance3.setText("Events");
 
         javax.swing.GroupLayout Right_barLayout = new javax.swing.GroupLayout(Right_bar);
         Right_bar.setLayout(Right_barLayout);
         Right_barLayout.setHorizontalGroup(
             Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 359, Short.MAX_VALUE)
+            .addGroup(Right_barLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(accBalance3))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         Right_barLayout.setVerticalGroup(
             Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 740, Short.MAX_VALUE)
+            .addGroup(Right_barLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90)
+                .addComponent(accBalance3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(Right_bar);
-        Right_bar.setBounds(945, 0, 359, 740);
+        loadMoneyButton.setBackground(new java.awt.Color(0, 153, 255));
+        loadMoneyButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Plus.png"))); // NOI18N
+        loadMoneyButton.setText("jButton1");
+        loadMoneyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadMoneyButtonActionPerformed(evt);
+            }
+        });
 
-        Balance.setFont(new java.awt.Font("Jost", 1, 24)); // NOI18N
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(null);
+
+        Balance.setFont(new java.awt.Font("Jost", 1, 18)); // NOI18N
         Balance.setForeground(new java.awt.Color(255, 255, 255));
         Balance.setText("Rs 12,760.90");
-        add(Balance);
-        Balance.setBounds(150, 180, 180, 50);
+        jPanel3.add(Balance);
+        Balance.setBounds(150, 180, 230, 50);
 
         Coin_Image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Coin_Image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Coin Image.png"))); // NOI18N
-        add(Coin_Image);
+        jPanel3.add(Coin_Image);
         Coin_Image.setBounds(140, 130, 355, 180);
 
         accBalance.setFont(new java.awt.Font("AvantGarde LT Medium", 0, 18)); // NOI18N
         accBalance.setText("Transaction");
-        add(accBalance);
+        jPanel3.add(accBalance);
         accBalance.setBounds(140, 350, 100, 20);
 
         Gdmrng.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 24)); // NOI18N
         Gdmrng.setText("Good Morning");
-        add(Gdmrng);
+        jPanel3.add(Gdmrng);
         Gdmrng.setBounds(137, 14, 182, 31);
 
         jComboBox1.setBackground(new java.awt.Color(151, 198, 237));
@@ -104,19 +132,19 @@ public class Dashboard extends javax.swing.JPanel {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        add(jComboBox1);
+        jPanel3.add(jComboBox1);
         jComboBox1.setBounds(230, 390, 76, 24);
 
         accBalance1.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 14)); // NOI18N
         accBalance1.setText("Filter By");
-        add(accBalance1);
+        jPanel3.add(accBalance1);
         accBalance1.setBounds(150, 390, 60, 18);
-        add(jSeparator1);
-        jSeparator1.setBounds(150, 320, 720, 10);
+        jPanel3.add(jSeparator1);
+        jSeparator1.setBounds(150, 320, 720, 3);
 
         accBalance2.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 14)); // NOI18N
         accBalance2.setText("Account Balance");
-        add(accBalance2);
+        jPanel3.add(accBalance2);
         accBalance2.setBounds(137, 106, 128, 18);
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -140,27 +168,156 @@ public class Dashboard extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(Tranasaction_table);
 
-        add(jScrollPane1);
-        jScrollPane1.setBounds(140, 430, 740, 240);
+        jPanel3.add(jScrollPane1);
+        jScrollPane1.setBounds(140, 430, 740, 220);
+
+        load_money.setText("jLabel2");
+        jPanel3.add(load_money);
+        load_money.setBounds(190, 250, 40, 50);
+
+        jPanel1.setBackground(new java.awt.Color(212, 235, 253));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 130, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jPanel1);
+        jPanel1.setBounds(0, 0, 130, 690);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addComponent(Right_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(187, Short.MAX_VALUE)
+                    .addComponent(loadMoneyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(1153, Short.MAX_VALUE)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(Right_bar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(252, Short.MAX_VALUE)
+                    .addComponent(loadMoneyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(387, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    
+    
+    private void loadUserBalance() {
+        try {
+            Connection conn = new MySqlConnection().openConnection();
+            if (conn != null) {
+                String query = "SELECT balance FROM users WHERE email = ?";
+                PreparedStatement stmt = conn.prepareStatement(query);
+                stmt.setString(1, userEmail);
+
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    double balance = rs.getDouble("balance");
+                    Balance.setText("Rs " + balance); // Balance is your JLabel
+                } else {
+                    Balance.setText("Balance: Not found");
+                }
+                conn.close();
+            } else {
+                JOptionPane.showMessageDialog(this, "Database connection failed.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error loading balance: " + e.getMessage());
+        }
+    }
+    
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void loadMoneyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMoneyButtonActionPerformed
+        // TODO add your handling code here:
+        new LoadMoney(userEmail, this).setVisible(true);
+    }//GEN-LAST:event_loadMoneyButtonActionPerformed
+    public void refreshBalance() {
+        loadUserBalance();
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+    }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Balance;
     private javax.swing.JLabel Coin_Image;
     private javax.swing.JLabel Gdmrng;
-    private javax.swing.JPanel Left_bar;
     private javax.swing.JPanel Right_bar;
     private javax.swing.JTable Tranasaction_table;
     private javax.swing.JLabel accBalance;
     private javax.swing.JLabel accBalance1;
     private javax.swing.JLabel accBalance2;
+    private javax.swing.JLabel accBalance3;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton loadMoneyButton;
+    private javax.swing.JLabel load_money;
     // End of variables declaration//GEN-END:variables
 }

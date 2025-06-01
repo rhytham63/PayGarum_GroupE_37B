@@ -204,59 +204,51 @@ public class Registration extends javax.swing.JFrame {
     }//GEN-LAST:event_num1ActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        // TODO add your handling code here:
-                try {
-            // 1. Get values from form fields with your specific names
-            String fullName = num.getText();
-            String email = num1.getText();
-            String password = new String(pass.getPassword());
-            String day = DateOfBirth_Days.getSelectedItem().toString();
-            String month = DateOfBirth_Months.getSelectedItem().toString();
-            String year = DateOfBirth_Year.getSelectedItem().toString();
+          try {
+        // 1. Get values from form fields with your specific names
+        String fullName = num.getText();
+        String email = num1.getText();
+        String password = new String(pass.getPassword());
+        String day = DateOfBirth_Days.getSelectedItem().toString();
+        String month = DateOfBirth_Months.getSelectedItem().toString();
+        String year = DateOfBirth_Year.getSelectedItem().toString();
 
-            // 2. Validate inputs
-            if (fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, 
-                    "Please fill all fields", 
-                    "Error", 
-                    JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // 3. Process registration through controller
-            controller ControllerObj = new controller(); // ✅ create an instance
-            boolean success = ControllerObj.registerUser(
-                fullName, 
-                email, 
-                password, 
-                day, 
-                month, 
-                year
-            );
-
-            // 4. Show result
-            if (success) {
-                JOptionPane.showMessageDialog(this, "Registration successful!");
-                clearForm();
-            } else {
-                JOptionPane.showMessageDialog(this, 
-                    "Registration failed. Email may already exist.", 
-                    "Error", 
-                    JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception ex) {
+        // 2. Validate inputs
+        if (fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, 
-                "Error: " + ex.getMessage(), 
-                "Exception", 
+                "Please fill all fields", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // 3. Process registration through controller
+        controller ControllerObj = new controller(); 
+        boolean success = ControllerObj.registerUser(
+            fullName, email, password, day, month, year
+        );
+
+        // 4. Show result
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Registration successful!");
+            clearForm();
+
+            // ✅ Move these INSIDE success block:
+            Login_page loginFrame = new Login_page();
+            loginFrame.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "Registration failed. Email may already exist.", 
+                "Error", 
                 JOptionPane.ERROR_MESSAGE);
         }
-                
-              
-    // Open LoginFrame and close SignupFrame
-    Login_page loginFrame = new Login_page();
-    loginFrame.setVisible(true);
-    this.dispose(); // Close the signup frame
-
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, 
+            "Error: " + ex.getMessage(), 
+            "Exception", 
+            JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
