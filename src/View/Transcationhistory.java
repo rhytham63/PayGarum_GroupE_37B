@@ -30,11 +30,9 @@ public class Transcationhistory extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Months = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
         Backbtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        transcationhistbl = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1600, 800));
@@ -52,15 +50,6 @@ public class Transcationhistory extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
         jLabel2.setText("PayGarum Transcation History ");
 
-        Months.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", " February", "March", "April", "May ", "June", "July", "August", "September", "October", "November", "December" }));
-        Months.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MonthsActionPerformed(evt);
-            }
-        });
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 ", "10 ", "11 ", "12 ", "13 ", "14 ", "15 ", "16 ", "17 ", "18 ", "19 ", "20", "21 ", "22 ", "23 ", "24 ", "25 ", "26 ", "27 ", "28 ", "29 ", "30" }));
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -70,11 +59,7 @@ public class Transcationhistory extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Months, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
+                .addContainerGap(446, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,10 +67,7 @@ public class Transcationhistory extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Months, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
@@ -96,8 +78,8 @@ public class Transcationhistory extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setBackground(new java.awt.Color(151, 198, 237));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        transcationhistbl.setBackground(new java.awt.Color(151, 198, 237));
+        transcationhistbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -144,8 +126,8 @@ public class Transcationhistory extends javax.swing.JFrame {
                 "Date", "Transaction ID", "Amount", "Status"
             }
         ));
-        jTable1.setFocusTraversalPolicyProvider(true);
-        jScrollPane1.setViewportView(jTable1);
+        transcationhistbl.setFocusTraversalPolicyProvider(true);
+        jScrollPane1.setViewportView(transcationhistbl);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -194,10 +176,6 @@ public class Transcationhistory extends javax.swing.JFrame {
         d.setVariable(true);
     }//GEN-LAST:event_BackbtnActionPerformed
 
-    private void MonthsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MonthsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MonthsActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -235,14 +213,12 @@ public class Transcationhistory extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Backbtn;
-    private javax.swing.JComboBox<String> Months;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable transcationhistbl;
     // End of variables declaration//GEN-END:variables
 
     private void close() {

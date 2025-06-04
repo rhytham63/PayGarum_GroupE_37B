@@ -1,28 +1,26 @@
-*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Model;
+package model;
 
-/**
- *
- * @author User
- */
 public class Transaction {
-    private String transactionId;
     private String date;
+    private String transactionId;
     private double amount;
     private String status;
 
-    public Transaction(String transactionId, String date, double amount, String status) {
-        this.transactionId = transactionId;
+    public Transaction() { }
+    public Transaction(String date, String transactionId, double amount, String status) {
         this.date = date;
+        this.transactionId = transactionId;
         this.amount = amount;
         this.status = status;
     }
 
-    public String getTransactionId() { return transactionId; }
     public String getDate() { return date; }
+    public String getTransactionId() { return transactionId; }
     public double getAmount() { return amount; }
     public String getStatus() { return status; }
+
+    public void setDate(String date) { this.date = date; }
+    public void setTransactionId(String transactionId) { this.transactionId = transactionId; }
+    public void setAmount(double amount) { this.amount = amount; }
+    public void setStatus(String status) { this.status = status; }
 }
