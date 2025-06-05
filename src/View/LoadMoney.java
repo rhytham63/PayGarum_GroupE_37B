@@ -28,6 +28,9 @@ public class LoadMoney extends javax.swing.JFrame {
         this.userEmail = email;
         this.dashboardRef = dashboardRef;
         
+        new LoadMoneyController(this, userEmail);
+        
+        
     }
 
     /**
@@ -60,7 +63,7 @@ public class LoadMoney extends javax.swing.JFrame {
             }
         });
         jPanel2.add(Button);
-        Button.setBounds(270, 420, 76, 24);
+        Button.setBounds(270, 420, 130, 24);
 
         amnt_value2.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 24)); // NOI18N
         amnt_value2.setForeground(new java.awt.Color(255, 255, 255));
@@ -68,18 +71,15 @@ public class LoadMoney extends javax.swing.JFrame {
         jPanel2.add(amnt_value2);
         amnt_value2.setBounds(610, 181, 180, 20);
 
-        value.setText("Enter here");
         value.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 valueActionPerformed(evt);
             }
         });
         jPanel2.add(value);
-        value.setBounds(380, 264, 83, 30);
-
-        Password_value.setText("jPasswordField1");
+        value.setBounds(320, 260, 160, 40);
         jPanel2.add(Password_value);
-        Password_value.setBounds(390, 340, 90, 24);
+        Password_value.setBounds(330, 340, 150, 40);
 
         Password.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 24)); // NOI18N
         Password.setText("Password");
@@ -121,28 +121,21 @@ public class LoadMoney extends javax.swing.JFrame {
     }//GEN-LAST:event_valueActionPerformed
 
     private void ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonActionPerformed
-        // TODO add your handling code here:
-            LoadMoneyController controller = new LoadMoneyController();
-    Button.addActionListener(new java.awt.event.ActionListener() {
-        @Override
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            try {
-                double amount = Double.parseDouble(value.getText());
-                String password = Password_value.getText();
-                String email = Model.Session.loggedInUserEmail;
 
-                if (controller.loadMoney(email, amount, password)) {
-                    JOptionPane.showMessageDialog(null, "Money added successfully");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Failed to add money (invalid password?)");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-            }
-        }
-    });
 
     }//GEN-LAST:event_ButtonActionPerformed
+    public JButton getButton() {
+        return Button;
+    }
+
+    public JTextField getValue() {
+        return value;
+    }
+
+    public JPasswordField getPasswordValue() {
+        return Password_value;
+    }
+
 
     /**
      * @param args the command line arguments

@@ -61,7 +61,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="270" y="420" width="-1" height="-1"/>
+              <AbsoluteConstraints x="270" y="420" width="130" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -82,25 +82,19 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="value">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Enter here"/>
-          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="valueActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="380" y="264" width="-1" height="30"/>
+              <AbsoluteConstraints x="320" y="260" width="160" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JPasswordField" name="Password_value">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="390" y="340" width="-1" height="-1"/>
+              <AbsoluteConstraints x="330" y="340" width="150" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
