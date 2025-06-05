@@ -14,12 +14,13 @@ import javax.swing.JOptionPane;
  * @author r4hul
  */
 public class Registration extends javax.swing.JFrame {
-
+    private final controller controller;
     /**
      * Creates new form Registration
      */
     public Registration() {
         initComponents();
+         this.controller = new controller();
     }
 
     /**
@@ -223,51 +224,16 @@ public class Registration extends javax.swing.JFrame {
     }//GEN-LAST:event_num1ActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-          try {
-        // 1. Get values from form fields with your specific names
-        String fullName = num.getText();
-        String email = num1.getText();
-        String password = new String(pass.getPassword());
-        String day = DateOfBirth_Days.getSelectedItem().toString();
-        String month = DateOfBirth_Months.getSelectedItem().toString();
-        String year = DateOfBirth_Year.getSelectedItem().toString();
-
-        // 2. Validate inputs
-        if (fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, 
-                "Please fill all fields", 
-                "Error", 
-                JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // 3. Process registration through controller
-        controller ControllerObj = new controller(); 
-        boolean success = ControllerObj.registerUser(
-            fullName, email, password, day, month, year
+          controller.handleRegistration(
+            this,               // Pass the current frame
+            num,                // fullName field
+            num1,               // email field
+            pass,               // password field
+            DateOfBirth_Days,
+            DateOfBirth_Months,
+            DateOfBirth_Year
         );
-
-        // 4. Show result
-        if (success) {
-            JOptionPane.showMessageDialog(this, "Registration successful!");
-            clearForm();
-
-            // ✅ Move these INSIDE success block:
-            Login_page loginFrame = new Login_page();
-            loginFrame.setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, 
-                "Registration failed. Email may already exist.", 
-                "Error", 
-                JOptionPane.ERROR_MESSAGE);
-        }
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this, 
-            "Error: " + ex.getMessage(), 
-            "Exception", 
-            JOptionPane.ERROR_MESSAGE);
-    }
+      
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
@@ -280,21 +246,13 @@ public class Registration extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
-        new View.Login_page().setVisible(true);
-        this.dispose();
+        controller.navigateToLogin(this);
     }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    private void clearForm() {
-        num.setText("");
-        num1.setText("");
-        pass.setText("");
-        DateOfBirth_Days.setSelectedIndex(0);
-        DateOfBirth_Months.setSelectedIndex(0);
-        DateOfBirth_Year.setSelectedIndex(0);
-    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

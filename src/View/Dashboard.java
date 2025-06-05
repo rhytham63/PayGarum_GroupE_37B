@@ -7,7 +7,8 @@ package View;
 import DAO.DAO;
 import javax.swing.*;
 import java.sql.*;
-import Database.MySqlConnection;
+import Database.*;
+import controller.*;
 
 /**
  *
@@ -15,17 +16,18 @@ import Database.MySqlConnection;
  */
 public class Dashboard extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
-      private String userEmail;
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());  
+    private DashboardController controller;
     
     /**
      * Creates new form NewJFrame
+     * @param emailText
      */
     public Dashboard(String emailText) {
         
         initComponents();
-         this.userEmail = emailText;
-         loadUserBalance();
+        controller = new DashboardController(emailText, this);
+        controller.loadUserBalance(Balance);
 
         
         
@@ -44,7 +46,6 @@ public class Dashboard extends javax.swing.JFrame {
         Right_bar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         accBalance3 = new javax.swing.JLabel();
-        loadMoneyButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         Balance = new javax.swing.JLabel();
         Coin_Image = new javax.swing.JLabel();
@@ -58,6 +59,7 @@ public class Dashboard extends javax.swing.JFrame {
         Tranasaction_table = new javax.swing.JTable();
         load_money = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        loadMoneyButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,15 +92,6 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(accBalance3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        loadMoneyButton.setBackground(new java.awt.Color(0, 153, 255));
-        loadMoneyButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Plus.png"))); // NOI18N
-        loadMoneyButton.setText("jButton1");
-        loadMoneyButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadMoneyButtonActionPerformed(evt);
-            }
-        });
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(null);
@@ -191,6 +184,17 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel3.add(jPanel1);
         jPanel1.setBounds(0, 0, 130, 690);
 
+        loadMoneyButton.setBackground(new java.awt.Color(0, 153, 255));
+        loadMoneyButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Plus.png"))); // NOI18N
+        loadMoneyButton.setText("jButton1");
+        loadMoneyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadMoneyButtonActionPerformed(evt);
+            }
+        });
+        jPanel3.add(loadMoneyButton);
+        loadMoneyButton.setBounds(200, 270, 30, 20);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -200,11 +204,6 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(Right_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(187, Short.MAX_VALUE)
-                    .addComponent(loadMoneyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(1153, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,11 +211,6 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(Right_bar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(252, Short.MAX_VALUE)
-                    .addComponent(loadMoneyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(387, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -235,43 +229,17 @@ public class Dashboard extends javax.swing.JFrame {
 
     
     
-    
-    
-    private void loadUserBalance() {
-        try {
-            Connection conn = new MySqlConnection().openConnection();
-            if (conn != null) {
-                String query = "SELECT balance FROM users WHERE email = ?";
-                PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setString(1, userEmail);
-
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    double balance = rs.getDouble("balance");
-                    Balance.setText("Rs " + balance); // Balance is your JLabel
-                } else {
-                    Balance.setText("Balance: Not found");
-                }
-                conn.close();
-            } else {
-                JOptionPane.showMessageDialog(this, "Database connection failed.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error loading balance: " + e.getMessage());
-        }
-    }
-    
+   
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void loadMoneyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMoneyButtonActionPerformed
         // TODO add your handling code here:
-        new LoadMoney(userEmail, this).setVisible(true);
+        controller.openLoadMoneyWindow();
     }//GEN-LAST:event_loadMoneyButtonActionPerformed
     public void refreshBalance() {
-        loadUserBalance();
+        controller.refreshBalance(Balance);;
     }
 
     /**
