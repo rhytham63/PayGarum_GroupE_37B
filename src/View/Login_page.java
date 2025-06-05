@@ -157,20 +157,25 @@ public class Login_page extends javax.swing.JFrame {
 
     private void loginbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbuttonActionPerformed
         // TODO add your handling code here:
+        LoginController loginController = new LoginController();
+    
+        String emailText = email.getText();
+        String passwordText = new String(password.getPassword());
+
+        boolean success = loginController.logIn(emailText, passwordText);
+
+        if (success) {
+            JOptionPane.showMessageDialog(null, "Login successful");
+            new Dashboard(emailText).setVisible(true); // assuming Dashboard accepts email
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Login failed: Invalid credentials");
+        }
+
     }//GEN-LAST:event_loginbuttonActionPerformed
 
     private void loginbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginbuttonMouseClicked
-        try{
-            LoginController ControllerObj = new LoginController(); // ✅ create an instance
-            boolean success = ControllerObj.logIn(email.getText(), password.getText());
-            
-                         
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, 
-                    "Error: " + ex.getMessage(), 
-                    "Exception", 
-                    JOptionPane.ERROR_MESSAGE);
-            }
+ 
           
     }//GEN-LAST:event_loginbuttonMouseClicked
 
@@ -218,10 +223,5 @@ public class Login_page extends javax.swing.JFrame {
     private javax.swing.JLabel text1;
     private javax.swing.JLabel text2;
     // End of variables declaration//GEN-END:variables
-    public String getEmail(){return email.getText();}
-    public String getPass(){return password.getText();}
-    
-    public void addAddUserListener(ActionListener listener) {
-        loginbutton.addActionListener(listener);
-    }
+
 }
