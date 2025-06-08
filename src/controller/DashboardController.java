@@ -11,11 +11,11 @@ import Database.*;
 import View.*;
 
 public class DashboardController {
-    private final String userEmail;
+    private final String email;
     private final Dashboard dashboard;
 
-    public DashboardController(String userEmail, Dashboard dashboard) {
-        this.userEmail = userEmail;
+    public DashboardController(String email, Dashboard dashboard) {
+        this.email = email;
         this.dashboard = dashboard;
     }
 
@@ -25,7 +25,7 @@ public class DashboardController {
             if (conn != null) {
                 String query = "SELECT balance FROM users WHERE email = ?";
                 PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setString(1, userEmail);
+                stmt.setString(1, email);
 
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
@@ -45,7 +45,7 @@ public class DashboardController {
     }
 
     public void openLoadMoneyWindow() {
-        new LoadMoney(userEmail, dashboard).setVisible(true);
+        new LoadMoney(email, dashboard).setVisible(true);
     }
 
     public void refreshBalance(JLabel balanceLabel) {

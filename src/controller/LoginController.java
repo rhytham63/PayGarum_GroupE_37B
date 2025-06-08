@@ -13,7 +13,7 @@ public class LoginController {
         this.dao = dao;
     }
 
-    public boolean logIn(String email, String password) {
+    public String logIn(String email, String password) {
         return dao.logIn(email, password);
     }
 }

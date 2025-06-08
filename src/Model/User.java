@@ -8,6 +8,10 @@ public class User {
     private String password;
     private Date dateOfBirth;
     private double balance; // Add balance field
+        
+      private double amountField;
+    private String recipientAccount;
+    private String pwd;
 
     // Getters and Setters
     public String getFullName() { 
@@ -45,4 +49,27 @@ public class User {
     public void setBalance(double balance) {
         this.balance = balance;
     }
+    
+  
+    // Getters and Setters
+    public double getAmountField() { 
+        return amountField; 
+    }
+    public void setAmountField(double amountField) { 
+        this.amountField = amountField; 
+    }
+    
+    public String getrecepientAccount() { 
+        return recipientAccount; 
+    }
+    public void setrecepientAccount(String recipientAccount) { 
+        this.recipientAccount = recipientAccount; 
+    }
+    public String getPwd(){
+        return pwd;
 }
+    public void setPwd(String pwd){
+        this.pwd=pwd;
+    }
+}
+

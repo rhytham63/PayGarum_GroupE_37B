@@ -23,10 +23,10 @@ public class Dashboard extends javax.swing.JFrame {
      * Creates new form NewJFrame
      * @param emailText
      */
-    public Dashboard(String emailText) {
+    public Dashboard(String email) {
         
         initComponents();
-        controller = new DashboardController(emailText, this);
+        controller = new DashboardController(email, this);
         controller.loadUserBalance(Balance);
 
         

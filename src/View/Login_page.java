@@ -162,9 +162,9 @@ public class Login_page extends javax.swing.JFrame {
         String emailText = email.getText();
         String passwordText = new String(password.getPassword());
 
-        boolean success = loginController.logIn(emailText, passwordText);
+        String Email = loginController.logIn(emailText, passwordText);
 
-        if (success) {
+        if (!Email.equals("null")) {
             JOptionPane.showMessageDialog(null, "Login successful");
             new Dashboard(emailText).setVisible(true); // assuming Dashboard accepts email
             dispose();

@@ -4,21 +4,29 @@ import Database.MySqlConnection;
 import Model.Session;
 import Model.User;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 
 public class DAO {
-    private final MySqlConnection dbConnection;
 
-    public DAO() {
-        this.dbConnection = new MySqlConnection();
-    }
+    
+    
+    
+    
+    private  MySqlConnection dbConnection = new MySqlConnection();
+
 
     public boolean registerUser(User user) {
-        Connection conn = null;
+        Connection conn = dbConnection.openConnection();;
         PreparedStatement pstmt = null;
 
         try {
-            conn = dbConnection.openConnection();
-            if (conn == null) return false;
+            
+            if (conn == null) {
+                return false;
+            }
 
             String query = "INSERT INTO users (full_name, email, password, date_of_birth, balance) VALUES (?, ?, ?, ?, ?)";
             pstmt = conn.prepareStatement(query);
@@ -36,7 +44,9 @@ public class DAO {
             return false;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
+                if (pstmt != null) {
+                    pstmt.close();
+                }
                 dbConnection.closeConnection(conn);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -44,7 +54,7 @@ public class DAO {
         }
     }
 
-    public boolean logIn(String email, String password) {
+    public String logIn(String email, String password) {
         Connection conn = dbConnection.openConnection();
         String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
 
@@ -54,19 +64,14 @@ public class DAO {
             ResultSet rs = pstm.executeQuery();
 
             if (rs.next()) {
-                // Save user session
-                Session.loggedInUserEmail = email;
-                return true;
-            } else {
-                return false;
-            }
-
+                return rs.getString("email");
+            } 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
         } finally {
             dbConnection.closeConnection(conn);
         }
+        return null;
     }
 
     public double getBalance(String email) {
@@ -103,4 +108,43 @@ public class DAO {
             dbConnection.closeConnection(conn);
         }
     }
+
+    public boolean transferMoney(String fromEmail, String toEmail, double amount,String password) {
+        boolean isSuccessful = false;
+        Connection conn = dbConnection.openConnection();
+        String query = "{CALL transfer_funds(?, ?, ?)}";
+        String q = "SELECT * FROM users WHERE email = ? and password = ?";
+        
+        try(PreparedStatement pstmt = conn.prepareStatement(q)){
+            pstmt.setString(1, fromEmail);
+            pstmt.setString(2, password);
+            ResultSet result = pstmt.executeQuery();
+            int rowsAffected = pstmt.executeUpdate();
+            if(rowsAffected <= 0){
+                JOptionPane.showMessageDialog(null, "Password Didn't Match");
+                return false;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, fromEmail);
+            pstmt.setString(2, toEmail);
+            pstmt.setBigDecimal(3, new java.math.BigDecimal(amount));
+
+            // Execute the stored procedure
+            pstmt.execute();
+
+            // If no exception was raised, assume success
+            isSuccessful = true;
+        } catch (SQLException e) {
+            System.err.println("Transaction failed: " + e.getMessage());
+        }
+
+        return isSuccessful;
+    }
 }
+

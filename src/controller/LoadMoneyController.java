@@ -27,15 +27,12 @@ public class LoadMoneyController {
             double amount = Double.parseDouble(view.getValue().getText());
             String password = new String(view.getPasswordValue().getPassword());
 
-            if (dao.logIn(userEmail, password)) {
+            
                 if (dao.addMoney(userEmail, amount)) {
                     JOptionPane.showMessageDialog(view, "Money added successfully");
                 } else {
                     JOptionPane.showMessageDialog(view, "Failed to add money");
                 }
-            } else {
-                JOptionPane.showMessageDialog(view, "Incorrect password");
-            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(view, "Error: " + ex.getMessage());
         }
