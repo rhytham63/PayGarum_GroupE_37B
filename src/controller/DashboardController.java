@@ -1,53 +1,66 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package controller;
 
+
 import java.sql.*;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import Database.*;
-import View.*;
+import javax.swing.*; 
+import Database.*; 
+import View.*; 
+
 
 public class DashboardController {
-    private final String userEmail;
-    private final Dashboard dashboard;
 
-    public DashboardController(String userEmail, Dashboard dashboard) {
-        this.userEmail = userEmail;
-        this.dashboard = dashboard;
+    private final String userEmail;
+    private final Dashboard dashboardScreen;
+
+
+    public DashboardController(String email, Dashboard dashboard) {
+        this.userEmail = email;
+        this.dashboardScreen = dashboard;
     }
 
     public void loadUserBalance(JLabel balanceLabel) {
         try {
-            Connection conn = new MySqlConnection().openConnection();
-            if (conn != null) {
-                String query = "SELECT balance FROM users WHERE email = ?";
-                PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setString(1, userEmail);
+          
+            MySqlConnection dbConnection = new MySqlConnection();
+            Connection conn = dbConnection.openConnection();
 
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    double balance = rs.getDouble("balance");
-                    balanceLabel.setText("Rs " + balance);
+     
+            if (conn != null) {
+                String sql = "SELECT balance FROM users WHERE email = ?";
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1, userEmail); 
+
+             
+                ResultSet result = statement.executeQuery();
+
+              
+                if (result.next()) {
+                    double balance = result.getDouble("balance");
+                    balanceLabel.setText("Rs " + balance); // Show the balance
                 } else {
                     balanceLabel.setText("Balance: Not found");
                 }
+
                 conn.close();
+
             } else {
-                JOptionPane.showMessageDialog(dashboard, "Database connection failed.");
+                JOptionPane.showMessageDialog(dashboardScreen, "Could not connect to the database.");
             }
+
         } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(dashboard, "Error loading balance: " + e.getMessage());
+       
+            e.printStackTrace(); 
+            JOptionPane.showMessageDialog(dashboardScreen, "Something went wrong: " + e.getMessage());
         }
     }
 
-    public void openLoadMoneyWindow() {
-        new LoadMoney(userEmail, dashboard).setVisible(true);
-    }
 
+    public void openLoadMoneyWindow() {
+        LoadMoney loadMoneyWindow = new LoadMoney(userEmail, dashboardScreen);
+        loadMoneyWindow.setVisible(true);
+    }
+    
     public void refreshBalance(JLabel balanceLabel) {
         loadUserBalance(balanceLabel);
     }

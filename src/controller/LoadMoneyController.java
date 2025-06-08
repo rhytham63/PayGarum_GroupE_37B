@@ -5,39 +5,38 @@ import View.LoadMoney;
 import javax.swing.JOptionPane;
 
 public class LoadMoneyController {
-    private final LoadMoney view;
-    private final String userEmail;
-    private final DAO dao;
+    private final LoadMoney screen;
+    private final String email;
+    private final DAO dataAccess;
 
-    public LoadMoneyController(LoadMoney view, String userEmail) {
-        this.view = view;
-        this.userEmail = userEmail;
-        this.dao = new DAO();
-
-        // Attach the listener here
-        initListeners();
+    public LoadMoneyController(LoadMoney screen, String email) {
+        this.screen = screen;
+        this.email = email;
+        this.dataAccess = new DAO();
+        setupButtonClick();
     }
 
-    private void initListeners() {
-        view.getButton().addActionListener(e -> handleSubmit());
+    private void setupButtonClick() {
+        screen.getButton().addActionListener(e -> handleAddMoney());
     }
 
-    private void handleSubmit() {
+    private void handleAddMoney() {
         try {
-            double amount = Double.parseDouble(view.getValue().getText());
-            String password = new String(view.getPasswordValue().getPassword());
+            String amountText = screen.getValue().getText();
+            double amount = Double.parseDouble(amountText);
+            String password = new String(screen.getPasswordValue().getPassword());
 
-            if (dao.logIn(userEmail, password)) {
-                if (dao.addMoney(userEmail, amount)) {
-                    JOptionPane.showMessageDialog(view, "Money added successfully");
+            if (dataAccess.logIn(email, password)) {
+                if (dataAccess.addMoney(email, amount)) {
+                    JOptionPane.showMessageDialog(screen, "Money added successfully");
                 } else {
-                    JOptionPane.showMessageDialog(view, "Failed to add money");
+                    JOptionPane.showMessageDialog(screen, "Failed to add money");
                 }
             } else {
-                JOptionPane.showMessageDialog(view, "Incorrect password");
+                JOptionPane.showMessageDialog(screen, "Incorrect password");
             }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(view, "Error: " + ex.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(screen, "Error: " + e.getMessage());
         }
     }
 }

@@ -7,99 +7,90 @@ import View.Registration;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class controller {
-    private final DAO dao;
+    private final DAO dataAccess;
 
     public controller() {
-        this.dao = new DAO();
+        this.dataAccess = new DAO();
     }
 
-    // For registration navigation
-    public void navigateToLogin(JFrame currentFrame) {
-        Login_page loginFrame = new Login_page();
-        loginFrame.setVisible(true);
+    public void goToLogin(JFrame currentFrame) {
+        Login_page login = new Login_page();
+        login.setVisible(true);
         currentFrame.dispose();
     }
 
-    // For registration handling
-    public void handleRegistration(JFrame currentFrame,
-                                 JTextField fullNameField,
-                                 JTextField emailField,
-                                 JPasswordField passwordField,
-                                 JComboBox<String> dayCombo,
-                                 JComboBox<String> monthCombo,
-                                 JComboBox<String> yearCombo) {
+    public void handleRegister(JFrame currentFrame,
+                               JTextField nameField,
+                               JTextField emailField,
+                               JPasswordField passField,
+                               JComboBox<String> dayBox,
+                               JComboBox<String> monthBox,
+                               JComboBox<String> yearBox) {
         try {
-            // Get values from fields
-            String fullName = fullNameField.getText();
+            String name = nameField.getText();
             String email = emailField.getText();
-            String password = new String(passwordField.getPassword());
-            String day = dayCombo.getSelectedItem().toString();
-            String month = monthCombo.getSelectedItem().toString();
-            String year = yearCombo.getSelectedItem().toString();
+            String password = new String(passField.getPassword());
+            String day = dayBox.getSelectedItem().toString();
+            String month = monthBox.getSelectedItem().toString();
+            String year = yearBox.getSelectedItem().toString();
 
-            // Validate inputs
-            if (fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 showError(currentFrame, "Please fill all fields");
                 return;
             }
 
-            // Process registration
-            if (registerUser(fullName, email, password, day, month, year)) {
+            if (register(name, email, password, day, month, year)) {
                 JOptionPane.showMessageDialog(currentFrame, "Registration successful!");
-                clearForm(fullNameField, emailField, passwordField, dayCombo, monthCombo, yearCombo);
-                navigateToLogin(currentFrame);
+                clearForm(nameField, emailField, passField, dayBox, monthBox, yearBox);
+                goToLogin(currentFrame);
             } else {
                 showError(currentFrame, "Registration failed. Email may already exist.");
             }
-        } catch (Exception ex) {
-            showError(currentFrame, "Error: " + ex.getMessage());
+        } catch (Exception e) {
+            showError(currentFrame, "Error: " + e.getMessage());
         }
     }
 
-    private boolean registerUser(String fullName, String email, String password,
-                               String day, String month, String year) {
+    private boolean register(String name, String email, String password,
+                             String day, String month, String year) {
         try {
-            User user = new User();
-            user.setFullName(fullName);
-            user.setEmail(email);
-            user.setPassword(password);
+            User newUser = new User();
+            newUser.setFullName(name);
+            newUser.setEmail(email);
+            newUser.setPassword(password);
 
-            String dateString = day + " " + month + " " + year;
-            Date dateOfBirth = new SimpleDateFormat("dd MMMM yyyy").parse(dateString);
-            user.setDateOfBirth(dateOfBirth);
+            String dateStr = day + " " + month + " " + year;
+            Date dob = new SimpleDateFormat("dd MMMM yyyy").parse(dateStr);
+            newUser.setDateOfBirth(dob);
 
-            return dao.registerUser(user);
+            return dataAccess.registerUser(newUser);
         } catch (ParseException e) {
-            System.err.println("Date parsing error: " + e.getMessage());
+            System.err.println("Date format error: " + e.getMessage());
             return false;
         } catch (Exception e) {
-            System.err.println("Registration error: " + e.getMessage());
+            System.err.println("Registration problem: " + e.getMessage());
             return false;
         }
     }
 
-    private void clearForm(JTextField fullNameField,
-                         JTextField emailField,
-                         JPasswordField passwordField,
-                         JComboBox<String> dayCombo,
-                         JComboBox<String> monthCombo,
-                         JComboBox<String> yearCombo) {
-        fullNameField.setText("");
+    private void clearForm(JTextField nameField,
+                           JTextField emailField,
+                           JPasswordField passField,
+                           JComboBox<String> dayBox,
+                           JComboBox<String> monthBox,
+                           JComboBox<String> yearBox) {
+        nameField.setText("");
         emailField.setText("");
-        passwordField.setText("");
-        dayCombo.setSelectedIndex(0);
-        monthCombo.setSelectedIndex(0);
-        yearCombo.setSelectedIndex(0);
+        passField.setText("");
+        dayBox.setSelectedIndex(0);
+        monthBox.setSelectedIndex(0);
+        yearBox.setSelectedIndex(0);
     }
 
-    private void showError(JFrame parent, String message) {
-        JOptionPane.showMessageDialog(parent, message, "Error", JOptionPane.ERROR_MESSAGE);
+    private void showError(JFrame frame, String msg) {
+        JOptionPane.showMessageDialog(frame, msg, "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
