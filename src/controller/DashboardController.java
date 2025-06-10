@@ -85,25 +85,20 @@ public class DashboardController {
 }
 
     // Setup both event buttons: hide if booked and attach booking logic
-public void setupEventButtons(JButton eventButton, JButton event1Button, JLabel balanceLabel) {
-    if (dao.hasBookedEvent(userEmail, "event")) {
-        eventButton.setText("Booked");
-        eventButton.setEnabled(false);
-    } else {
-        eventButton.addActionListener(e -> {
-            eventButton.setEnabled(false); 
-            handleEventBooking("event", 1500, eventButton, balanceLabel);
-        });
+    public void setupEventButtons(JButton eventButton, JButton event1Button, JLabel balanceLabel) {
+        if (dao.hasBookedEvent(userEmail, "event")) {
+            eventButton.setText("Booked");
+            eventButton.setEnabled(false);
+        } else {
+            eventButton.addActionListener(e -> handleEventBooking("event", 1500, eventButton, balanceLabel));
+        }
+
+        if (dao.hasBookedEvent(userEmail, "event1")) {
+            event1Button.setText("Booked");
+            event1Button.setEnabled(false);
+        } else {
+            event1Button.addActionListener(e -> handleEventBooking("event1", 3000, event1Button, balanceLabel));
+        }
     }
 
-    if (dao.hasBookedEvent(userEmail, "event1")) {
-        event1Button.setText("Booked");
-        event1Button.setEnabled(false);
-    } else {
-        event1Button.addActionListener(e -> {
-            event1Button.setEnabled(false); 
-            handleEventBooking("event1", 3000, event1Button, balanceLabel);
-        });
-    }
-}
 }
