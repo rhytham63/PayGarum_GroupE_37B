@@ -10,16 +10,27 @@ public class TransferMoneyController {
     private final FundTransfer view;
     private final String userEmail;
     private final DAO dao  = new DAO();
+    private final DashboardController c;
 
-    public TransferMoneyController(FundTransfer view, String userEmail) {
+    public TransferMoneyController(DashboardController c, FundTransfer view, String userEmail) {
+        this.c = c;
         this.view = view;
         this.userEmail = userEmail;
         this.view.addTransferListener(new  handleTansfer());
+    
+    }
+
+    public void open(){
+        this.view.setVisible(true);
+    }
+    
+    public void close(){
+        this.view.setVisible(false);
     }
 
 
- 
 
+ 
     private  class handleTansfer implements ActionListener {
 
         @Override
@@ -46,10 +57,10 @@ public class TransferMoneyController {
             // Perform transfer
             if (dao.transferMoney(userEmail, recipientEmail, amount, password)) {
                 JOptionPane.showMessageDialog(view, "Transfer successful!");
+                c.loadUserBalance();
                 view.dispose();
-            } else {
-                JOptionPane.showMessageDialog(view, "Transfer failed. Check recipient email, balance, or password.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            } 
+            
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(view, "Invalid amount format", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
@@ -57,4 +68,5 @@ public class TransferMoneyController {
         }
         }
     }
+
 }

@@ -118,32 +118,42 @@ public class DAO {
         try(PreparedStatement pstmt = conn.prepareStatement(q)){
             pstmt.setString(1, fromEmail);
             pstmt.setString(2, password);
-            ResultSet result = pstmt.executeQuery();
-            int rowsAffected = pstmt.executeUpdate();
-            if(rowsAffected <= 0){
-                JOptionPane.showMessageDialog(null, "Password Didn't Match");
-                return false;
+            ResultSet rs = pstmt.executeQuery();
+           
+            if(rs.next()){
+                try (PreparedStatement stmt = conn.prepareStatement(query)) {
+
+                    stmt.setString(1, fromEmail);
+                    stmt.setString(2, toEmail);
+                    stmt.setBigDecimal(3, new java.math.BigDecimal(amount));
+
+                    boolean hasResults = stmt.execute();
+
+                    // If there is a result set with a message (from handler)
+                    if (hasResults) {
+                        ResultSet result = stmt.getResultSet();
+                        if (result.next()) {
+                            String errorMsg = result.getString("message");
+                            JOptionPane.showMessageDialog(null, errorMsg, "Transfer Failed", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        isSuccessful = true;
+                       
+                    }
+                    
+ 
+                } catch (SQLException e) {
+                    System.err.println("Transaction failed: " + e.getMessage());
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Password didn't match");
             }
             
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-            pstmt.setString(1, fromEmail);
-            pstmt.setString(2, toEmail);
-            pstmt.setBigDecimal(3, new java.math.BigDecimal(amount));
-
-            // Execute the stored procedure
-            pstmt.execute();
-
-            // If no exception was raised, assume success
-            isSuccessful = true;
-        } catch (SQLException e) {
-            System.err.println("Transaction failed: " + e.getMessage());
-        }
-
+       
         return isSuccessful;
     }
 }

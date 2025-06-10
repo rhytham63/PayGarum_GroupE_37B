@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.sql.*;
 import Database.*;
 import controller.*;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -27,7 +28,7 @@ public class Dashboard extends javax.swing.JFrame {
         
         initComponents();
         controller = new DashboardController(email, this);
-        controller.loadUserBalance(Balance);
+        controller.loadUserBalance();
 
         
         
@@ -46,6 +47,7 @@ public class Dashboard extends javax.swing.JFrame {
         Right_bar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         accBalance3 = new javax.swing.JLabel();
+        sendMoney = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         Balance = new javax.swing.JLabel();
         Coin_Image = new javax.swing.JLabel();
@@ -72,6 +74,8 @@ public class Dashboard extends javax.swing.JFrame {
         accBalance3.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 24)); // NOI18N
         accBalance3.setText("Events");
 
+        sendMoney.setText("Send Money");
+
         javax.swing.GroupLayout Right_barLayout = new javax.swing.GroupLayout(Right_bar);
         Right_bar.setLayout(Right_barLayout);
         Right_barLayout.setHorizontalGroup(
@@ -79,15 +83,23 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(Right_barLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(Right_barLayout.createSequentialGroup()
+                        .addComponent(sendMoney)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(accBalance3))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         Right_barLayout.setVerticalGroup(
             Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Right_barLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Right_barLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(Right_barLayout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(sendMoney)))
                 .addGap(90, 90, 90)
                 .addComponent(accBalance3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -115,7 +127,7 @@ public class Dashboard extends javax.swing.JFrame {
         Gdmrng.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 24)); // NOI18N
         Gdmrng.setText("Good Morning");
         jPanel3.add(Gdmrng);
-        Gdmrng.setBounds(137, 14, 182, 31);
+        Gdmrng.setBounds(137, 14, 168, 32);
 
         jComboBox1.setBackground(new java.awt.Color(151, 198, 237));
         jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
@@ -126,19 +138,19 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jComboBox1);
-        jComboBox1.setBounds(230, 390, 76, 24);
+        jComboBox1.setBounds(230, 390, 76, 22);
 
         accBalance1.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 14)); // NOI18N
         accBalance1.setText("Filter By");
         jPanel3.add(accBalance1);
-        accBalance1.setBounds(150, 390, 60, 18);
+        accBalance1.setBounds(150, 390, 60, 19);
         jPanel3.add(jSeparator1);
         jSeparator1.setBounds(150, 320, 720, 3);
 
         accBalance2.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 14)); // NOI18N
         accBalance2.setText("Account Balance");
         jPanel3.add(accBalance2);
-        accBalance2.setBounds(137, 106, 128, 18);
+        accBalance2.setBounds(137, 106, 117, 19);
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
@@ -239,7 +251,7 @@ public class Dashboard extends javax.swing.JFrame {
         controller.openLoadMoneyWindow();
     }//GEN-LAST:event_loadMoneyButtonActionPerformed
     public void refreshBalance() {
-        controller.refreshBalance(Balance);;
+        controller.refreshBalance();;
     }
 
     /**
@@ -269,7 +281,7 @@ public class Dashboard extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Balance;
+    public javax.swing.JLabel Balance;
     private javax.swing.JLabel Coin_Image;
     private javax.swing.JLabel Gdmrng;
     private javax.swing.JPanel Right_bar;
@@ -287,5 +299,11 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton loadMoneyButton;
     private javax.swing.JLabel load_money;
+    private javax.swing.JButton sendMoney;
     // End of variables declaration//GEN-END:variables
+
+    public void addTransferListener(ActionListener listener) {
+        sendMoney.addActionListener(listener);
+    }
+
 }

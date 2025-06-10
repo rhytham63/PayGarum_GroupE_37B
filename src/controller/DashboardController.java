@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import Database.*;
 import View.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DashboardController {
     private final String email;
@@ -17,9 +19,10 @@ public class DashboardController {
     public DashboardController(String email, Dashboard dashboard) {
         this.email = email;
         this.dashboard = dashboard;
+        this.dashboard.addTransferListener(new TransferFund());
     }
 
-    public void loadUserBalance(JLabel balanceLabel) {
+    public void loadUserBalance() {
         try {
             Connection conn = new MySqlConnection().openConnection();
             if (conn != null) {
@@ -30,9 +33,9 @@ public class DashboardController {
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
                     double balance = rs.getDouble("balance");
-                    balanceLabel.setText("Rs " + balance);
+                    dashboard.Balance.setText("Rs " + balance);
                 } else {
-                    balanceLabel.setText("Balance: Not found");
+                    dashboard.Balance.setText("Balance: Not found");
                 }
                 conn.close();
             } else {
@@ -48,7 +51,18 @@ public class DashboardController {
         new LoadMoney(email, dashboard).setVisible(true);
     }
 
-    public void refreshBalance(JLabel balanceLabel) {
-        loadUserBalance(balanceLabel);
+    public void refreshBalance() {
+        loadUserBalance();
+    }
+
+    private class TransferFund implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            FundTransfer TransferView = new FundTransfer();
+            TransferMoneyController c = new TransferMoneyController(DashboardController.this,TransferView,email);
+            c.open();
+        }
+
     }
 }
