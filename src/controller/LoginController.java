@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.DAO;
+import Model.Session;
 
 public class LoginController {
     private DAO dao;
@@ -9,11 +10,12 @@ public class LoginController {
         this.dao = new DAO();
     }
 
-    public LoginController(DAO dao) {
-        this.dao = dao;
-    }
-
     public boolean logIn(String email, String password) {
-        return dao.logIn(email, password);
+        String result = dao.logIn(email, password);
+        if (result != null) {
+            Session.loggedInUserEmail = email;
+            return true;
+        }
+        return false;
     }
 }

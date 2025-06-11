@@ -4,34 +4,34 @@
  */
 package View;
 
-import DAO.DAO;
+import controller.DashboardController;
 import javax.swing.*;
-import java.sql.*;
-import Database.*;
-import controller.*;
-
+import java.awt.event.ActionListener;
+import java.util.logging.Logger;
 /**
  *
  * @author r4hul
  */
 public class Dashboard extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());  
+  
+    private static final Logger logger = Logger.getLogger(Dashboard.class.getName());
     private DashboardController controller;
-    
+
     /**
      * Creates new form NewJFrame
      * @param emailText
      */
-    public Dashboard(String emailText) {
-        
+    public Dashboard(String email) {
         initComponents();
-        controller = new DashboardController(emailText, this);
-        controller.loadUserBalance(Balance);
-        controller.setupEventButtons(event, event1, Balance);
+  
+        controller = new DashboardController(email, this);
+        controller.loadUserBalance();
+        event.setActionCommand("event");
+        event1.setActionCommand("event1");
+        controller.initializeEventButtons();
+        
+        
 
-        
-        
     }
 
     /**
@@ -64,6 +64,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        sendMoney = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         Balance = new javax.swing.JLabel();
         Coin_Image = new javax.swing.JLabel();
@@ -232,25 +233,44 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        sendMoney.setText("jButton1");
+        sendMoney.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendMoneyActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Right_barLayout = new javax.swing.GroupLayout(Right_bar);
         Right_bar.setLayout(Right_barLayout);
         Right_barLayout.setHorizontalGroup(
             Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Right_barLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(accBalance3)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Right_barLayout.createSequentialGroup()
+                        .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Right_barLayout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(accBalance3)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(Right_barLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(sendMoney)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Right_barLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         Right_barLayout.setVerticalGroup(
             Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Right_barLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(24, 24, 24)
+                .addComponent(sendMoney)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
+                .addGap(74, 74, 74)
                 .addComponent(accBalance3)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -400,7 +420,7 @@ public class Dashboard extends javax.swing.JFrame {
    
     private void eventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventActionPerformed
         // TODO add your handling code here:
-         controller.handleEventBooking("event", 1500, event, Balance);
+         controller.handleEventBooking("event", 1500.0, event);
     }//GEN-LAST:event_eventActionPerformed
 
     private void loadMoneyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMoneyButtonActionPerformed
@@ -414,11 +434,26 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void event1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_event1ActionPerformed
         // TODO add your handling code here:
-         controller.handleEventBooking("event1", 3000, event, Balance);
+         controller.handleEventBooking("event1", 3000.0, event1);
     }//GEN-LAST:event_event1ActionPerformed
+
+    private void sendMoneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMoneyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sendMoneyActionPerformed
     public void refreshBalance() {
-        controller.refreshBalance(Balance);
+        controller.refreshBalance();
     }
+       public void addTransferListener(ActionListener listener) {
+        sendMoney.addActionListener(listener);
+    }
+       
+    public JLabel getBalanceLabel() {
+    return this.Balance;
+}
+    public JButton[] getEventButtons() {
+    return new JButton[]{event, event1};
+}
+
 
     /**
      * @param args the command line arguments
@@ -482,5 +517,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JButton loadMoneyButton;
     private javax.swing.JLabel load_money;
+    private javax.swing.JButton sendMoney;
     // End of variables declaration//GEN-END:variables
 }
