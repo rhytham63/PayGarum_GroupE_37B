@@ -2,41 +2,44 @@ package controller;
 
 import DAO.DAO;
 import View.LoadMoney;
-import javax.swing.JOptionPane;
+
+import javax.swing.*;
 
 public class LoadMoneyController {
     private final LoadMoney screen;
     private final String email;
-    private final DAO dataAccess;
+    private final DAO dao;
 
     public LoadMoneyController(LoadMoney screen, String email) {
         this.screen = screen;
         this.email = email;
-        this.dataAccess = new DAO();
+        this.dao = new DAO();
         setupButtonClick();
     }
 
     private void setupButtonClick() {
         screen.getButton().addActionListener(e -> handleAddMoney());
     }
-
+    
     private void handleAddMoney() {
-        try {
-            String amountText = screen.getValue().getText();
-            double amount = Double.parseDouble(amountText);
-            String password = new String(screen.getPasswordValue().getPassword());
+    try {
+        double amount = Double.parseDouble(screen.getValue().getText());
+        String password = new String(screen.getPasswordValue().getPassword());
 
-            if (dataAccess.logIn(email, password)) {
-                if (dataAccess.addMoney(email, amount)) {
-                    JOptionPane.showMessageDialog(screen, "Money added successfully");
-                } else {
-                    JOptionPane.showMessageDialog(screen, "Failed to add money");
-                }
+        if (dao.logIn(email, password) != null) {
+            if (dao.addMoney(email, amount)) {
+                JOptionPane.showMessageDialog(screen, "Money added successfully");
+                screen.dispose();
             } else {
-                JOptionPane.showMessageDialog(screen, "Incorrect password");
+                JOptionPane.showMessageDialog(screen, "Failed to add money");
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(screen, "Error: " + e.getMessage());
+        } else {
+            JOptionPane.showMessageDialog(screen, "Incorrect password");
         }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(screen, "Invalid amount");
     }
+}
+
+
 }

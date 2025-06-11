@@ -1,104 +1,161 @@
 package controller;
 
 import DAO.DAO;
+import Database.MySqlConnection;
 import Model.Session;
-import View.Dashboard;
-import View.LoadMoney;
+import Model.User;
+import View.*;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
 
 public class DashboardController {
-
-    private final String userEmail;
+    private final User currentUser;
     private final Dashboard dashboardScreen;
     private final DAO dao;
 
     public DashboardController(String email, Dashboard dashboard) {
-        this.userEmail = email;
         this.dashboardScreen = dashboard;
         this.dao = new DAO();
+        this.currentUser = new User();
+        this.currentUser.setEmail(email);
+        Session.loggedInUserEmail = email;
+
+        initializeController();
+        this.dashboardScreen.addTransferListener(new TransferFund());
     }
 
-    // Load and show user balance in the label
-    public void loadUserBalance(JLabel balanceLabel) {
+    private void initializeController() {
+        loadUserBalance();
+    }
+
+    public void initializeEventButtons() {
+        JButton[] eventButtons = dashboardScreen.getEventButtons();
+        for (JButton button : eventButtons) {
+            String eventName = button.getActionCommand();
+            if (dao.hasBookedEvent(currentUser.getEmail(), eventName)) {
+                button.setText("Booked");
+                button.setEnabled(false);            }
+        }
+    }
+
+    public void loadUserBalance() {
         try {
-            double balance = dao.getBalance(userEmail);
-            balanceLabel.setText("Rs " + balance);
+            double balance;
+            try {
+                balance = dao.getBalance(currentUser.getEmail());
+            } catch (Exception ex) {
+                balance = loadBalanceFromDB(currentUser.getEmail());
+            }
+
+            currentUser.setBalance(balance);
+            updateBalanceDisplay();
         } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(dashboardScreen, "Error loading balance: " + e.getMessage());
+            showError("Error loading balance: " + e.getMessage());
         }
     }
 
-    // Refresh balance label
-    public void refreshBalance(JLabel balanceLabel) {
-        loadUserBalance(balanceLabel);
+    private double loadBalanceFromDB(String email) throws SQLException {
+        Connection conn = new MySqlConnection().openConnection();
+        if (conn == null) throw new SQLException("Database connection failed");
+
+        String query = "SELECT balance FROM users WHERE email = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, email);
+        ResultSet rs = stmt.executeQuery();
+
+        double balance = 0.0;
+        if (rs.next()) {
+            balance = rs.getDouble("balance");
+        }
+        conn.close();
+        return balance;
     }
 
-    // Open the Load Money form
+    private void updateBalanceDisplay() {
+        String balanceText = "Rs " + currentUser.getBalance();
+        Component[] components = dashboardScreen.getContentPane().getComponents();
+        boolean updated = false;
+        for (Component comp : components) {
+            if (comp instanceof JLabel && "balanceLabel".equals(comp.getName())) {
+                ((JLabel) comp).setText(balanceText);
+                updated = true;
+                break;
+            }
+        }
+
+        if (!updated) {
+            try {
+                dashboardScreen.getBalanceLabel().setText(balanceText);
+            } catch (Exception ignored) {}
+        }
+    }
+
+    public void refreshBalance() {
+        loadUserBalance();
+    }
+
     public void openLoadMoneyWindow() {
-        LoadMoney loadMoneyWindow = new LoadMoney(userEmail, dashboardScreen);
-        loadMoneyWindow.setVisible(true);
+        new LoadMoney(currentUser.getEmail(), dashboardScreen).setVisible(true);
     }
 
-    // Check if the user has already booked the event
-    public boolean isEventBooked(String eventName) {
-        return dao.hasBookedEvent(userEmail, eventName);
-    }
+    public void handleEventBooking(String eventName, double price, JButton bookButton) {
+        try {
+            if (dao.hasBookedEvent(currentUser.getEmail(), eventName)) {
+                bookButton.setEnabled(false);
+                bookButton.setText("Booked");
+                bookButton.setBackground(Color.GRAY);
+                bookButton.setForeground(Color.WHITE);
+                showInfo("You already booked this event");
+                return;
+            }
 
-    // Book the event if balance is sufficient, confirm popup
-    public void handleEventBooking(String eventName, double price, JButton bookButton, JLabel balanceLabel) {
-    // Prevent action if already hidden or disabled
-    if (!bookButton.isVisible() || !bookButton.isEnabled()) return;
+            int choice = JOptionPane.showConfirmDialog(
+                dashboardScreen,
+                "Book " + eventName + " for Rs " + price + "?",
+                "Confirm Booking",
+                JOptionPane.YES_NO_OPTION
+            );
 
-    if (dao.hasBookedEvent(userEmail, eventName)) {
-        JOptionPane.showMessageDialog(dashboardScreen, "You have already booked this event.");
-        bookButton.setEnabled(false);
-        bookButton.setVisible(false);
-        return;
-    }
+            if (choice == JOptionPane.YES_OPTION) {
+                if (dao.bookEvent(currentUser.getEmail(), eventName, price)) {
+                    currentUser.setBalance(currentUser.getBalance() - price);
+                    updateBalanceDisplay();
 
-    int confirm = JOptionPane.showConfirmDialog(
-            dashboardScreen,
-            "Do you want to book \"" + eventName + "\" for Rs " + price + "?",
-            "Confirm Booking",
-            JOptionPane.YES_NO_OPTION
-    );
+                    bookButton.setEnabled(false);
+                    bookButton.setText("Booked");
+                    bookButton.setBackground(Color.GRAY);
+                    bookButton.setForeground(Color.WHITE);
 
-    if (confirm == JOptionPane.YES_OPTION) {
-        boolean success = dao.bookEvent(userEmail, eventName, price);
-        if (success) {
-            JOptionPane.showMessageDialog(dashboardScreen, "Booking Successful!");
-
-            // Disable then hide button to prevent double-trigger
-            bookButton.setEnabled(false);
-            bookButton.setVisible(false);
-
-            refreshBalance(balanceLabel);
-        } else {
-            JOptionPane.showMessageDialog(dashboardScreen, "Booking failed. Not enough balance or an error occurred.");
-        }
-    }
-}
-
-    // Setup both event buttons: hide if booked and attach booking logic
-    public void setupEventButtons(JButton eventButton, JButton event1Button, JLabel balanceLabel) {
-        if (dao.hasBookedEvent(userEmail, "event")) {
-            eventButton.setText("Booked");
-            eventButton.setEnabled(false);
-        } else {
-            eventButton.addActionListener(e -> handleEventBooking("event", 1500, eventButton, balanceLabel));
-        }
-
-        if (dao.hasBookedEvent(userEmail, "event1")) {
-            event1Button.setText("Booked");
-            event1Button.setEnabled(false);
-        } else {
-            event1Button.addActionListener(e -> handleEventBooking("event1", 3000, event1Button, balanceLabel));
+                    showInfo("Booking successful!");
+                } else {
+                    showError("Booking failed - insufficient balance");
+                }
+            }
+        } catch (Exception e) {
+            showError("Error during booking: " + e.getMessage());
         }
     }
 
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(dashboardScreen, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void showInfo(String message) {
+        JOptionPane.showMessageDialog(dashboardScreen, message);
+    }
+
+    private class TransferFund implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            FundTransfer transferView = new FundTransfer();
+            TransferMoneyController controller = new TransferMoneyController(
+                DashboardController.this, transferView, currentUser.getEmail()
+            );
+            controller.open();
+        }
+    }
 }

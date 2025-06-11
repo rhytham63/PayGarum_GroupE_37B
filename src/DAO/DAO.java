@@ -3,10 +3,14 @@ package DAO;
 import Database.MySqlConnection;
 import Model.Session;
 import Model.User;
+
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class DAO {
-    private final MySqlConnection dbConnection;
+    private MySqlConnection dbConnection;
 
     public DAO() {
         dbConnection = new MySqlConnection();
@@ -14,31 +18,34 @@ public class DAO {
 
     public boolean registerUser(User user) {
         Connection conn = dbConnection.openConnection();
-        if (conn == null) {
-            return false;
-        }
+        PreparedStatement pstmt = null;
 
         String query = "INSERT INTO users (full_name, email, password, date_of_birth, balance) VALUES (?, ?, ?, ?, ?)";
         try {
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, user.getFullName());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPassword());
-            stmt.setDate(4, new java.sql.Date(user.getDateOfBirth().getTime()));
-            stmt.setDouble(5, 0.0);
+            if (conn == null) return false;
 
-            int rows = stmt.executeUpdate();
-            stmt.close();
-            return rows > 0;
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, user.getFullName());
+            pstmt.setString(2, user.getEmail());
+            pstmt.setString(3, user.getPassword());
+            pstmt.setDate(4, new java.sql.Date(user.getDateOfBirth().getTime()));
+            pstmt.setDouble(5, 0.0);
+
+            return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println("Error registering user: " + e.getMessage());
             return false;
         } finally {
-            dbConnection.closeConnection(conn);
+            try {
+                if (pstmt != null) pstmt.close();
+                dbConnection.closeConnection(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public boolean logIn(String email, String password) {
+    public String logIn(String email, String password) {
         Connection conn = dbConnection.openConnection();
         String query = "SELECT * FROM users WHERE email = ? AND password = ?";
 
@@ -46,21 +53,18 @@ public class DAO {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, email);
             stmt.setString(2, password);
-            ResultSet result = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
-            if (result.next()) {
+            if (rs.next()) {
                 Session.loggedInUserEmail = email;
-                stmt.close();
-                return true;
+                return email;
             }
-            stmt.close();
-            return false;
         } catch (SQLException e) {
-            System.out.println("Error logging in: " + e.getMessage());
-            return false;
+            e.printStackTrace();
         } finally {
             dbConnection.closeConnection(conn);
         }
+        return null;
     }
 
     public double getBalance(String email) {
@@ -73,11 +77,8 @@ public class DAO {
             ResultSet result = stmt.executeQuery();
 
             if (result.next()) {
-                double balance = result.getDouble("balance");
-                stmt.close();
-                return balance;
+                return result.getDouble("balance");
             }
-            stmt.close();
         } catch (SQLException e) {
             System.out.println("Error getting balance: " + e.getMessage());
         } finally {
@@ -94,9 +95,7 @@ public class DAO {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setDouble(1, amount);
             stmt.setString(2, email);
-            int rows = stmt.executeUpdate();
-            stmt.close();
-            return rows > 0;
+            return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println("Error adding money: " + e.getMessage());
             return false;
@@ -104,68 +103,102 @@ public class DAO {
             dbConnection.closeConnection(conn);
         }
     }
-    
+
     public boolean hasBookedEvent(String email, String eventName) {
-    Connection conn = dbConnection.openConnection();
-    String query = "SELECT * FROM event_bookings WHERE user_email = ? AND event_name = ?";
+        Connection conn = dbConnection.openConnection();
+        String query = "SELECT * FROM event_bookings WHERE user_email = ? AND event_name = ?";
 
-    try {
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, email);
-        stmt.setString(2, eventName);
-        ResultSet rs = stmt.executeQuery();
-        boolean booked = rs.next();
-        stmt.close();
-        return booked;
-    } catch (SQLException e) {
-        System.out.println("Error checking event booking: " + e.getMessage());
-        return false;
-    } finally {
-        dbConnection.closeConnection(conn);
-    }
-}
-
-public boolean bookEvent(String email, String eventName, double cost) {
-    Connection conn = dbConnection.openConnection();
-
-    try {
-        conn.setAutoCommit(false);  // transaction
-
-        // check balance
-        String checkQuery = "SELECT balance FROM users WHERE email = ?";
-        PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
-        checkStmt.setString(1, email);
-        ResultSet rs = checkStmt.executeQuery();
-
-        if (!rs.next() || rs.getDouble("balance") < cost) {
-            conn.rollback();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, email);
+            stmt.setString(2, eventName);
+            return stmt.executeQuery().next();
+        } catch (SQLException e) {
+            System.out.println("Error checking event booking: " + e.getMessage());
             return false;
+        } finally {
+            dbConnection.closeConnection(conn);
+        }
+    }
+
+    public boolean bookEvent(String email, String eventName, double cost) {
+        Connection conn = dbConnection.openConnection();
+
+        try {
+            conn.setAutoCommit(false);
+
+            String checkQuery = "SELECT balance FROM users WHERE email = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
+            checkStmt.setString(1, email);
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (!rs.next() || rs.getDouble("balance") < cost) {
+                conn.rollback();
+                return false;
+            }
+
+            String deductQuery = "UPDATE users SET balance = balance - ? WHERE email = ?";
+            PreparedStatement deductStmt = conn.prepareStatement(deductQuery);
+            deductStmt.setDouble(1, cost);
+            deductStmt.setString(2, email);
+            deductStmt.executeUpdate();
+
+            String insertQuery = "INSERT INTO event_bookings (user_email, event_name) VALUES (?, ?)";
+            PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
+            insertStmt.setString(1, email);
+            insertStmt.setString(2, eventName);
+            insertStmt.executeUpdate();
+
+            conn.commit();
+            return true;
+        } catch (SQLException e) {
+            try { conn.rollback(); } catch (SQLException ignore) {}
+            System.out.println("Booking failed: " + e.getMessage());
+            return false;
+        } finally {
+            dbConnection.closeConnection(conn);
+        }
+    }
+    
+    
+
+    public boolean transferMoney(String fromEmail, String toEmail, double amount, String password) {
+        Connection conn = dbConnection.openConnection();
+        boolean isSuccessful = false;
+
+        try {
+            String verifyQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
+            PreparedStatement verifyStmt = conn.prepareStatement(verifyQuery);
+            verifyStmt.setString(1, fromEmail);
+            verifyStmt.setString(2, password);
+            ResultSet rs = verifyStmt.executeQuery();
+
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "Password didn't match");
+                return false;
+            }
+
+            String transferProc = "{CALL transfer_funds(?, ?, ?)}";
+            PreparedStatement stmt = conn.prepareStatement(transferProc);
+            stmt.setString(1, fromEmail);
+            stmt.setString(2, toEmail);
+            stmt.setBigDecimal(3, new java.math.BigDecimal(amount));
+
+            boolean hasResults = stmt.execute();
+
+            if (hasResults) {
+                ResultSet result = stmt.getResultSet();
+                if (result.next()) {
+                    String errorMsg = result.getString("message");
+                    JOptionPane.showMessageDialog(null, errorMsg, "Transfer Failed", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                isSuccessful = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // deduct money
-        String deductQuery = "UPDATE users SET balance = balance - ? WHERE email = ?";
-        PreparedStatement deductStmt = conn.prepareStatement(deductQuery);
-        deductStmt.setDouble(1, cost);
-        deductStmt.setString(2, email);
-        deductStmt.executeUpdate();
-
-        // insert booking
-        String insertQuery = "INSERT INTO event_bookings (user_email, event_name) VALUES (?, ?)";
-        PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
-        insertStmt.setString(1, email);
-        insertStmt.setString(2, eventName);
-        insertStmt.executeUpdate();
-
-        conn.commit();
-        return true;
-
-    } catch (SQLException e) {
-        try { conn.rollback(); } catch (SQLException ignore) {}
-        System.out.println("Booking failed: " + e.getMessage());
-        return false;
-    } finally {
-        dbConnection.closeConnection(conn);
+        return isSuccessful;
     }
-}
-
 }
