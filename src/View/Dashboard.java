@@ -75,6 +75,11 @@ public class Dashboard extends javax.swing.JFrame {
         accBalance3.setText("Events");
 
         sendMoney.setText("Send Money");
+        sendMoney.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendMoneyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Right_barLayout = new javax.swing.GroupLayout(Right_bar);
         Right_bar.setLayout(Right_barLayout);
@@ -250,6 +255,10 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         controller.openLoadMoneyWindow();
     }//GEN-LAST:event_loadMoneyButtonActionPerformed
+
+    private void sendMoneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMoneyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sendMoneyActionPerformed
     public void refreshBalance() {
         controller.refreshBalance();;
     }
@@ -302,8 +311,8 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton sendMoney;
     // End of variables declaration//GEN-END:variables
 
+
     public void addTransferListener(ActionListener listener) {
         sendMoney.addActionListener(listener);
     }
-
 }
