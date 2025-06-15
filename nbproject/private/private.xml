@@ -4,7 +4,6 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/NITRO/Documents/NetBeansProjects/PayGarum_GroupE_37B/src/controller/TransferMoneyController.java</file>
-            <file>file:/C:/Users/NITRO/Documents/NetBeansProjects/PayGarum_GroupE_37B/src/View/FundTransfer.java</file>
             <file>file:/C:/Users/NITRO/Documents/NetBeansProjects/PayGarum_GroupE_37B/src/View/Registration.java</file>
             <file>file:/C:/Users/NITRO/Documents/NetBeansProjects/PayGarum_GroupE_37B/src/Model/Session.java</file>
             <file>file:/C:/Users/NITRO/Documents/NetBeansProjects/PayGarum_GroupE_37B/src/controller/LoginController.java</file>
@@ -23,6 +22,11 @@
             <file>file:/C:/Users/NITRO/Documents/NetBeansProjects/PayGarum_GroupE_37B/src/Images/Arcade-Zone-Business-Interactive-Fun-Hub.pptx%20(1).png</file>
             <file>file:/C:/Users/NITRO/Documents/NetBeansProjects/PayGarum_GroupE_37B/src/View/view.java</file>
             <file>file:/C:/Users/NITRO/Documents/NetBeansProjects/PayGarum_GroupE_37B/src/View/profile.java</file>
+            <file>file:/C:/Users/NITRO/Documents/NetBeansProjects/PayGarum_GroupE_37B/src/paygarum_groupe_37b/PayGarum_GroupE_37B.java</file>
+            <file>file:/C:/Users/NITRO/Documents/NetBeansProjects/PayGarum_GroupE_37B/src/View/customer_supp.java</file>
+            <file>file:/C:/Users/NITRO/Documents/NetBeansProjects/PayGarum_GroupE_37B/src/Model/fundtransfer.java</file>
+            <file>file:/C:/Users/NITRO/Documents/NetBeansProjects/PayGarum_GroupE_37B/src/controller/ProfileController.java</file>
+            <file>file:/C:/Users/NITRO/Documents/NetBeansProjects/PayGarum_GroupE_37B/src/Images/Coin%20Image.png</file>
         </group>
     </open-files>
 </project-private>

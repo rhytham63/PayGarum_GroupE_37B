@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class DAO {
+
     private MySqlConnection dbConnection;
 
     public DAO() {
@@ -20,9 +21,11 @@ public class DAO {
         Connection conn = dbConnection.openConnection();
         PreparedStatement pstmt = null;
 
-        String query = "INSERT INTO users (full_name, email, password, date_of_birth, balance) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO users (full_name, email, password, date_of_birth, balance,gender) VALUES (?, ?, ?, ?, ?,?)";
         try {
-            if (conn == null) return false;
+            if (conn == null) {
+                return false;
+            }
 
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1, user.getFullName());
@@ -30,6 +33,7 @@ public class DAO {
             pstmt.setString(3, user.getPassword());
             pstmt.setDate(4, new java.sql.Date(user.getDateOfBirth().getTime()));
             pstmt.setDouble(5, 0.0);
+             pstmt.setString(6,user.getGender());
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -37,7 +41,9 @@ public class DAO {
             return false;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
+                if (pstmt != null) {
+                    pstmt.close();
+                }
                 dbConnection.closeConnection(conn);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -152,15 +158,16 @@ public class DAO {
             conn.commit();
             return true;
         } catch (SQLException e) {
-            try { conn.rollback(); } catch (SQLException ignore) {}
+            try {
+                conn.rollback();
+            } catch (SQLException ignore) {
+            }
             System.out.println("Booking failed: " + e.getMessage());
             return false;
         } finally {
             dbConnection.closeConnection(conn);
         }
     }
-    
-    
 
     public boolean transferMoney(String fromEmail, String toEmail, double amount, String password) {
         Connection conn = dbConnection.openConnection();
@@ -201,4 +208,45 @@ public class DAO {
 
         return isSuccessful;
     }
+    // Retrieve user profile by email (assuming email is unique)
+   public User getUserProfile(String email) throws SQLException {
+        User user = null;
+        String query = "SELECT full_name, email, date_of_birth, gender, amount_field, recipient_account FROM users WHERE email = ?";
+        
+        try (Connection conn = dbConnection.openConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                user = new User();
+                user.setFullName(rs.getString("full_name"));
+                user.setEmail(rs.getString("email"));
+                user.setDateOfBirth(rs.getDate("date_of_birth")); // Use getDate for java.util.Date
+                user.setgender(rs.getString("gender"));
+               
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error retrieving user profile: " + e.getMessage(), e);
+        }
+        
+        return user;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

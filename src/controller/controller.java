@@ -26,28 +26,36 @@ public class controller {
                                JTextField nameField,
                                JTextField emailField,
                                JPasswordField passField,
+                               JTextField gender,
                                JComboBox<String> dayBox,
                                JComboBox<String> monthBox,
                                JComboBox<String> yearBox) {
+                               
+                               
         try {
             String name = nameField.getText();
             String email = emailField.getText();
             String password = new String(passField.getPassword());
             String day = dayBox.getSelectedItem().toString();
+            String genderIpt = gender.getText();
             String month = monthBox.getSelectedItem().toString();
             String year = yearBox.getSelectedItem().toString();
+                       
+            
+          
 
             if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 showError(currentFrame, "Please fill all fields");
                 return;
             }
 
-            if (register(name, email, password, day, month, year)) {
+            if (register(name, email, password, day, month, year,genderIpt)) {
                 JOptionPane.showMessageDialog(currentFrame, "Registration successful!");
-                clearForm(nameField, emailField, passField, dayBox, monthBox, yearBox);
+                clearForm(nameField, emailField, passField, dayBox, monthBox, yearBox,gender);
                 goToLogin(currentFrame);
             } else {
-                showError(currentFrame, "Registration failed. Email may already exist.");
+                  showError(currentFrame, "Registration failed. Email may already exist.");
+                goToLogin(currentFrame);
             }
         } catch (Exception e) {
             showError(currentFrame, "Error: " + e.getMessage());
@@ -55,16 +63,19 @@ public class controller {
     }
 
     private boolean register(String name, String email, String password,
-                             String day, String month, String year) {
+                             String day, String month, String year,String genderIpt) {
         try {
             User newUser = new User();
             newUser.setFullName(name);
             newUser.setEmail(email);
             newUser.setPassword(password);
+            newUser.setgender(genderIpt);
+           
 
             String dateStr = day + " " + month + " " + year;
             Date dob = new SimpleDateFormat("dd MMMM yyyy").parse(dateStr);
             newUser.setDateOfBirth(dob);
+            
 
             return dataAccess.registerUser(newUser);
         } catch (ParseException e) {
@@ -75,20 +86,18 @@ public class controller {
             return false;
         }
     }
+private void clearForm(JTextField nameField, JTextField emailField, JPasswordField passField, 
+                       JComboBox<String> dayBox, JComboBox<String> monthBox, 
+                       JComboBox<String> yearBox, JTextField genderIpt) {
+    nameField.setText("");
+    emailField.setText("");
+    passField.setText("");
+    dayBox.setSelectedIndex(0);
+    monthBox.setSelectedIndex(0);
+    yearBox.setSelectedIndex(0);
+    genderIpt.setText("");  // ✅ Correct
+}
 
-    private void clearForm(JTextField nameField,
-                           JTextField emailField,
-                           JPasswordField passField,
-                           JComboBox<String> dayBox,
-                           JComboBox<String> monthBox,
-                           JComboBox<String> yearBox) {
-        nameField.setText("");
-        emailField.setText("");
-        passField.setText("");
-        dayBox.setSelectedIndex(0);
-        monthBox.setSelectedIndex(0);
-        yearBox.setSelectedIndex(0);
-    }
 
     private void showError(JFrame frame, String msg) {
         JOptionPane.showMessageDialog(frame, msg, "Error", JOptionPane.ERROR_MESSAGE);
