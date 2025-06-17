@@ -201,4 +201,31 @@ public class DAO {
 
         return isSuccessful;
     }
+    
+    public boolean resetPassword(String email, String oldPass, String newPass) {
+    Connection conn = dbConnection.openConnection();
+    String checkQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
+    String updateQuery = "UPDATE users SET password = ? WHERE email = ?";
+
+    try {
+        PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
+        checkStmt.setString(1, email);
+        checkStmt.setString(2, oldPass);
+        ResultSet rs = checkStmt.executeQuery();
+
+        if (rs.next()) {
+            PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
+            updateStmt.setString(1, newPass);
+            updateStmt.setString(2, email);
+            return updateStmt.executeUpdate() > 0;
+        } else {
+            return false;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    } finally {
+        dbConnection.closeConnection(conn);
+    }
+}
 }
