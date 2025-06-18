@@ -60,6 +60,11 @@ public class profile extends javax.swing.JFrame {
         Profile.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Profile.setText("Own Profile");
         Profile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Profile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProfileActionPerformed(evt);
+            }
+        });
 
         security.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         security.setText("Security and privacy");
@@ -265,6 +270,10 @@ public class profile extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProfileActionPerformed
 
     /**
      * @param args the command line arguments
