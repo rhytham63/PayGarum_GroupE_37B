@@ -8,6 +8,6 @@ package Model;
  *
  * @author NITRO
  */
-public class Model {
-    
+
+public class fundtransfer {
 }
