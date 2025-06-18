@@ -211,7 +211,7 @@ public class DAO {
     // Retrieve user profile by email (assuming email is unique)
    public User getUserProfile(String email) throws SQLException {
         User user = null;
-        String query = "SELECT full_name, email, date_of_birth, gender, amount_field, recipient_account FROM users WHERE email = ?";
+        String query = "SELECT full_name, email, date_of_birth, gender FROM users WHERE email = ?";
         
         try (Connection conn = dbConnection.openConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -231,22 +231,5 @@ public class DAO {
         }
         
         return user;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   }
 }

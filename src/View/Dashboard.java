@@ -5,9 +5,11 @@
 package View;
 
 import controller.DashboardController;
+import controller.profileController;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.logging.Logger;
+
 /**
  *
  * @author r4hul
@@ -16,6 +18,8 @@ public class Dashboard extends javax.swing.JFrame {
   
     private static final Logger logger = Logger.getLogger(Dashboard.class.getName());
     private DashboardController controller;
+    private final String email;
+   
 
     /**
      * Creates new form NewJFrame
@@ -23,7 +27,7 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public Dashboard(String email) {
         initComponents();
-  
+        this.email = email;
         controller = new DashboardController(email, this);
         controller.loadUserBalance();
         event.setActionCommand("event");
@@ -78,7 +82,9 @@ public class Dashboard extends javax.swing.JFrame {
         Tranasaction_table = new javax.swing.JTable();
         load_money = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        profilebtn = new javax.swing.JButton();
         loadMoneyButton = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JSeparator();
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -301,7 +307,7 @@ public class Dashboard extends javax.swing.JFrame {
         Gdmrng.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 24)); // NOI18N
         Gdmrng.setText("Good Morning");
         jPanel3.add(Gdmrng);
-        Gdmrng.setBounds(137, 14, 182, 31);
+        Gdmrng.setBounds(137, 14, 168, 32);
 
         jComboBox1.setBackground(new java.awt.Color(151, 198, 237));
         jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
@@ -312,19 +318,19 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jComboBox1);
-        jComboBox1.setBounds(230, 390, 76, 24);
+        jComboBox1.setBounds(230, 390, 76, 22);
 
         accBalance1.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 14)); // NOI18N
         accBalance1.setText("Filter By");
         jPanel3.add(accBalance1);
-        accBalance1.setBounds(150, 390, 60, 18);
+        accBalance1.setBounds(150, 390, 60, 19);
         jPanel3.add(jSeparator1);
         jSeparator1.setBounds(150, 320, 720, 3);
 
         accBalance2.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 14)); // NOI18N
         accBalance2.setText("Account Balance");
         jPanel3.add(accBalance2);
-        accBalance2.setBounds(137, 106, 128, 18);
+        accBalance2.setBounds(137, 106, 117, 19);
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
@@ -356,19 +362,36 @@ public class Dashboard extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(212, 235, 253));
 
+        profilebtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pfp.png"))); // NOI18N
+        profilebtn.setText("jButton2");
+        profilebtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                profilebtnMouseClicked(evt);
+            }
+        });
+        profilebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profilebtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 130, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(profilebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(profilebtn)
+                .addGap(0, 583, Short.MAX_VALUE))
         );
 
         jPanel3.add(jPanel1);
-        jPanel1.setBounds(0, 0, 130, 690);
+        jPanel1.setBounds(0, 0, 110, 690);
 
         loadMoneyButton.setBackground(new java.awt.Color(0, 153, 255));
         loadMoneyButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Plus.png"))); // NOI18N
@@ -380,6 +403,8 @@ public class Dashboard extends javax.swing.JFrame {
         });
         jPanel3.add(loadMoneyButton);
         loadMoneyButton.setBounds(200, 270, 30, 20);
+        jPanel3.add(jSeparator4);
+        jSeparator4.setBounds(100, 10, 0, 3);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -440,6 +465,19 @@ public class Dashboard extends javax.swing.JFrame {
     private void sendMoneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMoneyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_sendMoneyActionPerformed
+
+    private void profilebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilebtnActionPerformed
+     
+        // TODaO add your handling co
+    }//GEN-LAST:event_profilebtnActionPerformed
+
+    private void profilebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profilebtnMouseClicked
+
+        profile p = new profile();
+     profileController c = new profileController(p,email);
+     c.open();
+    
+    }//GEN-LAST:event_profilebtnMouseClicked
     public void refreshBalance() {
         controller.refreshBalance();
     }
@@ -453,6 +491,10 @@ public class Dashboard extends javax.swing.JFrame {
     public JButton[] getEventButtons() {
     return new JButton[]{event, event1};
 }
+    public JButton getProfileButton() {
+    return profilebtn;
+}
+   
 
 
     /**
@@ -515,8 +557,12 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JButton loadMoneyButton;
     private javax.swing.JLabel load_money;
+    private javax.swing.JButton profilebtn;
     private javax.swing.JButton sendMoney;
     // End of variables declaration//GEN-END:variables
+
+    
 }
