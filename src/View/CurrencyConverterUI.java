@@ -4,7 +4,9 @@
  */
 package View;
 
-import Model.CurrencyConverter;
+import controller.CurrencyConverterController;
+
+
 
 /**
  *
@@ -47,15 +49,16 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
 
         innerPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        currencyconverterLabel.setBackground(new java.awt.Color(204, 255, 204));
+        currencyconverterLabel.setBackground(new java.awt.Color(255, 255, 255));
         currencyconverterLabel.setFont(new java.awt.Font("Dubai Medium", 0, 24)); // NOI18N
         currencyconverterLabel.setForeground(new java.awt.Color(0, 0, 102));
         currencyconverterLabel.setText("      CURRENCY CONVERTER");
         currencyconverterLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 102), 2, true));
+        currencyconverterLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         fromComboBox.setBackground(new java.awt.Color(204, 204, 204));
         fromComboBox.setFont(new java.awt.Font("Dubai", 0, 14)); // NOI18N
-        fromComboBox.setForeground(new java.awt.Color(255, 255, 255));
+        fromComboBox.setForeground(new java.awt.Color(0, 0, 102));
         fromComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NPR", "USD", "EUR", "GBP", "AUD", "JPY", "THB", "CNY", "CAD", " ", " " }));
         fromComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,7 +68,7 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
 
         toComboBox.setBackground(new java.awt.Color(204, 204, 204));
         toComboBox.setFont(new java.awt.Font("Dubai", 0, 14)); // NOI18N
-        toComboBox.setForeground(new java.awt.Color(255, 255, 255));
+        toComboBox.setForeground(new java.awt.Color(0, 0, 102));
         toComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "USD", "NPR", "EUR", "GBP", "AUD", "JPY", "THB", "CNY", "CAD", " ", " " }));
         toComboBox.setToolTipText("");
 
@@ -91,9 +94,10 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
         resultLabel.setForeground(new java.awt.Color(0, 0, 102));
         resultLabel.setText("RESULT:");
 
+        amountTextField.setBackground(new java.awt.Color(0, 0, 102));
         amountTextField.setFont(new java.awt.Font("Dubai", 0, 14)); // NOI18N
-        amountTextField.setForeground(new java.awt.Color(0, 0, 102));
-        amountTextField.setText("   Enter the Amount ");
+        amountTextField.setForeground(new java.awt.Color(255, 255, 255));
+        amountTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         amountTextField.setAlignmentX(1.0F);
         amountTextField.setAlignmentY(1.0F);
         amountTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -112,11 +116,12 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
         innerPanelLayout.setHorizontalGroup(
             innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(currencyconverterLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, innerPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(amountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107))
             .addGroup(innerPanelLayout.createSequentialGroup()
                 .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(innerPanelLayout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(amountLabel))
                     .addGroup(innerPanelLayout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,17 +129,17 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
                                 .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(fromLabel)
                                     .addComponent(toLabel))
-                                .addGap(40, 40, 40)
-                                .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(fromComboBox, 0, 116, Short.MAX_VALUE)
-                                    .addComponent(toComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(54, 54, 54)
+                                .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(fromComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(toComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(resultLabel)))
                     .addGroup(innerPanelLayout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(convertButton))
+                        .addGap(138, 138, 138)
+                        .addComponent(amountLabel))
                     .addGroup(innerPanelLayout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addComponent(amountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(120, 120, 120)
+                        .addComponent(convertButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         innerPanelLayout.setVerticalGroup(
@@ -142,9 +147,9 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
             .addGroup(innerPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(currencyconverterLabel)
-                .addGap(14, 14, 14)
+                .addGap(18, 18, 18)
                 .addComponent(amountLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(amountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -154,9 +159,9 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
                 .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(toComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(toLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(convertButton)
                 .addGap(18, 18, 18)
+                .addComponent(convertButton)
+                .addGap(12, 12, 12)
                 .addComponent(resultLabel)
                 .addContainerGap(71, Short.MAX_VALUE))
         );
@@ -179,19 +184,19 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
             converterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(converterPanelLayout.createSequentialGroup()
                 .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 654, Short.MAX_VALUE))
             .addGroup(converterPanelLayout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addGap(180, 180, 180)
                 .addComponent(innerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         converterPanelLayout.setVerticalGroup(
             converterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, converterPanelLayout.createSequentialGroup()
                 .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(36, 36, 36)
                 .addComponent(innerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,7 +232,7 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
             String fromCurrency = fromComboBox.getSelectedItem().toString();  // Get 'From' currency
             String toCurrency = toComboBox.getSelectedItem().toString();  // Get 'To' currency
 
-            double convertedAmount = CurrencyConverter.convert(amount, fromCurrency, toCurrency); // Perform conversion
+            double convertedAmount = CurrencyConverterController.convert(amount, fromCurrency, toCurrency); // Perform conversion
             
             resultLabel.setText(String.format("%.0f %s = %.3f %s", amount, fromCurrency, convertedAmount, toCurrency));
 

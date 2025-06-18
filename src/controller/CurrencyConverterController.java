@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Model;
+package controller;
 
 import java.util.HashMap;
 
@@ -10,11 +10,12 @@ import java.util.HashMap;
  *
  * @author utpre
  */
-public class CurrencyConverter {
+public class CurrencyConverterController {
+    
     private static final HashMap<String, Double> exchangeRates = new HashMap<>();
 
     static {
-        exchangeRates.put("NPR", 1.0);      // Base currency
+        exchangeRates.put("NPR", 1.0);      
         exchangeRates.put("USD", 0.0075);
         exchangeRates.put("EUR", 0.0065);
         exchangeRates.put("GBP", 0.0056);
@@ -35,5 +36,4 @@ public class CurrencyConverter {
         }
     }
 
-    
 }
