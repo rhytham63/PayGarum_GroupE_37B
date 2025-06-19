@@ -1,24 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package paygarum_groupe_37b;
 
-/**
- *
- * @author NITRO
- */
+import Database.Database;
+import Database.MySqlConnection;
+import View.Registration;
+
+
 public class PayGarum_GroupE_37B {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Database db = new MySqlConnection();
+        if(db.openConnection()!=null){
+            System.out.println("Con Sucess");
+        }else{
+            System.out.println("Con Fail");
+        }
+        
+        
+        new Registration().setVisible(true);
+
     }
-    
 }
-
-
-
-

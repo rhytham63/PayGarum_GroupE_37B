@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
+
+import DAO.AccountTypeDAO;
+import Model.AccountTypeModel;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
@@ -26,55 +30,49 @@ public class AccountType extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        AccountType = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        salary = new javax.swing.JRadioButton();
-        current = new javax.swing.JRadioButton();
-        saving = new javax.swing.JRadioButton();
-        Confirm = new javax.swing.JButton();
-        Select = new javax.swing.JLabel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        savingRadioButton = new javax.swing.JRadioButton();
+        currentRadioButton = new javax.swing.JRadioButton();
+        salaryRadioButton = new javax.swing.JRadioButton();
+        confirmButton = new javax.swing.JButton();
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Choose Acoount Type");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(151, 198, 237));
-        jPanel1.setMinimumSize(new java.awt.Dimension(50, 50));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Choose Your Acoount Type");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Choose Account Type");
 
-        AccountType.add(salary);
-        salary.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        salary.setText("Salary Account");
-        salary.addActionListener(new java.awt.event.ActionListener() {
+        savingRadioButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        savingRadioButton.setText("Saving Account");
+        savingRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salaryActionPerformed(evt);
+                savingRadioButtonActionPerformed(evt);
             }
         });
 
-        AccountType.add(current);
-        current.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        current.setText("CurrentAccount");
-        current.addActionListener(new java.awt.event.ActionListener() {
+        currentRadioButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        currentRadioButton.setText("CurrentAccount");
+
+        salaryRadioButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        salaryRadioButton.setText("Salary Account");
+        salaryRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                currentActionPerformed(evt);
+                salaryRadioButtonActionPerformed(evt);
             }
         });
 
-        AccountType.add(saving);
-        saving.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        saving.setText("Saving Account");
-        saving.addActionListener(new java.awt.event.ActionListener() {
+        confirmButton.setText("Confirm");
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                savingActionPerformed(evt);
-            }
-        });
-
-        Confirm.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Confirm.setText("Confirm");
-        Confirm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConfirmActionPerformed(evt);
+                confirmButtonActionPerformed(evt);
             }
         });
 
@@ -82,48 +80,35 @@ public class AccountType extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Select, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(124, 124, 124))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(66, 66, 66))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(saving)
-                        .addGap(33, 33, 33)
-                        .addComponent(current)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(salary)
-                        .addGap(29, 29, 29))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(181, 181, 181)
-                .addComponent(Confirm)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(savingRadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(currentRadioButton)
+                        .addGap(43, 43, 43)
+                        .addComponent(salaryRadioButton)))
+                .addGap(43, 43, 43))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(155, 155, 155)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(saving)
-                            .addComponent(current)
-                            .addComponent(salary, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(26, 26, 26)
-                .addComponent(Select, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Confirm)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addGap(65, 65, 65)
+                .addComponent(jLabel2)
+                .addGap(65, 65, 65)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(currentRadioButton)
+                    .addComponent(savingRadioButton)
+                    .addComponent(salaryRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(60, 60, 60)
+                .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -131,48 +116,53 @@ public class AccountType extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(90, 90, 90)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(647, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(376, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void savingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savingActionPerformed
+    private void savingRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savingRadioButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_savingActionPerformed
+    }//GEN-LAST:event_savingRadioButtonActionPerformed
 
-    private void salaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salaryActionPerformed
+    private void salaryRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salaryRadioButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_salaryActionPerformed
+    }//GEN-LAST:event_salaryRadioButtonActionPerformed
 
-    private void ConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
-       
-    
-
-    if (saving.isSelected()) {
-        JOptionPane.showMessageDialog(this,"Saving Account Selected");
-    } else if (current.isSelected()) {
-        JOptionPane.showMessageDialog(this,"Current Account Selected");
-    } else if (salary.isSelected()) {
-        JOptionPane.showMessageDialog(this,"Salary Account Selected");
-    }
-                
-                
-                
-    }//GEN-LAST:event_ConfirmActionPerformed
-
-    private void currentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_currentActionPerformed
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
+if (savingRadioButton.isSelected()) {
+    JOptionPane.showMessageDialog(this, "Saving Account Selected");
+    AccountTypeModel model = new AccountTypeModel();
+    model.setAccountType("Saving Account");
+    AccountTypeDAO dao = new AccountTypeDAO();
+    dao.saveAccountType(model);
+} else if (currentRadioButton.isSelected()) {
+    JOptionPane.showMessageDialog(this, "Current Account Selected");
+    AccountTypeModel model = new AccountTypeModel();
+    model.setAccountType("Current Account");
+    AccountTypeDAO dao = new AccountTypeDAO();
+    dao.saveAccountType(model);
+} else if (salaryRadioButton.isSelected()) {
+    JOptionPane.showMessageDialog(this, "Salary Account Selected");
+    AccountTypeModel model = new AccountTypeModel();
+    model.setAccountType("Salary Account");
+    AccountTypeDAO dao = new AccountTypeDAO();
+    dao.saveAccountType(model);
+} else {
+    JOptionPane.showMessageDialog(this, "No Account Selected");
+}
+   
+    }//GEN-LAST:event_confirmButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,6 +190,7 @@ public class AccountType extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(AccountType.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -210,13 +201,13 @@ public class AccountType extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup AccountType;
-    private javax.swing.JButton Confirm;
-    private javax.swing.JLabel Select;
-    private javax.swing.JRadioButton current;
+    private javax.swing.ButtonGroup buttonGroup1;
+    public javax.swing.JButton confirmButton;
+    public javax.swing.JRadioButton currentRadioButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton salary;
-    private javax.swing.JRadioButton saving;
+    public javax.swing.JRadioButton salaryRadioButton;
+    public javax.swing.JRadioButton savingRadioButton;
     // End of variables declaration//GEN-END:variables
 }
