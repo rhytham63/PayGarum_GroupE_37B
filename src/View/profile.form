@@ -49,7 +49,7 @@
                       <Group type="102" attributes="0">
                           <Component id="security" min="-2" pref="146" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="Support" min="-2" pref="139" max="-2" attributes="0"/>
+                          <Component id="Supportbtn" min="-2" pref="139" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -70,7 +70,7 @@
                                       <Component id="Full_name" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="Display_name" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="71" max="32767" attributes="0"/>
+                                      <EmptySpace pref="65" max="32767" attributes="0"/>
                                       <Component id="Gender" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="Display_gender" min="-2" max="-2" attributes="0"/>
@@ -116,7 +116,7 @@
                   <EmptySpace pref="15" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="security" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="Support" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="Supportbtn" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
@@ -175,7 +175,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="securityActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="Support">
+        <Component class="javax.swing.JButton" name="Supportbtn">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="12" style="1"/>
@@ -187,6 +187,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SupportbtnMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>

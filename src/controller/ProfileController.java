@@ -2,7 +2,9 @@ package controller;
 
 import DAO.DAO;
 import Model.User;
+import View.customer_supp;
 import View.profile;
+import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +15,7 @@ public class profileController {
     private final profile p;
     private final String email;
     private User user;
+   
 
     public profileController(profile p, String email) {
         this.p = p;
@@ -41,5 +44,18 @@ public class profileController {
         }
 
     }
+    
+    public void openSecurityWindow(){
+     
+        
+    }
+    
+    public void openSupportWindow(){
+       
+    
+        p.getcustomerSupportBtn().addActionListener((ActionEvent e) -> {
+            openSupportWindow();
+        });
+        }
+    }
 
-}

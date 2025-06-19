@@ -4,6 +4,8 @@
  */
 package View;
 
+import javax.swing.JButton;
+
 /**
  *
  * @author NITRO
@@ -28,7 +30,7 @@ public class profile extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         security = new javax.swing.JButton();
-        Support = new javax.swing.JButton();
+        Supportbtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         profile = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -59,9 +61,14 @@ public class profile extends javax.swing.JFrame {
             }
         });
 
-        Support.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Support.setText("Customer Support");
-        Support.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Supportbtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Supportbtn.setText("Customer Support");
+        Supportbtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Supportbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SupportbtnMouseClicked(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pfp.png"))); // NOI18N
         jLabel2.setText("jLabel2");
@@ -130,7 +137,7 @@ public class profile extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(security, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(Support, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Supportbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(profile)
@@ -147,7 +154,7 @@ public class profile extends javax.swing.JFrame {
                                     .addComponent(Full_name)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(Display_name)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                                     .addComponent(Gender)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(Display_gender)
@@ -181,7 +188,7 @@ public class profile extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(security, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Support, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Supportbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -240,6 +247,19 @@ public class profile extends javax.swing.JFrame {
 this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_backbtnMouseClicked
 
+    private void SupportbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SupportbtnMouseClicked
+ customer_supp customerview = new customer_supp();
+        customerview.setVisible(true);     // TODO add your handling code here:
+    }//GEN-LAST:event_SupportbtnMouseClicked
+
+    
+    
+        public JButton getsecurityButton() {
+    return security;
+}
+        public JButton getcustomerSupportBtn(){
+            return Supportbtn;
+        }
     /**
      * @param args the command line arguments
      */
@@ -284,7 +304,7 @@ this.setVisible(false);        // TODO add your handling code here:
     private javax.swing.JLabel Gender;
     private javax.swing.JLabel Nationality;
     private javax.swing.JLabel Personal_info;
-    private javax.swing.JButton Support;
+    private javax.swing.JButton Supportbtn;
     private javax.swing.JButton backbtn;
     public javax.swing.JLabel display_DOB;
     private javax.swing.JLabel jLabel1;
