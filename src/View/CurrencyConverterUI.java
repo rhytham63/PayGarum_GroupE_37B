@@ -32,7 +32,6 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
 
         converterPanel = new javax.swing.JPanel();
         innerPanel = new javax.swing.JPanel();
-        currencyconverterLabel = new javax.swing.JLabel();
         fromComboBox = new javax.swing.JComboBox<>();
         toComboBox = new javax.swing.JComboBox<>();
         fromLabel = new javax.swing.JLabel();
@@ -42,22 +41,16 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
         amountTextField = new javax.swing.JTextField();
         amountLabel = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
+        currencyconverterLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        converterPanel.setBackground(new java.awt.Color(178, 216, 255));
+        converterPanel.setBackground(new java.awt.Color(151, 198, 237));
 
         innerPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        currencyconverterLabel.setBackground(new java.awt.Color(255, 255, 255));
-        currencyconverterLabel.setFont(new java.awt.Font("Dubai Medium", 0, 24)); // NOI18N
-        currencyconverterLabel.setForeground(new java.awt.Color(0, 0, 102));
-        currencyconverterLabel.setText("      CURRENCY CONVERTER");
-        currencyconverterLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 102), 2, true));
-        currencyconverterLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
         fromComboBox.setBackground(new java.awt.Color(204, 204, 204));
-        fromComboBox.setFont(new java.awt.Font("Dubai", 0, 14)); // NOI18N
+        fromComboBox.setFont(new java.awt.Font("Dubai Light", 1, 16)); // NOI18N
         fromComboBox.setForeground(new java.awt.Color(0, 0, 102));
         fromComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NPR", "USD", "EUR", "GBP", "AUD", "JPY", "THB", "CNY", "CAD", " ", " " }));
         fromComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -67,21 +60,21 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
         });
 
         toComboBox.setBackground(new java.awt.Color(204, 204, 204));
-        toComboBox.setFont(new java.awt.Font("Dubai", 0, 14)); // NOI18N
+        toComboBox.setFont(new java.awt.Font("Dubai Light", 1, 16)); // NOI18N
         toComboBox.setForeground(new java.awt.Color(0, 0, 102));
         toComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "USD", "NPR", "EUR", "GBP", "AUD", "JPY", "THB", "CNY", "CAD", " ", " " }));
         toComboBox.setToolTipText("");
 
-        fromLabel.setFont(new java.awt.Font("Dubai", 0, 14)); // NOI18N
+        fromLabel.setFont(new java.awt.Font("Dubai Light", 1, 16)); // NOI18N
         fromLabel.setForeground(new java.awt.Color(0, 0, 102));
         fromLabel.setText("FROM:");
 
-        toLabel.setFont(new java.awt.Font("Dubai", 0, 14)); // NOI18N
+        toLabel.setFont(new java.awt.Font("Dubai Light", 1, 16)); // NOI18N
         toLabel.setForeground(new java.awt.Color(0, 0, 102));
         toLabel.setText("TO:");
 
         convertButton.setBackground(new java.awt.Color(0, 0, 102));
-        convertButton.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        convertButton.setFont(new java.awt.Font("Dubai Light", 1, 16)); // NOI18N
         convertButton.setForeground(new java.awt.Color(255, 255, 255));
         convertButton.setText("CONVERT");
         convertButton.addActionListener(new java.awt.event.ActionListener() {
@@ -90,12 +83,12 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
             }
         });
 
-        resultLabel.setFont(new java.awt.Font("Dubai", 0, 14)); // NOI18N
+        resultLabel.setFont(new java.awt.Font("Dubai Light", 1, 16)); // NOI18N
         resultLabel.setForeground(new java.awt.Color(0, 0, 102));
         resultLabel.setText("RESULT:");
 
         amountTextField.setBackground(new java.awt.Color(0, 0, 102));
-        amountTextField.setFont(new java.awt.Font("Dubai", 0, 14)); // NOI18N
+        amountTextField.setFont(new java.awt.Font("Dubai Light", 1, 16)); // NOI18N
         amountTextField.setForeground(new java.awt.Color(255, 255, 255));
         amountTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         amountTextField.setAlignmentX(1.0F);
@@ -107,69 +100,65 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
             }
         });
 
-        amountLabel.setFont(new java.awt.Font("Dubai Medium", 0, 15)); // NOI18N
+        amountLabel.setFont(new java.awt.Font("Dubai Light", 1, 18)); // NOI18N
         amountLabel.setForeground(new java.awt.Color(0, 0, 102));
-        amountLabel.setText("Amount:");
+        amountLabel.setText("AMOUNT:");
 
         javax.swing.GroupLayout innerPanelLayout = new javax.swing.GroupLayout(innerPanel);
         innerPanel.setLayout(innerPanelLayout);
         innerPanelLayout.setHorizontalGroup(
             innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(currencyconverterLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, innerPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(amountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107))
             .addGroup(innerPanelLayout.createSequentialGroup()
                 .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(innerPanelLayout.createSequentialGroup()
-                        .addGap(56, 56, 56)
+                        .addGap(105, 105, 105)
+                        .addComponent(convertButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(innerPanelLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
                         .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(innerPanelLayout.createSequentialGroup()
-                                .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fromLabel)
-                                    .addComponent(toLabel))
+                                .addComponent(toLabel)
+                                .addGap(74, 74, 74)
+                                .addComponent(toComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(innerPanelLayout.createSequentialGroup()
+                                .addComponent(fromLabel)
                                 .addGap(54, 54, 54)
-                                .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(fromComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(toComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(fromComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(resultLabel)))
                     .addGroup(innerPanelLayout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(amountLabel))
+                        .addGap(96, 96, 96)
+                        .addComponent(amountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(innerPanelLayout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(convertButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(122, 122, 122)
+                        .addComponent(amountLabel)))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         innerPanelLayout.setVerticalGroup(
             innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(innerPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(currencyconverterLabel)
                 .addGap(18, 18, 18)
-                .addComponent(amountLabel)
-                .addGap(2, 2, 2)
+                .addComponent(amountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(amountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(30, 30, 30)
                 .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fromComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fromLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(toComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(toLabel))
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addComponent(convertButton)
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addComponent(resultLabel)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         backButton.setBackground(new java.awt.Color(204, 204, 204));
-        backButton.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        backButton.setFont(new java.awt.Font("Dubai Light", 1, 14)); // NOI18N
         backButton.setForeground(new java.awt.Color(0, 0, 102));
-        backButton.setText("Back");
+        backButton.setText("BACK");
         backButton.setMaximumSize(new java.awt.Dimension(283, 232));
         backButton.setMinimumSize(new java.awt.Dimension(283, 232));
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -178,40 +167,47 @@ public class CurrencyConverterUI extends javax.swing.JFrame {
             }
         });
 
+        currencyconverterLabel.setBackground(new java.awt.Color(255, 255, 255));
+        currencyconverterLabel.setFont(new java.awt.Font("Dubai Light", 1, 24)); // NOI18N
+        currencyconverterLabel.setForeground(new java.awt.Color(0, 0, 102));
+        currencyconverterLabel.setText("      CURRENCY CONVERTER");
+        currencyconverterLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 102), 2, true));
+        currencyconverterLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout converterPanelLayout = new javax.swing.GroupLayout(converterPanel);
         converterPanel.setLayout(converterPanelLayout);
         converterPanelLayout.setHorizontalGroup(
             converterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(converterPanelLayout.createSequentialGroup()
-                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 654, Short.MAX_VALUE))
-            .addGroup(converterPanelLayout.createSequentialGroup()
-                .addGap(180, 180, 180)
-                .addComponent(innerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(converterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(converterPanelLayout.createSequentialGroup()
+                        .addGap(297, 297, 297)
+                        .addGroup(converterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(innerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(currencyconverterLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(312, Short.MAX_VALUE))
         );
         converterPanelLayout.setVerticalGroup(
             converterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, converterPanelLayout.createSequentialGroup()
+            .addGroup(converterPanelLayout.createSequentialGroup()
                 .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(53, 53, 53)
+                .addComponent(currencyconverterLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(innerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(converterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(converterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(converterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(converterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
