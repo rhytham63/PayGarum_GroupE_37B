@@ -65,6 +65,8 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         sendMoney = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
+        resetPass = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         Balance = new javax.swing.JLabel();
         Coin_Image = new javax.swing.JLabel();
@@ -244,28 +246,34 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        delete.setText("jButton1");
+
+        resetPass.setText("jButton1");
+
         javax.swing.GroupLayout Right_barLayout = new javax.swing.GroupLayout(Right_bar);
         Right_bar.setLayout(Right_barLayout);
         Right_barLayout.setHorizontalGroup(
             Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Right_barLayout.createSequentialGroup()
-                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(Right_barLayout.createSequentialGroup()
+                            .addGap(31, 31, 31)
+                            .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(accBalance3)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(Right_barLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(sendMoney)))
                     .addGroup(Right_barLayout.createSequentialGroup()
+                        .addGap(43, 43, 43)
                         .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(Right_barLayout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(accBalance3)
-                                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(Right_barLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(sendMoney)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Right_barLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(resetPass)
+                            .addComponent(delete))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Right_barLayout.setVerticalGroup(
             Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +281,12 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(sendMoney)
                 .addGap(28, 28, 28)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Right_barLayout.createSequentialGroup()
+                        .addComponent(delete)
+                        .addGap(37, 37, 37)
+                        .addComponent(resetPass))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(74, 74, 74)
                 .addComponent(accBalance3)
                 .addGap(18, 18, 18)
@@ -457,6 +470,13 @@ public class Dashboard extends javax.swing.JFrame {
     public JButton[] getEventButtons() {
     return new JButton[]{event, event1};
 }
+    public JButton getDeleteButton() {
+    return delete;
+}
+    public JButton getResetPassButton() {
+    return resetPass;
+}
+
 
 
     /**
@@ -495,6 +515,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel accBalance1;
     private javax.swing.JLabel accBalance2;
     private javax.swing.JLabel accBalance3;
+    private javax.swing.JButton delete;
     private javax.swing.JButton event;
     private javax.swing.JButton event1;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -521,6 +542,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JButton loadMoneyButton;
     private javax.swing.JLabel load_money;
+    private javax.swing.JButton resetPass;
     private javax.swing.JButton sendMoney;
     // End of variables declaration//GEN-END:variables
 }

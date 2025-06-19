@@ -25,7 +25,11 @@ public class DashboardController {
         Session.loggedInUserEmail = email;
 
         initializeController();
+
+        // Attach listeners
         this.dashboardScreen.addTransferListener(new TransferFund());
+        this.dashboardScreen.getResetPassButton().addActionListener(new OpenResetPassword());
+        this.dashboardScreen.getDeleteButton().addActionListener(new DeleteAccount());
     }
 
     private void initializeController() {
@@ -38,7 +42,8 @@ public class DashboardController {
             String eventName = button.getActionCommand();
             if (dao.hasBookedEvent(currentUser.getEmail(), eventName)) {
                 button.setText("Booked");
-                button.setEnabled(false);            }
+                button.setEnabled(false);
+            }
         }
     }
 
@@ -114,10 +119,10 @@ public class DashboardController {
             }
 
             int choice = JOptionPane.showConfirmDialog(
-                dashboardScreen,
-                "Book " + eventName + " for Rs " + price + "?",
-                "Confirm Booking",
-                JOptionPane.YES_NO_OPTION
+                    dashboardScreen,
+                    "Book " + eventName + " for Rs " + price + "?",
+                    "Confirm Booking",
+                    JOptionPane.YES_NO_OPTION
             );
 
             if (choice == JOptionPane.YES_OPTION) {
@@ -148,14 +153,49 @@ public class DashboardController {
         JOptionPane.showMessageDialog(dashboardScreen, message);
     }
 
+    // Event: Transfer Money
     private class TransferFund implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             FundTransfer transferView = new FundTransfer();
             TransferMoneyController controller = new TransferMoneyController(
-                DashboardController.this, transferView, currentUser.getEmail()
+                    DashboardController.this, transferView, currentUser.getEmail()
             );
             controller.open();
+        }
+    }
+
+    // Event: Open Reset Password Screen
+    private class OpenResetPassword implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Reset_Password screen = new Reset_Password();
+            new ResetPasswordController(screen);
+            screen.setVisible(true);
+        }
+    }
+
+    // Event: Delete Account
+    private class DeleteAccount implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int confirm = JOptionPane.showConfirmDialog(
+                    dashboardScreen,
+                    "Are you sure you want to delete your account? This action cannot be undone.",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                boolean deleted = dao.deleteUserAccount(currentUser.getEmail());
+                if (deleted) {
+                    JOptionPane.showMessageDialog(dashboardScreen, "Account deleted successfully.");
+                    dashboardScreen.dispose();
+                    new Login_page().setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(dashboardScreen, "Failed to delete account.");
+                }
+            }
         }
     }
 }

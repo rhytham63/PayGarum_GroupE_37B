@@ -228,4 +228,36 @@ public class DAO {
         dbConnection.closeConnection(conn);
     }
 }
+    
+    public boolean deleteUserAccount(String email) {
+    Connection conn = dbConnection.openConnection();
+    try {
+        conn.setAutoCommit(false);
+
+        // Delete related event bookings
+        PreparedStatement deleteBookings = conn.prepareStatement(
+            "DELETE FROM event_bookings WHERE user_email = ?"
+        );
+        deleteBookings.setString(1, email);
+        deleteBookings.executeUpdate();
+
+        // Delete user record
+        PreparedStatement deleteUser = conn.prepareStatement(
+            "DELETE FROM users WHERE email = ?"
+        );
+        deleteUser.setString(1, email);
+        int rowsAffected = deleteUser.executeUpdate();
+
+        conn.commit();
+        return rowsAffected > 0;
+    } catch (SQLException e) {
+        try {
+            conn.rollback();
+        } catch (SQLException ignore) {}
+        e.printStackTrace();
+        return false;
+    } finally {
+        dbConnection.closeConnection(conn);
+    }
+}
 }
