@@ -4,7 +4,7 @@ import DAO.DAO;
 import Model.Session;
 
 public class LoginController {
-    private DAO dao;
+    private final DAO dao;
 
     public LoginController() {
         this.dao = new DAO();

@@ -7,10 +7,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.*;
 
 public class profileController {
-
     private final DAO dao = new DAO();
     private final profile p;
     private final String email;
@@ -30,7 +28,7 @@ public class profileController {
         this.p.setVisible(false);
     }
 
-    public void setValues() {
+    public final void setValues() {
         try {
             user = dao.getUserProfile(email);
             p.Display_email.setText(user.getEmail());

@@ -18,5 +18,5 @@ public class PayGarum_GroupE_37B {
         
         new Registration().setVisible(true);
 
-    }
+}
 }

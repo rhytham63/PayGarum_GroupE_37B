@@ -24,6 +24,10 @@ public class LoadMoneyController {
     private void handleAddMoney() {
     try {
         double amount = Double.parseDouble(screen.getValue().getText());
+           if (amount > 50000) {
+            JOptionPane.showMessageDialog(screen, "Don't add more than your limit (50,000)");
+            return;
+           }
     
         String password = new String(screen.getPasswordValue().getPassword());
 
