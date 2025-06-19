@@ -7,6 +7,7 @@ public class User {
     private String email;
     private String password;
     private Date dateOfBirth;
+    private String gender;
     private double balance; // Add balance field
         
      private double amountField;
@@ -42,6 +43,14 @@ public class User {
     public void setDateOfBirth(Date dateOfBirth) { 
         this.dateOfBirth = dateOfBirth; 
     }
+       public String getGender() { 
+        return gender; 
+    }
+    public void setgender(String gender) { 
+        this.gender = gender ;
+    }
+    
+  
 
     // Add getter and setter for balance
     public double getBalance() {
@@ -72,5 +81,11 @@ public class User {
     public void setPwd(String pwd){
         this.pwd=pwd;
     }
+
+    public void setGender(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+  
 }
 
