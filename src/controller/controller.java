@@ -4,6 +4,7 @@ import DAO.DAO;
 import Model.User;
 import View.Login_page;
 import View.Registration;
+import View.Reset_Password;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -101,5 +102,11 @@ private void clearForm(JTextField nameField, JTextField emailField, JPasswordFie
 
     private void showError(JFrame frame, String msg) {
         JOptionPane.showMessageDialog(frame, msg, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static class ResetPasswordController {
+
+        public ResetPasswordController(Reset_Password aThis) {
+        }
     }
 }
