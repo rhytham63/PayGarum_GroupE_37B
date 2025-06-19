@@ -24,6 +24,7 @@ public class LoadMoneyController {
     private void handleAddMoney() {
     try {
         double amount = Double.parseDouble(screen.getValue().getText());
+    
         String password = new String(screen.getPasswordValue().getPassword());
 
         if (dao.logIn(email, password) != null) {

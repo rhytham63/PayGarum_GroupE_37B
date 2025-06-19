@@ -96,6 +96,14 @@ public class DashboardController {
 
     public void refreshBalance() {
         loadUserBalance();
+        
+    }
+    public void openProfileWindow(){
+              dashboardScreen.getProfileButton().addActionListener((ActionEvent e) -> {
+                  profile p = new profile();
+                  profileController c = new profileController(p,currentUser.getEmail());
+                  c.open();
+              });
     }
 
     public void openLoadMoneyWindow() {
@@ -157,5 +165,11 @@ public class DashboardController {
             );
             controller.open();
         }
+        
+  
+        
+        
+        
+    
     }
 }
