@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import Database.Database;
+import Database.database;
 import Database.MySqlConnection;
 import Model.AccountTypeModel;
 
@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class AccountTypeDAO {
-    private final Database db = new MySqlConnection(); 
+    private final database db = new MySqlConnection(); 
 
     public void saveAccountType(AccountTypeModel model) {
         String sql = "INSERT INTO account_types (account_type) VALUES (?)";

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
-import Database.Database;
+import Database.database;
 import java.util.Date;
 import controller.FlightController;
 import javax.swing.JTextField;
