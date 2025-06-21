@@ -148,13 +148,13 @@ private void initializeController() {
         }
     }
 
-    public void openProfileWindow() {
-        dashboardScreen.getProfileButton().addActionListener((ActionEvent e) -> {
-            profile p = new profile();
-            profileController c = new profileController(p, currentUser.getEmail());
-            c.open();
-        });
-    }
+public void openProfileWindow() {
+    dashboardScreen.getProfileButton().addActionListener((ActionEvent e) -> {
+        profile p = new profile();
+        profileController profileCtrl = new profileController(p, currentUser.getEmail(), dashboardScreen);
+        profileCtrl.open();
+    });
+}
 
     private void showError(String message) {
         JOptionPane.showMessageDialog(dashboardScreen, message, "Error", JOptionPane.ERROR_MESSAGE);

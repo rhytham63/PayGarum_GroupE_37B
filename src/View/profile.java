@@ -47,6 +47,7 @@ public class profile extends javax.swing.JFrame {
         display_DOB = new javax.swing.JLabel();
         Display_email = new javax.swing.JLabel();
         backbtn = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,6 +128,8 @@ public class profile extends javax.swing.JFrame {
             }
         });
 
+        delete.setText("Delete");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -154,7 +157,7 @@ public class profile extends javax.swing.JFrame {
                                     .addComponent(Full_name)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(Display_name)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                                     .addComponent(Gender)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(Display_gender)
@@ -178,7 +181,9 @@ public class profile extends javax.swing.JFrame {
                                     .addGap(0, 0, Short.MAX_VALUE))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(183, 183, 183)
+                .addComponent(delete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(backbtn)
                 .addGap(60, 60, 60))
         );
@@ -216,7 +221,9 @@ public class profile extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jLabel1))))
                 .addGap(146, 146, 146)
-                .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(delete))
                 .addGap(35, 35, 35)
                 .addComponent(jLabel3))
         );
@@ -254,12 +261,18 @@ this.setVisible(false);        // TODO add your handling code here:
 
     
     
-        public JButton getsecurityButton() {
+public JButton getSecurityButton() {
     return security;
 }
-        public JButton getcustomerSupportBtn(){
-            return Supportbtn;
-        }
+
+public JButton getDeleteButton() {
+    return delete;
+}
+
+public JButton getcustomerSupportBtn() {
+    return Supportbtn;
+}
+
     /**
      * @param args the command line arguments
      */
@@ -306,6 +319,7 @@ this.setVisible(false);        // TODO add your handling code here:
     private javax.swing.JLabel Personal_info;
     private javax.swing.JButton Supportbtn;
     private javax.swing.JButton backbtn;
+    private javax.swing.JButton delete;
     public javax.swing.JLabel display_DOB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

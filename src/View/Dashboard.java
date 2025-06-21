@@ -375,11 +375,6 @@ public class Dashboard extends javax.swing.JFrame {
 
         profilebtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pfp.png"))); // NOI18N
         profilebtn.setText("jButton2");
-        profilebtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                profilebtnMouseClicked(evt);
-            }
-        });
         profilebtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 profilebtnActionPerformed(evt);
@@ -501,17 +496,9 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_sendMoneyActionPerformed
 
     private void profilebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilebtnActionPerformed
-     
+       
         // TODaO add your handling co
     }//GEN-LAST:event_profilebtnActionPerformed
-
-    private void profilebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profilebtnMouseClicked
-
-        profile p = new profile();
-     profileController c = new profileController(p,email);
-     c.open();
-    
-    }//GEN-LAST:event_profilebtnMouseClicked
 
     private void NotiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotiActionPerformed
         // TODO add your handling code here:

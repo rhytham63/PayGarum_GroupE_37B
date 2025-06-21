@@ -6,6 +6,7 @@ package View;
 
 import javax.swing.*;
 import controller.ResetPasswordController;
+import Model.*;
 
 /**
  *
@@ -19,8 +20,10 @@ public class Reset_Password extends javax.swing.JFrame {
     /**
      * Creates new form Reset_Password
      */
-    public Reset_Password() {
-        initComponents();
+    public Reset_Password(String email) {
+       initComponents();
+    Session.loggedInUserEmail = email; // Optional if not already set
+    new ResetPasswordController(this);
     }
 
     /**
@@ -217,7 +220,6 @@ public class Reset_Password extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Reset_Password().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
