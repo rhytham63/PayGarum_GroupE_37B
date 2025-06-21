@@ -1,10 +1,14 @@
 package controller;
 
 import DAO.DAO;
+import DAO.NotificationDAO;
+import Database.*;
 import View.FundTransfer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import java.sql.Connection;
+
 
 public class TransferMoneyController {
     private final FundTransfer view;
@@ -55,13 +59,21 @@ public class TransferMoneyController {
             }
 
             // Perform transfer
-            if (dao.transferMoney(userEmail, recipientEmail, amount, password)) {
-                JOptionPane.showMessageDialog(view, "Transfer successful!");
-                c.loadUserBalance();
-                view.dispose();
-            } 
-            
-        } catch (NumberFormatException ex) {
+                if (dao.transferMoney(userEmail, recipientEmail, amount, password)) {
+                    NotificationDAO ndao = new NotificationDAO();
+                    Connection conn = MySQLNotification.getConnection();
+
+                   ndao.addNotification(conn, userEmail + " sent Rs " + amount + " to " + recipientEmail, userEmail);
+                    ndao.addNotification(conn, "You received Rs " + amount + " from " + userEmail, recipientEmail);
+
+
+                    MySQLNotification.close(conn);
+
+                    JOptionPane.showMessageDialog(view, "Transfer successful!");
+                    c.loadUserBalance();
+                    view.dispose();
+                }
+            } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(view, "Invalid amount format", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(view, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

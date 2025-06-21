@@ -1,7 +1,9 @@
 package controller;
 
 import DAO.DAO;
-import Database.MySqlConnection;
+import DAO.NotificationDAO;
+
+import Database.*;
 import Model.Session;
 import Model.User;
 import View.*;
@@ -32,7 +34,15 @@ public class DashboardController {
 
     private void initializeController() {
         loadUserBalance();
-    }
+                dashboardScreen.getCurrencyConvert().addActionListener(e -> {
+            new CurrencyConverterUI().setVisible(true);
+        });
+                
+             dashboardScreen.getLogoutBtn().addActionListener(e -> {
+    new LogoutUI().setVisible(true);
+});
+
+            }
 
     public void initializeEventButtons() {
         JButton[] eventButtons = dashboardScreen.getEventButtons();
@@ -122,6 +132,11 @@ public class DashboardController {
                     bookButton.setText("Booked");
                     bookButton.setBackground(Color.GRAY);
                     bookButton.setForeground(Color.WHITE);
+
+                    // ✅ ADD NOTIFICATION
+                    Connection conn = MySQLNotification.getConnection();
+                    new NotificationDAO().addNotification(conn, "You booked " + eventName + " for Rs " + price, currentUser.getEmail());
+
 
                     showInfo("Booking successful!");
                 } else {

@@ -1,8 +1,11 @@
 package controller;
 
 import DAO.DAO;
+import DAO.*;
+import Database.MySQLNotification;
 import View.LoadMoney;
 import controller.DashboardController;
+import java.sql.Connection;
 
 import javax.swing.*;
 
@@ -35,14 +38,16 @@ public class LoadMoneyController {
             String password = new String(screen.getPasswordValue().getPassword());
 
             if (dao.logIn(email, password) != null) {
-                if (dao.addMoney(email, amount)) {
-                    JOptionPane.showMessageDialog(screen, "Money added successfully");
+              if (dao.addMoney(email, amount)) {
+                NotificationDAO ndao = new NotificationDAO();
+                Connection conn = MySQLNotification.getConnection();
+                ndao.addNotification(conn, email + " loaded Rs " + amount, email);
+                MySQLNotification.close(conn);
 
-                    // 🔁 Refresh balance on dashboard
-                    dashboardController.loadUserBalance();
-
-                    screen.dispose();
-                } else {
+                dashboardController.loadUserBalance();
+                JOptionPane.showMessageDialog(screen, "Money added successfully");
+                screen.dispose();
+            } else {
                     JOptionPane.showMessageDialog(screen, "Failed to add money");
                 }
             } else {

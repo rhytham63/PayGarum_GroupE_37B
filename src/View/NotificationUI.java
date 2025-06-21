@@ -4,17 +4,28 @@
  */
 package View;
 
+import controller.NotificationController;
+
 /**
  *
  * @author utpre
  */
 public class NotificationUI extends javax.swing.JFrame {
+        private final NotificationController notificationController = new NotificationController();
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {
+        notificationArea.setText(notificationController.getFormattedNotifications());
+    }
 
     /**
      * Creates new form NotificationUI
      */
     public NotificationUI() {
         initComponents();
+           NotificationController nc = new NotificationController();
+           String text = nc.getFormattedNotifications();
+           System.out.println("DEBUG - Notification Text:\n" + text); // Log to console
+           notificationArea.setText(text);  // <-- this updates your UI
     }
 
     /**
@@ -26,64 +37,109 @@ public class NotificationUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        mainPanel = new javax.swing.JPanel();
         notificationLabel = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
+        clearallButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        notificationArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
+        mainPanel.setBackground(new java.awt.Color(153, 204, 255));
 
-        notificationLabel.setFont(new java.awt.Font("Dubai Medium", 1, 24)); // NOI18N
+        notificationLabel.setFont(new java.awt.Font("Dubai Light", 1, 26)); // NOI18N
         notificationLabel.setForeground(new java.awt.Color(0, 0, 102));
-        notificationLabel.setText("NOTIFICATIONS");
+        notificationLabel.setText("                   NOTIFICATIONS");
+        notificationLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 102), 2, true));
+        notificationLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(notificationLabel)
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(notificationLabel)
-                .addGap(0, 141, Short.MAX_VALUE))
-        );
+        backButton.setBackground(new java.awt.Color(217, 217, 217));
+        backButton.setFont(new java.awt.Font("Dubai Light", 1, 16)); // NOI18N
+        backButton.setForeground(new java.awt.Color(0, 0, 102));
+        backButton.setText("BACK");
+        backButton.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(113, Short.MAX_VALUE))
+        clearallButton.setBackground(new java.awt.Color(225, 225, 225));
+        clearallButton.setFont(new java.awt.Font("Dubai Light", 1, 16)); // NOI18N
+        clearallButton.setForeground(new java.awt.Color(0, 0, 102));
+        clearallButton.setText("MARK AS READ");
+        clearallButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearallButtonActionPerformed(evt);
+            }
+        });
+
+        notificationArea.setEditable(false);
+        notificationArea.setColumns(20);
+        notificationArea.setFont(new java.awt.Font("Dubai Light", 1, 15)); // NOI18N
+        notificationArea.setForeground(new java.awt.Color(0, 0, 102));
+        notificationArea.setLineWrap(true);
+        notificationArea.setRows(5);
+        notificationArea.setWrapStyleWord(true);
+        jScrollPane3.setViewportView(notificationArea);
+
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addComponent(backButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 842, Short.MAX_VALUE)
+                .addComponent(clearallButton))
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGap(235, 235, 235)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3)
+                    .addComponent(notificationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE))
+                .addContainerGap(322, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(backButton)
+                    .addComponent(clearallButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(notificationLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void clearallButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearallButtonActionPerformed
+        // TODO add your handling code here:
+        NotificationController controller = new NotificationController();
+        controller.markAllAsRead();
+
+        // Refresh the list
+        notificationArea.setText(controller.getFormattedNotifications());
+    }//GEN-LAST:event_clearallButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,8 +177,14 @@ public class NotificationUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton backButton;
+    private javax.swing.JButton clearallButton;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JTextArea notificationArea;
     private javax.swing.JLabel notificationLabel;
     // End of variables declaration//GEN-END:variables
+
+    
 }
