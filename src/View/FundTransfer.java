@@ -113,7 +113,11 @@ public class FundTransfer extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Password:");
 
-        pwd.setText("jPasswordField1");
+        pwd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pwdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout manLayout = new javax.swing.GroupLayout(man);
         man.setLayout(manLayout);
@@ -178,7 +182,7 @@ public class FundTransfer extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(92, 92, 92)
                 .addComponent(man, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(backBtn)
@@ -219,6 +223,10 @@ public class FundTransfer extends javax.swing.JFrame {
     private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
         this.setVisible(false);
     }//GEN-LAST:event_backBtnMouseClicked
+
+    private void pwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pwdActionPerformed
 
     /**
      * @param args the command line arguments
