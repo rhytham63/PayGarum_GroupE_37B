@@ -26,10 +26,8 @@ public class DashboardController {
 
         initializeController();
 
-        // Attach listeners
         this.dashboardScreen.addTransferListener(new TransferFund());
-        this.dashboardScreen.getResetPassButton().addActionListener(new OpenResetPassword());
-        this.dashboardScreen.getDeleteButton().addActionListener(new DeleteAccount());
+        openProfileWindow(); // ⬅️ This opens profile, which now handles reset/delete
     }
 
     private void initializeController() {
@@ -48,20 +46,10 @@ public class DashboardController {
     }
 
     public void loadUserBalance() {
-        try {
-            double balance;
-            try {
-                balance = dao.getBalance(currentUser.getEmail());
-            } catch (Exception ex) {
-                balance = loadBalanceFromDB(currentUser.getEmail());
-            }
-
-            currentUser.setBalance(balance);
-            updateBalanceDisplay();
-        } catch (Exception e) {
-            showError("Error loading balance: " + e.getMessage());
-        }
-    }
+    double balance = dao.getBalance(currentUser.getEmail());
+    currentUser.setBalance(balance);
+    updateBalanceDisplay();
+}
 
     private double loadBalanceFromDB(String email) throws SQLException {
         Connection conn = new MySqlConnection().openConnection();
@@ -101,19 +89,11 @@ public class DashboardController {
 
     public void refreshBalance() {
         loadUserBalance();
-        
-    }
-    public void openProfileWindow(){
-              dashboardScreen.getProfileButton().addActionListener((ActionEvent e) -> {
-                  profile p = new profile();
-                  profileController c = new profileController(p,currentUser.getEmail());
-                  c.open();
-              });
     }
 
     public void openLoadMoneyWindow() {
-        new LoadMoney(currentUser.getEmail(), dashboardScreen).setVisible(true);
-    }
+    new LoadMoney(currentUser.getEmail(), dashboardScreen, this).setVisible(true);
+}
 
     public void handleEventBooking(String eventName, double price, JButton bookButton) {
         try {
@@ -153,6 +133,14 @@ public class DashboardController {
         }
     }
 
+    public void openProfileWindow() {
+        dashboardScreen.getProfileButton().addActionListener((ActionEvent e) -> {
+            profile p = new profile();
+            profileController c = new profileController(p, currentUser.getEmail());
+            c.open();
+        });
+    }
+
     private void showError(String message) {
         JOptionPane.showMessageDialog(dashboardScreen, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -161,7 +149,6 @@ public class DashboardController {
         JOptionPane.showMessageDialog(dashboardScreen, message);
     }
 
-    // Event: Transfer Money
     private class TransferFund implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -170,46 +157,6 @@ public class DashboardController {
                     DashboardController.this, transferView, currentUser.getEmail()
             );
             controller.open();
-        }
-        
-  
-        
-        
-        
-    
-    }
-
-    // Event: Open Reset Password Screen
-    private class OpenResetPassword implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Reset_Password screen = new Reset_Password();
-            new ResetPasswordController(screen);
-            screen.setVisible(true);
-        }
-    }
-
-    // Event: Delete Account
-    private class DeleteAccount implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int confirm = JOptionPane.showConfirmDialog(
-                    dashboardScreen,
-                    "Are you sure you want to delete your account? This action cannot be undone.",
-                    "Confirm Delete",
-                    JOptionPane.YES_NO_OPTION
-            );
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                boolean deleted = dao.deleteUserAccount(currentUser.getEmail());
-                if (deleted) {
-                    JOptionPane.showMessageDialog(dashboardScreen, "Account deleted successfully.");
-                    dashboardScreen.dispose();
-                    new Login_page().setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(dashboardScreen, "Failed to delete account.");
-                }
-            }
         }
     }
 }
