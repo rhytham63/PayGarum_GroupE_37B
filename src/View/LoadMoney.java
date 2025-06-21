@@ -43,58 +43,108 @@ public class LoadMoney extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        Button = new javax.swing.JButton();
-        amnt_value2 = new javax.swing.JLabel();
+        backbtn = new javax.swing.JButton();
+        man = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         value = new javax.swing.JTextField();
         Password_value = new javax.swing.JPasswordField();
-        Password = new javax.swing.JLabel();
-        amnt_text = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        Button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(212, 235, 253));
         jPanel2.setLayout(null);
 
-        Button.setText("Submit");
-        Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonActionPerformed(evt);
+        backbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/previous.png"))); // NOI18N
+        backbtn.setText("Back");
+        backbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backbtnMouseClicked(evt);
             }
         });
-        jPanel2.add(Button);
-        Button.setBounds(270, 420, 130, 24);
+        backbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbtnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(backbtn);
+        backbtn.setBounds(10, 20, 87, 26);
 
-        amnt_value2.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 24)); // NOI18N
-        amnt_value2.setForeground(new java.awt.Color(255, 255, 255));
-        amnt_value2.setText("Load Money");
-        jPanel2.add(amnt_value2);
-        amnt_value2.setBounds(610, 181, 180, 20);
+        man.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setBackground(new java.awt.Color(212, 235, 253));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("  Load MOney");
+        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel1.setOpaque(true);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Amount :");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Password:");
 
         value.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 valueActionPerformed(evt);
             }
         });
-        jPanel2.add(value);
-        value.setBounds(320, 260, 160, 40);
-        jPanel2.add(Password_value);
-        Password_value.setBounds(330, 340, 150, 40);
 
-        Password.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 24)); // NOI18N
-        Password.setText("Password");
-        jPanel2.add(Password);
-        Password.setBounds(200, 340, 120, 31);
+        Button.setBackground(new java.awt.Color(212, 235, 253));
+        Button.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        Button.setText("Load");
+        Button.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonActionPerformed(evt);
+            }
+        });
 
-        amnt_text.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 24)); // NOI18N
-        amnt_text.setText("Amount");
-        jPanel2.add(amnt_text);
-        amnt_text.setBounds(190, 260, 100, 31);
+        javax.swing.GroupLayout manLayout = new javax.swing.GroupLayout(man);
+        man.setLayout(manLayout);
+        manLayout.setHorizontalGroup(
+            manLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manLayout.createSequentialGroup()
+                .addContainerGap(87, Short.MAX_VALUE)
+                .addGroup(manLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(manLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(value, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                    .addComponent(Password_value))
+                .addGap(423, 423, 423))
+            .addGroup(manLayout.createSequentialGroup()
+                .addGap(328, 328, 328)
+                .addGroup(manLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Button, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        manLayout.setVerticalGroup(
+            manLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(manLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(41, 41, 41)
+                .addGroup(manLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(value, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(manLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(Password_value, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addComponent(Button)
+                .addGap(54, 54, 54))
+        );
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Background.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(-270, 0, 1830, 740);
+        jPanel2.add(man);
+        man.setBounds(100, 160, 780, 320);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,15 +152,14 @@ public class LoadMoney extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1325, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 991, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 737, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -124,6 +173,14 @@ public class LoadMoney extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_ButtonActionPerformed
+
+    private void backbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbtnMouseClicked
+        this.setVisible(false);        // TODO add your handling code here:
+    }//GEN-LAST:event_backbtnMouseClicked
+
+    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backbtnActionPerformed
     public JButton getButton() {
         return Button;
     }
@@ -135,7 +192,10 @@ public class LoadMoney extends javax.swing.JFrame {
     public JPasswordField getPasswordValue() {
         return Password_value;
     }
-
+    
+      public JButton getBackBtn() {
+        return backbtn;
+    }
 
     /**
      * @param args the command line arguments
@@ -163,12 +223,13 @@ public class LoadMoney extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button;
-    private javax.swing.JLabel Password;
     private javax.swing.JPasswordField Password_value;
-    private javax.swing.JLabel amnt_text;
-    private javax.swing.JLabel amnt_value2;
+    private javax.swing.JButton backbtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel man;
     private javax.swing.JTextField value;
     // End of variables declaration//GEN-END:variables
 }
