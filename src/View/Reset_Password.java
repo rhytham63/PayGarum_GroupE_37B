@@ -40,7 +40,6 @@ public class Reset_Password extends javax.swing.JFrame {
         text2 = new javax.swing.JLabel();
         pass = new javax.swing.JPasswordField();
         resetButton = new javax.swing.JButton();
-        forgetButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,43 +83,27 @@ public class Reset_Password extends javax.swing.JFrame {
             }
         });
 
-        forgetButton.setBackground(new java.awt.Color(77, 91, 146));
-        forgetButton.setForeground(new java.awt.Color(255, 255, 255));
-        forgetButton.setText("Forget");
-        forgetButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                forgetButtonMouseClicked(evt);
-            }
-        });
-        forgetButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                forgetButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(greeting)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(prev_pass)
+                    .addComponent(text2)
+                    .addComponent(text1)
+                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(prev_pass)
-                            .addComponent(text2)
-                            .addComponent(text1)
-                            .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(47, 47, 47))
+                        .addGap(96, 96, 96)
+                        .addComponent(greeting))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(forgetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29))))
+                        .addGap(86, 86, 86)
+                        .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,11 +118,9 @@ public class Reset_Password extends javax.swing.JFrame {
                 .addComponent(text2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(resetButton)
-                    .addComponent(forgetButton))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addComponent(resetButton)
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logo.png"))); // NOI18N
@@ -202,14 +183,6 @@ public class Reset_Password extends javax.swing.JFrame {
    
 
     }//GEN-LAST:event_resetButtonActionPerformed
-
-    private void forgetButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgetButtonMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_forgetButtonMouseClicked
-
-    private void forgetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgetButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_forgetButtonActionPerformed
     
     public JTextField getPrevPass() {
         return prev_pass;
@@ -249,7 +222,6 @@ public class Reset_Password extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FrameBox;
-    private javax.swing.JButton forgetButton;
     private javax.swing.JLabel greeting;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

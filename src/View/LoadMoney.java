@@ -4,6 +4,7 @@
  */
 package View;
 
+import controller.DashboardController;
 import controller.LoadMoneyController;
 import javax.swing.*;
 
@@ -23,13 +24,12 @@ public class LoadMoney extends javax.swing.JFrame {
     /**
      * Creates new form LoadMoney
      */
-    public LoadMoney(String email, Dashboard dashboardRef) {
-        initComponents(); 
-        this.userEmail = email;
-        this.dashboardRef = dashboardRef;
-        
-        new LoadMoneyController(this, userEmail);
-        
+    public LoadMoney(String email, Dashboard dashboardRef, DashboardController dashboardController) {
+         initComponents(); 
+    this.userEmail = email;
+    this.dashboardRef = dashboardRef;
+
+    new LoadMoneyController(this, userEmail, dashboardController);     
         
     }
 
