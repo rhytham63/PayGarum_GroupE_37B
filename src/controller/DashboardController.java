@@ -32,17 +32,17 @@ public class DashboardController {
         openProfileWindow(); // ⬅️ This opens profile, which now handles reset/delete
     }
 
-    private void initializeController() {
-        loadUserBalance();
-                dashboardScreen.getCurrencyConvert().addActionListener(e -> {
-            new CurrencyConverterUI().setVisible(true);
-        });
-                
-             dashboardScreen.getLogoutBtn().addActionListener(e -> {
-    new LogoutUI().setVisible(true);
-});
+private void initializeController() {
+    loadUserBalance();
 
-            }
+    dashboardScreen.getCurrencyConvert().addActionListener(e -> {
+        new CurrencyConverterUI().setVisible(true);
+    });
+
+    dashboardScreen.getLogoutBtn().addActionListener(e -> {
+        new LogoutUI(dashboardScreen).setVisible(true);
+    });
+}
 
     public void initializeEventButtons() {
         JButton[] eventButtons = dashboardScreen.getEventButtons();

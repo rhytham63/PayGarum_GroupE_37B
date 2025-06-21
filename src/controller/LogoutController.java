@@ -1,27 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
-import DAO.LogoutDAO;
+import View.LogoutUI;
+import View.Registration;
+import View.Dashboard;
+import Model.Session;
 
-/**
- *
- * @author utpre
- */
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class LogoutController {
-    private final LogoutDAO logoutDAO;
+    private final LogoutUI screen;
+    private final Dashboard dashboard;
 
-    // Constructor initializes DAO
-    public LogoutController() {
-        this.logoutDAO = new LogoutDAO();
+    public LogoutController(LogoutUI screen, Dashboard dashboard) {
+        this.screen = screen;
+        this.dashboard = dashboard;
+        setupLogoutButton();
     }
 
-    // Handles the logout action
-    public void handleLogout() {
-        logoutDAO.logoutUser();
+    private void setupLogoutButton() {
+        screen.getLogoutButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleLogout();
+            }
+        });
     }
 
+    private void handleLogout() {
+        if (dashboard != null) {
+            dashboard.dispose(); // close dashboard
+        }
 
+        screen.dispose(); // close logout UI
+        Session.loggedInUserEmail = null; // clear session
+        new Registration().setVisible(true); // open registration
+    }
 }

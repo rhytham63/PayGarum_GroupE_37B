@@ -5,6 +5,7 @@
 package View;
 
 import controller.LogoutController;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,14 +13,18 @@ import javax.swing.JOptionPane;
  * @author utpre
  */
 public class LogoutUI extends javax.swing.JFrame {
+    private Dashboard dashboardRef;
+
 
     /**
      * Creates new form LogoutUI
      */
-    public LogoutUI() {
+    public LogoutUI(Dashboard dashboardRef) {
         initComponents();
-    }
+        this.dashboardRef = dashboardRef;
 
+        new LogoutController(this, dashboardRef); // Initialize controller
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,6 +60,11 @@ public class LogoutUI extends javax.swing.JFrame {
                 logoutButtonMouseClicked(evt);
             }
         });
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
 
         cancelButton.setBackground(new java.awt.Color(204, 204, 204));
         cancelButton.setFont(new java.awt.Font("Dubai", 0, 16)); // NOI18N
@@ -85,9 +95,9 @@ public class LogoutUI extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(textLabel)
                 .addGap(18, 18, 18)
-                .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logoutButton)
-                    .addComponent(cancelButton))
+                .addGroup(innerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cancelButton)
+                    .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -142,12 +152,6 @@ public class LogoutUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutButtonMouseClicked
-        // TODO add your handling code here:
-        LogoutController logoutController = new LogoutController(); // Initialize controller
-        logoutController.handleLogout(); // Call controller to perform logout
-    
-        JOptionPane.showMessageDialog(null, "You have logged out successfully!");
-        this.dispose(); 
 
 
     }//GEN-LAST:event_logoutButtonMouseClicked
@@ -157,6 +161,12 @@ public class LogoutUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_cancelButtonMouseClicked
 
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logoutButtonActionPerformed
+    public JButton getLogoutButton() {
+    return logoutButton;
+}
     /**
      * @param args the command line arguments
      */
@@ -187,7 +197,6 @@ public class LogoutUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LogoutUI().setVisible(true);
             }
         });
     }
