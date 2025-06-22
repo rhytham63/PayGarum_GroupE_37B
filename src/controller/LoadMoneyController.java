@@ -1,13 +1,15 @@
 package controller;
 
 import DAO.DAO;
-import DAO.*;
+import DAO.NotificationDAO;
+import DAO.TransactionHistoryDAO;
 import Database.MySQLNotification;
+import Database.MySqlConnection;
+import Model.TransactionHistory;
 import View.LoadMoney;
-import controller.DashboardController;
-import java.sql.Connection;
 
 import javax.swing.*;
+import java.sql.Connection;
 
 public class LoadMoneyController {
     private final LoadMoney screen;
@@ -38,16 +40,34 @@ public class LoadMoneyController {
             String password = new String(screen.getPasswordValue().getPassword());
 
             if (dao.logIn(email, password) != null) {
-              if (dao.addMoney(email, amount)) {
-                NotificationDAO ndao = new NotificationDAO();
-                Connection conn = MySQLNotification.getConnection();
-                ndao.addNotification(conn, email + " loaded Rs " + amount, email);
-                MySQLNotification.close(conn);
+                if (dao.addMoney(email, amount)) {
 
-                dashboardController.loadUserBalance();
-                JOptionPane.showMessageDialog(screen, "Money added successfully");
-                screen.dispose();
-            } else {
+                    // ✅ Add to transaction_history table
+                    double updatedBalance = dao.getBalance(email); // get current balance after update
+                    TransactionHistory txn = new TransactionHistory(
+                            "Credit",
+                            amount,
+                            updatedBalance,
+                            TransactionHistory.getCurrentDateTime(),
+                            "Money loaded to wallet"
+                    );
+
+                    Connection historyConn = new MySqlConnection().openConnection();
+                    TransactionHistoryDAO historyDAO = new TransactionHistoryDAO(historyConn);
+                    historyDAO.addTransaction(email, txn);
+                    historyConn.close();
+
+                    // ✅ Notification
+                    Connection conn = MySQLNotification.getConnection();
+                    NotificationDAO ndao = new NotificationDAO();
+                    ndao.addNotification(conn, email + " loaded Rs " + amount, email);
+                    MySQLNotification.close(conn);
+
+                    dashboardController.loadUserBalance();
+                    JOptionPane.showMessageDialog(screen, "Money added successfully");
+                    screen.dispose();
+
+                } else {
                     JOptionPane.showMessageDialog(screen, "Failed to add money");
                 }
             } else {
@@ -55,6 +75,8 @@ public class LoadMoneyController {
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(screen, "Invalid amount");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(screen, "Error: " + e.getMessage());
         }
     }
 }

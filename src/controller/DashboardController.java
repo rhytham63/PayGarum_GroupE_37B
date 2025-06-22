@@ -31,9 +31,21 @@ public class DashboardController {
         this.dashboardScreen.addTransferListener(new TransferFund());
         openProfileWindow(); // ⬅️ This opens profile, which now handles reset/delete
     }
-
 private void initializeController() {
     loadUserBalance();
+
+    // Load all transactions on startup
+    new TransactionHistoryController(dashboardScreen, currentUser.getEmail())
+        .loadTransactionHistory(dashboardScreen.getTransactionTable());
+
+    // Filter combo box handling
+    dashboardScreen.getFilterComboBox().addActionListener(e -> {
+        String selected = (String) dashboardScreen.getFilterComboBox().getSelectedItem();
+        if (selected != null) {
+            new TransactionHistoryController(dashboardScreen, currentUser.getEmail())
+                .loadFilteredTransactions(dashboardScreen.getTransactionTable(), selected);
+        }
+    });
 
     dashboardScreen.getCurrencyConvert().addActionListener(e -> {
         new CurrencyConverterUI().setVisible(true);
@@ -43,6 +55,7 @@ private void initializeController() {
         new LogoutUI(dashboardScreen).setVisible(true);
     });
 }
+
 
     public void initializeEventButtons() {
         JButton[] eventButtons = dashboardScreen.getEventButtons();
@@ -110,8 +123,6 @@ private void initializeController() {
             if (dao.hasBookedEvent(currentUser.getEmail(), eventName)) {
                 bookButton.setEnabled(false);
                 bookButton.setText("Booked");
-                bookButton.setBackground(Color.GRAY);
-                bookButton.setForeground(Color.WHITE);
                 showInfo("You already booked this event");
                 return;
             }
@@ -130,8 +141,6 @@ private void initializeController() {
 
                     bookButton.setEnabled(false);
                     bookButton.setText("Booked");
-                    bookButton.setBackground(Color.GRAY);
-                    bookButton.setForeground(Color.WHITE);
 
                     // ✅ ADD NOTIFICATION
                     Connection conn = MySQLNotification.getConnection();
@@ -146,6 +155,7 @@ private void initializeController() {
         } catch (Exception e) {
             showError("Error during booking: " + e.getMessage());
         }
+        
     }
 
 public void openProfileWindow() {
