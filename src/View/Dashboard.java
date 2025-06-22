@@ -74,6 +74,8 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         sendMoney = new javax.swing.JButton();
         CurrencyConvert = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         Balance = new javax.swing.JLabel();
         Coin_Image = new javax.swing.JLabel();
@@ -249,52 +251,70 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        sendMoney.setText("Send Money");
+        sendMoney.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/SendMoney.png"))); // NOI18N
         sendMoney.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendMoneyActionPerformed(evt);
             }
         });
 
-        CurrencyConvert.setText("Currency Converter");
+        CurrencyConvert.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO\\Desktop\\icons\\Untitled design\\CurrencyConverter.png")); // NOI18N
         CurrencyConvert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CurrencyConvertActionPerformed(evt);
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("SendMoney");
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel12.setText("CurrencyConverter");
+
         javax.swing.GroupLayout Right_barLayout = new javax.swing.GroupLayout(Right_bar);
         Right_bar.setLayout(Right_barLayout);
         Right_barLayout.setHorizontalGroup(
             Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Right_barLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(39, 39, 39)
+                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(accBalance3)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(Right_barLayout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(sendMoney)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(CurrencyConvert)
-                .addGap(89, 89, 89))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(Right_barLayout.createSequentialGroup()
+                        .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(accBalance3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(Right_barLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel1))
+                            .addComponent(sendMoney, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Right_barLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel12))
+                            .addGroup(Right_barLayout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(CurrencyConvert)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         Right_barLayout.setVerticalGroup(
             Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Right_barLayout.createSequentialGroup()
-                .addGap(86, 86, 86)
+                .addGap(66, 66, 66)
                 .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sendMoney)
-                    .addComponent(CurrencyConvert))
-                .addGap(251, 251, 251)
+                    .addComponent(CurrencyConvert, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel12))
+                .addGap(216, 216, 216)
                 .addComponent(accBalance3)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -319,7 +339,7 @@ public class Dashboard extends javax.swing.JFrame {
         Gdmrng.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 24)); // NOI18N
         Gdmrng.setText("Good Morning");
         jPanel3.add(Gdmrng);
-        Gdmrng.setBounds(137, 14, 182, 31);
+        Gdmrng.setBounds(137, 14, 168, 32);
 
         Filter.setBackground(new java.awt.Color(151, 198, 237));
         Filter.setForeground(new java.awt.Color(255, 255, 255));
@@ -330,19 +350,19 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
         jPanel3.add(Filter);
-        Filter.setBounds(230, 390, 76, 24);
+        Filter.setBounds(230, 390, 76, 22);
 
         accBalance1.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 14)); // NOI18N
         accBalance1.setText("Filter By");
         jPanel3.add(accBalance1);
-        accBalance1.setBounds(150, 390, 60, 18);
+        accBalance1.setBounds(150, 390, 60, 19);
         jPanel3.add(jSeparator1);
         jSeparator1.setBounds(150, 320, 720, 3);
 
         accBalance2.setFont(new java.awt.Font("AvantGarde LT Medium", 1, 14)); // NOI18N
         accBalance2.setText("Account Balance");
         jPanel3.add(accBalance2);
-        accBalance2.setBounds(137, 106, 128, 18);
+        accBalance2.setBounds(137, 106, 117, 19);
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
@@ -394,14 +414,10 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(profilebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(Logout)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(14, 14, 14)
+                .addComponent(Logout)
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addComponent(profilebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,14 +444,14 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel3.add(jSeparator4);
         jSeparator4.setBounds(100, 10, 0, 3);
 
-        Noti.setText("Notifications");
+        Noti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/notifications.png"))); // NOI18N
         Noti.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NotiActionPerformed(evt);
             }
         });
         jPanel3.add(Noti);
-        Noti.setBounds(800, 20, 130, 24);
+        Noti.setBounds(900, 10, 50, 50);
 
         btnRefreshHistory.setText("Refresh");
         btnRefreshHistory.addActionListener(new java.awt.event.ActionListener() {
@@ -444,7 +460,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btnRefreshHistory);
-        btnRefreshHistory.setBounds(330, 390, 82, 24);
+        btnRefreshHistory.setBounds(330, 390, 72, 23);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -615,8 +631,10 @@ public JComboBox<String> getFilterComboBox() {
     private javax.swing.JButton btnRefreshHistory;
     private javax.swing.JButton event;
     private javax.swing.JButton event1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
