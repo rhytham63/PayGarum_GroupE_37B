@@ -5,6 +5,7 @@ import Model.User;
 import View.Login_page;
 import View.Registration;
 import View.Reset_Password;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,39 +24,37 @@ public class controller {
         currentFrame.dispose();
     }
 
-    public void handleRegister(JFrame currentFrame,
-                               JTextField nameField,
-                               JTextField emailField,
-                               JPasswordField passField,
-                               JTextField gender,
-                               JComboBox<String> dayBox,
-                               JComboBox<String> monthBox,
-                               JComboBox<String> yearBox) {
-                               
-                               
+    public void handleRegister(JFrame currentFrame, JTextField nameField, JTextField emailField, JPasswordField passField, JTextField gender, JComboBox<String> dayBox, JComboBox<String> monthBox, JComboBox<String> yearBox, ButtonGroup buttonGroup2) {
         try {
             String name = nameField.getText();
             String email = emailField.getText();
             String password = new String(passField.getPassword());
             String day = dayBox.getSelectedItem().toString();
-            String genderIpt = gender.getText();
             String month = monthBox.getSelectedItem().toString();
             String year = yearBox.getSelectedItem().toString();
-                       
-            
-          
+            String genderIpt = gender.getText();
 
-            if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                showError(currentFrame, "Please fill all fields");
+            // ✅ Get account type using the getter methods
+            String accountType = "";
+            if (currentFrame instanceof Registration reg) {
+                if (reg.getSavingRadioButton().isSelected()) {
+                    accountType = "Saving";
+                } else if (reg.getCurrentRadioButton().isSelected()) {
+                    accountType = "Current";
+                }
+            }
+
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || accountType.isEmpty()) {
+                showError(currentFrame, "Please fill all fields and select an account type");
                 return;
             }
 
-            if (register(name, email, password, day, month, year,genderIpt)) {
+            if (register(name, email, password, day, month, year, genderIpt, accountType)) {
                 JOptionPane.showMessageDialog(currentFrame, "Registration successful!");
-                clearForm(nameField, emailField, passField, dayBox, monthBox, yearBox,gender);
+                clearForm(nameField, emailField, passField, dayBox, monthBox, yearBox, gender);
                 goToLogin(currentFrame);
             } else {
-                  showError(currentFrame, "Registration failed. Email may already exist.");
+                showError(currentFrame, "Registration failed. Email may already exist.");
                 goToLogin(currentFrame);
             }
         } catch (Exception e) {
@@ -64,19 +63,19 @@ public class controller {
     }
 
     private boolean register(String name, String email, String password,
-                             String day, String month, String year,String genderIpt) {
+                             String day, String month, String year,
+                             String genderIpt, String accountType) {
         try {
             User newUser = new User();
             newUser.setFullName(name);
             newUser.setEmail(email);
             newUser.setPassword(password);
             newUser.setgender(genderIpt);
-           
+            newUser.setAccountType(accountType);
 
             String dateStr = day + " " + month + " " + year;
             Date dob = new SimpleDateFormat("dd MMMM yyyy").parse(dateStr);
             newUser.setDateOfBirth(dob);
-            
 
             return dataAccess.registerUser(newUser);
         } catch (ParseException e) {
@@ -87,25 +86,29 @@ public class controller {
             return false;
         }
     }
-private void clearForm(JTextField nameField, JTextField emailField, JPasswordField passField, 
-                       JComboBox<String> dayBox, JComboBox<String> monthBox, 
-                       JComboBox<String> yearBox, JTextField genderIpt) {
-    nameField.setText("");
-    emailField.setText("");
-    passField.setText("");
-    dayBox.setSelectedIndex(0);
-    monthBox.setSelectedIndex(0);
-    yearBox.setSelectedIndex(0);
-    genderIpt.setText("");  // ✅ Correct
-}
 
+    private void clearForm(JTextField nameField, JTextField emailField, JPasswordField passField,
+                           JComboBox<String> dayBox, JComboBox<String> monthBox,
+                           JComboBox<String> yearBox, JTextField genderIpt) {
+        nameField.setText("");
+        emailField.setText("");
+        passField.setText("");
+        dayBox.setSelectedIndex(0);
+        monthBox.setSelectedIndex(0);
+        yearBox.setSelectedIndex(0);
+        genderIpt.setText("");
+
+        if (genderIpt.getTopLevelAncestor() instanceof Registration reg) {
+            reg.getSavingRadioButton().setSelected(false);
+            reg.getCurrentRadioButton().setSelected(false);
+        }
+    }
 
     private void showError(JFrame frame, String msg) {
         JOptionPane.showMessageDialog(frame, msg, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public static class ResetPasswordController {
-
         public ResetPasswordController(Reset_Password aThis) {
         }
     }

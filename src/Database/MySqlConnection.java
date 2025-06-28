@@ -1,5 +1,4 @@
 package Database;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
@@ -13,24 +12,30 @@ public class MySqlConnection implements Database {
             System.err.println("MySQL JDBC Driver not found!");
         }
     }
-
+    
+    // Add this static method
+    public static Connection getConnection() {
+        MySqlConnection dbConnection = new MySqlConnection();
+        return dbConnection.openConnection();
+    }
+    
     @Override
     public Connection openConnection() {
         try {
-            String username = "root";
-            String password = "1234";
-            String database = "customers_login";
+            String user = "root";
+            String password = "SushIL@#4413";
+            String database = "bankoop_db";
             
-            // Fixed connection URL
-            String url = "jdbc:mysql://127.0.0.1:3305/" + database;
-            
-            return DriverManager.getConnection(url, username, password);
+            String url = "jdbc:mysql://127.0.0.1:3306/" + database;
+            Connection conn = DriverManager.getConnection(url, user, password);
+            System.out.println("Database connected successfully!");
+            return conn;
         } catch (SQLException e) {
-            System.err.println("Connection failed!");
+            System.err.println("Connection failed: " + e.getMessage());
             return null;
         }
     }
-
+    
     @Override
     public void closeConnection(Connection conn) {
         try {
@@ -42,7 +47,7 @@ public class MySqlConnection implements Database {
             System.err.println("Error closing connection");
         }
     }
-
+    
     @Override
     public ResultSet runQuery(Connection conn, String query) {
         try {
@@ -53,7 +58,7 @@ public class MySqlConnection implements Database {
             return null;
         }
     }
-
+    
     @Override
     public int executeUpdate(Connection conn, String query) {
         try {

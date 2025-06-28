@@ -5,6 +5,7 @@
 package View;
 
 import controller.controller;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 
 
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class Registration extends javax.swing.JFrame {
     private final controller controller;
+private ButtonGroup accountTypeGroup;
     /**
      * Creates new form Registration
      */
@@ -32,6 +34,7 @@ public class Registration extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup2 = new javax.swing.ButtonGroup();
         FrameBox = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         greeting = new javax.swing.JLabel();
@@ -49,6 +52,9 @@ public class Registration extends javax.swing.JFrame {
         registerButton = new javax.swing.JButton();
         text6 = new javax.swing.JLabel();
         gender = new javax.swing.JTextField();
+        savingRadioButton = new javax.swing.JRadioButton();
+        currentRadioButton = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -136,6 +142,19 @@ public class Registration extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup2.add(savingRadioButton);
+        savingRadioButton.setText("Saving Account");
+        savingRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                savingRadioButtonActionPerformed(evt);
+            }
+        });
+
+        buttonGroup2.add(currentRadioButton);
+        currentRadioButton.setText("CurrentAccount");
+
+        jLabel2.setText("Choose Account type:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -156,28 +175,30 @@ public class Registration extends javax.swing.JFrame {
                             .addComponent(num1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(num, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(greeting, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(text4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(text6)
-                                    .addGap(40, 40, 40)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(DateOfBirth_Days, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(DateOfBirth_Months, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(DateOfBirth_Year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(59, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(savingRadioButton)
+                        .addGap(33, 33, 33)
+                        .addComponent(currentRadioButton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(194, 194, 194)
+                        .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(text4)
+                                .addGap(18, 18, 18)
+                                .addComponent(DateOfBirth_Days, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(DateOfBirth_Months, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DateOfBirth_Year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(text6)
+                        .addGap(18, 18, 18)
+                        .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,11 +227,17 @@ public class Registration extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(text6)
                     .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(savingRadioButton)
+                    .addComponent(currentRadioButton))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginButton)
                     .addComponent(registerButton))
-                .addGap(0, 80, Short.MAX_VALUE))
+                .addGap(50, 50, 50))
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logo.png"))); // NOI18N
@@ -223,21 +250,21 @@ public class Registration extends javax.swing.JFrame {
             .addGroup(FrameBoxLayout.createSequentialGroup()
                 .addGroup(FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(FrameBoxLayout.createSequentialGroup()
-                        .addGap(343, 343, 343)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(FrameBoxLayout.createSequentialGroup()
                         .addGap(480, 480, 480)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(395, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(FrameBoxLayout.createSequentialGroup()
+                        .addGap(346, 346, 346)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(392, Short.MAX_VALUE))
         );
         FrameBoxLayout.setVerticalGroup(
             FrameBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FrameBoxLayout.createSequentialGroup()
                 .addContainerGap(13, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addGap(46, 46, 46))
         );
 
         getContentPane().add(FrameBox);
@@ -270,8 +297,8 @@ public class Registration extends javax.swing.JFrame {
         gender,// password field
         DateOfBirth_Days,   // Day dropdown
         DateOfBirth_Months, // Month dropdown
-        DateOfBirth_Year   // Year dropdown
-                 
+        DateOfBirth_Year,// Year dropdown
+        buttonGroup2
     );
       
     }//GEN-LAST:event_registerButtonActionPerformed
@@ -293,6 +320,10 @@ public class Registration extends javax.swing.JFrame {
     private void genderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genderActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_genderActionPerformed
+
+    private void savingRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savingRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_savingRadioButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,19 +364,31 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> DateOfBirth_Months;
     private javax.swing.JComboBox<String> DateOfBirth_Year;
     private javax.swing.JPanel FrameBox;
+    private javax.swing.ButtonGroup buttonGroup2;
+    public javax.swing.JRadioButton currentRadioButton;
     private javax.swing.JTextField gender;
     private javax.swing.JLabel greeting;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginButton;
     private javax.swing.JTextField num;
     private javax.swing.JTextField num1;
     private javax.swing.JPasswordField pass;
-    private javax.swing.JButton registerButton;
+    public javax.swing.JButton registerButton;
+    public javax.swing.JRadioButton savingRadioButton;
     private javax.swing.JLabel text1;
     private javax.swing.JLabel text2;
     private javax.swing.JLabel text4;
     private javax.swing.JLabel text5;
     private javax.swing.JLabel text6;
     // End of variables declaration//GEN-END:variables
+
+public javax.swing.JRadioButton getSavingRadioButton() {
+    return savingRadioButton;
+}
+
+public javax.swing.JRadioButton getCurrentRadioButton() {
+    return currentRadioButton;
+}
 }

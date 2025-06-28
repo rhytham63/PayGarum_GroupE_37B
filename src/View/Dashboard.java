@@ -6,6 +6,7 @@ package View;
 
 import DAO.*;
 import Database.*;
+import Model.Session;
 import controller.DashboardController;
 import controller.NotificationController;
 import controller.TransactionHistoryController;
@@ -24,7 +25,9 @@ public class Dashboard extends javax.swing.JFrame {
     private static final Logger logger = Logger.getLogger(Dashboard.class.getName());
     private DashboardController controller;
     private final String email;
-   
+   private boolean isBalanceVisible = true;
+    private String originalBalance;
+    
 
     /**
      * Creates new form NewJFrame
@@ -76,7 +79,10 @@ public class Dashboard extends javax.swing.JFrame {
         CurrencyConvert = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        Bookingopenbtn = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         Balance = new javax.swing.JLabel();
         Coin_Image = new javax.swing.JLabel();
         accBalance = new javax.swing.JLabel();
@@ -258,7 +264,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        CurrencyConvert.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO\\Desktop\\icons\\Untitled design\\CurrencyConverter.png")); // NOI18N
+        CurrencyConvert.setText("esrfvyeu");
         CurrencyConvert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CurrencyConvertActionPerformed(evt);
@@ -270,6 +276,16 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setText("CurrencyConverter");
+
+        Bookingopenbtn.setText("jButton1");
+        Bookingopenbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BookingopenbtnActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel13.setText("Ticket Booking");
 
         javax.swing.GroupLayout Right_barLayout = new javax.swing.GroupLayout(Right_bar);
         Right_bar.setLayout(Right_barLayout);
@@ -294,6 +310,13 @@ public class Dashboard extends javax.swing.JFrame {
                             .addGroup(Right_barLayout.createSequentialGroup()
                                 .addGap(44, 44, 44)
                                 .addComponent(CurrencyConvert)))
+                        .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Right_barLayout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(Bookingopenbtn))
+                            .addGroup(Right_barLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -301,13 +324,15 @@ public class Dashboard extends javax.swing.JFrame {
             Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Right_barLayout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sendMoney)
-                    .addComponent(CurrencyConvert, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(CurrencyConvert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(sendMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Bookingopenbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Right_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel12))
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13))
                 .addGap(216, 216, 216)
                 .addComponent(accBalance3)
                 .addGap(18, 18, 18)
@@ -319,6 +344,15 @@ public class Dashboard extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(null);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/hide_3507619.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1);
+        jButton1.setBounds(290, 160, 30, 27);
 
         Balance.setFont(new java.awt.Font("Jost", 1, 18)); // NOI18N
         Balance.setForeground(new java.awt.Color(255, 255, 255));
@@ -542,8 +576,20 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
      
     }//GEN-LAST:event_btnRefreshHistoryActionPerformed
+
+    private void BookingopenbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookingopenbtnActionPerformed
+        // TODO add your handling code here:
+        OnlineBooking ob = new OnlineBooking();
+       ob.setVisible(true);
+    }//GEN-LAST:event_BookingopenbtnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        togglebalance();
+    }//GEN-LAST:event_jButton1ActionPerformed
     public void refreshBalance() {
         controller.refreshBalance();
+
     }
        public void addTransferListener(ActionListener listener) {
         sendMoney.addActionListener(listener);
@@ -589,6 +635,7 @@ public JComboBox<String> getFilterComboBox() {
 
 
 
+
     /**
      * @param args the command line arguments
      */
@@ -617,6 +664,7 @@ public JComboBox<String> getFilterComboBox() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Balance;
+    private javax.swing.JButton Bookingopenbtn;
     private javax.swing.JLabel Coin_Image;
     private javax.swing.JButton CurrencyConvert;
     private javax.swing.JComboBox<String> Filter;
@@ -631,10 +679,12 @@ public JComboBox<String> getFilterComboBox() {
     private javax.swing.JButton btnRefreshHistory;
     private javax.swing.JButton event;
     private javax.swing.JButton event1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -661,5 +711,20 @@ public JComboBox<String> getFilterComboBox() {
     private javax.swing.JTable transactionTable;
     // End of variables declaration//GEN-END:variables
 
-    
+     private void togglebalance() {
+    if (isBalanceVisible) {
+        
+        originalBalance = Balance.getText();
+        
+        Balance.setText("Rs ********");
+        isBalanceVisible = false;
+    } else {
+        Balance.setText(originalBalance);
+        isBalanceVisible = true;
+    }
+}
+public DashboardController getController() {
+    return this.controller;
+}
+   
 }

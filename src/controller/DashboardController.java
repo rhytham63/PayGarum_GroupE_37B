@@ -7,6 +7,7 @@ import Database.*;
 import Model.Session;
 import Model.User;
 import View.*;
+import View.Dashboard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,7 @@ public class DashboardController {
     private final User currentUser;
     private final Dashboard dashboardScreen;
     private final DAO dao;
+    private Dashboard dashboardView;
 
     public DashboardController(String email, Dashboard dashboard) {
         this.dashboardScreen = dashboard;
@@ -173,7 +175,12 @@ public void openProfileWindow() {
     private void showInfo(String message) {
         JOptionPane.showMessageDialog(dashboardScreen, message);
     }
-
+    
+    public void handleFlightBooking(String departure, String arrival, String date) {
+    Connection conn = new MySqlConnection().openConnection();
+    FlightController flightController = new FlightController(conn, this.dashboardView);
+    flightController.processSelection(departure, arrival, date); 
+}
     private class TransferFund implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

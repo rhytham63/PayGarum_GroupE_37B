@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class MySQLNotification {
 
-    private static final String URL = "jdbc:mysql://localhost:3305/customers_login";
+    private static final String URL = "jdbc:mysql://localhost:3305/bankoop_db";
     private static final String USER = "root";
-    private static final String PASSWORD = "1234";
+    private static final String PASSWORD = "123";
 
     static {
         try {

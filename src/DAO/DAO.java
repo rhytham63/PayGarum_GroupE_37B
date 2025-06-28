@@ -21,7 +21,7 @@ public class DAO {
         Connection conn = dbConnection.openConnection();
         PreparedStatement pstmt = null;
 
-        String query = "INSERT INTO users (full_name, email, password, date_of_birth, balance,gender) VALUES (?, ?, ?, ?, ?,?)";
+        String query = "INSERT INTO users (full_name, email, password, date_of_birth, balance, gender, account_type) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             if (conn == null) {
                 return false;
@@ -34,6 +34,8 @@ public class DAO {
             pstmt.setDate(4, new java.sql.Date(user.getDateOfBirth().getTime()));
             pstmt.setDouble(5, 0.0);
              pstmt.setString(6,user.getGender());
+             pstmt.setString(7, user.getAccountType());
+             
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {

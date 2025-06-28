@@ -88,4 +88,8 @@ public List<TransactionHistory> getUserTransactions(String email) throws SQLExce
     }
     return transactions;
 }
+
+    public void insertTransaction(TransactionHistory transaction, String email) {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
 }
