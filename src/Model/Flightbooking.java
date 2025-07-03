@@ -22,4 +22,4 @@ public class Flightbooking {
     public String getDeparture() { return departure; }
     public String getArrival() { return arrival; }
     public String getDate() { return date; }
-}   
+}

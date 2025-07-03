@@ -3,14 +3,15 @@ package controller;
 import DAO.DAO;
 import Model.Session;
 import View.Reset_Password;
+import View.ForgetPassword;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ResetPasswordController {
-    private Reset_Password view;
-    private DAO dao;
+    private final Reset_Password view;
+    private final DAO dao;
 
     public ResetPasswordController(Reset_Password view) {
         this.view = view;
@@ -19,6 +20,7 @@ public class ResetPasswordController {
     }
 
     private void setupListener() {
+        // Handle reset password button
         view.getResetButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -38,6 +40,16 @@ public class ResetPasswordController {
                 } else {
                     JOptionPane.showMessageDialog(view, "Old password incorrect");
                 }
+            }
+        });
+
+        // Handle forget password button
+        view.forgetPass.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String email = Session.loggedInUserEmail;
+                new ForgetPassword(email).setVisible(true);
+                view.dispose();
             }
         });
     }

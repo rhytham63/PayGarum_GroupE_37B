@@ -208,22 +208,15 @@ public class Flightbooking extends javax.swing.JFrame {
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
         // TODO add your handling code here:
-String selectedDeparture = departure.getSelectedItem().toString();
-String selectedArrival = arrival.getSelectedItem().toString();
-Date utilDate = date.getDate();  
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-String selectedDate = sdf.format(utilDate); 
+        String selectedDeparture = departure.getSelectedItem().toString();
+    String selectedArrival = arrival.getSelectedItem().toString();
+    Date utilDate = date.getDate();  
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String selectedDate = sdf.format(utilDate); 
 
-MySqlConnection dbConnection = new MySqlConnection();
-Connection conn = dbConnection.openConnection();
-if (conn != null) {
-    FlightController controller = new FlightController(conn, null); 
+    // No need to create a connection or show a message here
+    FlightController controller = new FlightController(null); // Pass your Dashboard instance if you have it, otherwise null
     controller.processSelection(selectedDeparture, selectedArrival, selectedDate);
-    JOptionPane.showMessageDialog(this, "Flight booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-    dbConnection.closeConnection(conn);  
-} else {
-    JOptionPane.showMessageDialog(this, "Could not connect to the database.", "Error", JOptionPane.ERROR_MESSAGE);
-}
     }//GEN-LAST:event_confirmActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

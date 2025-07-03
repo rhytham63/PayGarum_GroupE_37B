@@ -2,18 +2,18 @@ package controller;
 
 import DAO.DAO;
 import DAO.NotificationDAO;
-
+import DAO.TransactionHistoryDAO;
 import Database.*;
+import Database.MySQLNotification;
 import Model.Session;
+import Model.TransactionHistory;
 import Model.User;
 import View.*;
-import View.Dashboard;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import javax.swing.*;
 
 public class DashboardController {
     private final User currentUser;
@@ -31,33 +31,34 @@ public class DashboardController {
         initializeController();
 
         this.dashboardScreen.addTransferListener(new TransferFund());
-        openProfileWindow(); // ⬅️ This opens profile, which now handles reset/delete
+        loadProfilePicOnDashboard(); // <-- Load profile picture after initializing
+        openProfileWindow();
     }
-private void initializeController() {
-    loadUserBalance();
 
-    // Load all transactions on startup
-    new TransactionHistoryController(dashboardScreen, currentUser.getEmail())
-        .loadTransactionHistory(dashboardScreen.getTransactionTable());
+    private void initializeController() {
+        loadUserBalance();
 
-    // Filter combo box handling
-    dashboardScreen.getFilterComboBox().addActionListener(e -> {
-        String selected = (String) dashboardScreen.getFilterComboBox().getSelectedItem();
-        if (selected != null) {
+        dashboardScreen.getRefreshHistoryButton().addActionListener(e -> {
             new TransactionHistoryController(dashboardScreen, currentUser.getEmail())
-                .loadFilteredTransactions(dashboardScreen.getTransactionTable(), selected);
-        }
-    });
+                .loadTransactionHistory(dashboardScreen.getTransactionTable());
+        });
 
-    dashboardScreen.getCurrencyConvert().addActionListener(e -> {
-        new CurrencyConverterUI().setVisible(true);
-    });
+        dashboardScreen.getFilterComboBox().addActionListener(e -> {
+            String selected = (String) dashboardScreen.getFilterComboBox().getSelectedItem();
+            if (selected != null) {
+                new TransactionHistoryController(dashboardScreen, currentUser.getEmail())
+                    .loadFilteredTransactions(dashboardScreen.getTransactionTable(), selected);
+            }
+        });
 
-    dashboardScreen.getLogoutBtn().addActionListener(e -> {
-        new LogoutUI(dashboardScreen).setVisible(true);
-    });
-}
+        dashboardScreen.getCurrencyConvert().addActionListener(e -> {
+            new CurrencyConverterUI().setVisible(true);
+        });
 
+        dashboardScreen.getLogoutBtn().addActionListener(e -> {
+            new LogoutUI(dashboardScreen).setVisible(true);
+        });
+    }
 
     public void initializeEventButtons() {
         JButton[] eventButtons = dashboardScreen.getEventButtons();
@@ -71,10 +72,10 @@ private void initializeController() {
     }
 
     public void loadUserBalance() {
-    double balance = dao.getBalance(currentUser.getEmail());
-    currentUser.setBalance(balance);
-    updateBalanceDisplay();
-}
+        double balance = dao.getBalance(currentUser.getEmail());
+        currentUser.setBalance(balance);
+        updateBalanceDisplay();
+    }
 
     private double loadBalanceFromDB(String email) throws SQLException {
         Connection conn = new MySqlConnection().openConnection();
@@ -117,56 +118,82 @@ private void initializeController() {
     }
 
     public void openLoadMoneyWindow() {
-    new LoadMoney(currentUser.getEmail(), dashboardScreen, this).setVisible(true);
-}
-
-    public void handleEventBooking(String eventName, double price, JButton bookButton) {
-        try {
-            if (dao.hasBookedEvent(currentUser.getEmail(), eventName)) {
-                bookButton.setEnabled(false);
-                bookButton.setText("Booked");
-                showInfo("You already booked this event");
-                return;
-            }
-
-            int choice = JOptionPane.showConfirmDialog(
-                    dashboardScreen,
-                    "Book " + eventName + " for Rs " + price + "?",
-                    "Confirm Booking",
-                    JOptionPane.YES_NO_OPTION
-            );
-
-            if (choice == JOptionPane.YES_OPTION) {
-                if (dao.bookEvent(currentUser.getEmail(), eventName, price)) {
-                    currentUser.setBalance(currentUser.getBalance() - price);
-                    updateBalanceDisplay();
-
-                    bookButton.setEnabled(false);
-                    bookButton.setText("Booked");
-
-                    // ✅ ADD NOTIFICATION
-                    Connection conn = MySQLNotification.getConnection();
-                    new NotificationDAO().addNotification(conn, "You booked " + eventName + " for Rs " + price, currentUser.getEmail());
-
-
-                    showInfo("Booking successful!");
-                } else {
-                    showError("Booking failed - insufficient balance");
-                }
-            }
-        } catch (Exception e) {
-            showError("Error during booking: " + e.getMessage());
-        }
-        
+        new LoadMoney(currentUser.getEmail(), dashboardScreen, this).setVisible(true);
     }
 
-public void openProfileWindow() {
-    dashboardScreen.getProfileButton().addActionListener((ActionEvent e) -> {
-        profile p = new profile();
-        profileController profileCtrl = new profileController(p, currentUser.getEmail(), dashboardScreen);
-        profileCtrl.open();
-    });
+    public void handleEventBooking(String eventName, double price, JButton bookButton) {
+    try {
+        if (dao.hasBookedEvent(currentUser.getEmail(), eventName)) {
+            bookButton.setEnabled(false);
+            bookButton.setText("Booked");
+            showInfo("You already booked this event");
+            return;
+        }
+
+        int choice = JOptionPane.showConfirmDialog(
+                dashboardScreen,
+                "Book " + eventName + " for Rs " + price + "?",
+                "Confirm Booking",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (choice == JOptionPane.YES_OPTION) {
+            if (dao.bookEvent(currentUser.getEmail(), eventName, price)) {
+                currentUser.setBalance(currentUser.getBalance() - price);
+                updateBalanceDisplay();
+
+                bookButton.setEnabled(false);
+                bookButton.setText("Booked");
+
+                // ✅ ADD TRANSACTION HISTORY (DEBIT)
+                Connection historyConn = new MySqlConnection().openConnection();
+                TransactionHistoryDAO historyDAO = new TransactionHistoryDAO(historyConn);
+                double updatedBalance = dao.getBalance(currentUser.getEmail());
+                TransactionHistory txn = new TransactionHistory(
+                        "Debit",
+                        price,
+                        updatedBalance,
+                        TransactionHistory.getCurrentDateTime(),
+                        "Booked event: " + eventName
+                );
+                historyDAO.addTransaction(currentUser.getEmail(), txn);
+                historyConn.close();
+
+                // ✅ ADD NOTIFICATION
+                Connection conn = MySQLNotification.getConnection();
+                new NotificationDAO().addNotification(conn, "You booked " + eventName + " for Rs " + price, currentUser.getEmail());
+
+                showInfo("Booking successful!");
+            } else {
+                showError("Booking failed - insufficient balance");
+            }
+        }
+    } catch (Exception e) {
+        showError("Error during booking: " + e.getMessage());
+    }
 }
+
+    public void openProfileWindow() {
+        dashboardScreen.getProfileButton().addActionListener((ActionEvent e) -> {
+            profile p = new profile();
+            profileController profileCtrl = new profileController(p, currentUser.getEmail(), dashboardScreen);
+            profileCtrl.open();
+        });
+    }
+
+    // --- PROFILE PICTURE LOGIC ---
+    public void loadProfilePicOnDashboard() {
+        String picPath = dao.getProfilePic(currentUser.getEmail());
+        if (picPath != null && !picPath.isEmpty()) {
+            JButton profileBtn = dashboardScreen.getProfileButton();
+            if (profileBtn != null) {
+                ImageIcon icon = new ImageIcon(new ImageIcon(picPath).getImage().getScaledInstance(
+                    profileBtn.getWidth(), profileBtn.getHeight(), java.awt.Image.SCALE_SMOOTH));
+                profileBtn.setIcon(icon);
+            }
+        }
+    }
+    // --- END PROFILE PICTURE LOGIC ---
 
     private void showError(String message) {
         JOptionPane.showMessageDialog(dashboardScreen, message, "Error", JOptionPane.ERROR_MESSAGE);
@@ -175,12 +202,12 @@ public void openProfileWindow() {
     private void showInfo(String message) {
         JOptionPane.showMessageDialog(dashboardScreen, message);
     }
-    
-    public void handleFlightBooking(String departure, String arrival, String date) {
-    Connection conn = new MySqlConnection().openConnection();
-    FlightController flightController = new FlightController(conn, this.dashboardView);
-    flightController.processSelection(departure, arrival, date); 
+
+public void handleFlightBooking(String departure, String arrival, String date) {
+    FlightController flightController = new FlightController(this.dashboardScreen); // or dashboardView if that's your Dashboard instance
+    flightController.processSelection(departure, arrival, date);
 }
+
     private class TransferFund implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

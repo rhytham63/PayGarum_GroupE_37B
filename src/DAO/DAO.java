@@ -17,11 +17,12 @@ public class DAO {
         dbConnection = new MySqlConnection();
     }
 
-    public boolean registerUser(User user) {
+    // Register user with security question/answer
+    public boolean registerUser(User user, String securityQuestion, String securityAnswer) {
         Connection conn = dbConnection.openConnection();
         PreparedStatement pstmt = null;
 
-        String query = "INSERT INTO users (full_name, email, password, date_of_birth, balance, gender, account_type) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO users (full_name, email, password, date_of_birth, balance, gender, account_type, security_question, security_answer) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             if (conn == null) {
                 return false;
@@ -33,9 +34,10 @@ public class DAO {
             pstmt.setString(3, user.getPassword());
             pstmt.setDate(4, new java.sql.Date(user.getDateOfBirth().getTime()));
             pstmt.setDouble(5, 0.0);
-             pstmt.setString(6,user.getGender());
-             pstmt.setString(7, user.getAccountType());
-             
+            pstmt.setString(6, user.getGender());
+            pstmt.setString(7, user.getAccountType());
+            pstmt.setString(8, securityQuestion);
+            pstmt.setString(9, securityAnswer);
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -50,6 +52,60 @@ public class DAO {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    // Get security question for a user
+    public String getSecurityQuestion(String email) {
+        Connection conn = dbConnection.openConnection();
+        String query = "SELECT security_question FROM users WHERE email = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("security_question");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dbConnection.closeConnection(conn);
+        }
+        return null;
+    }
+
+    // Check security answer for forgot password
+    public boolean checkSecurityAnswer(String email, String answer) {
+        Connection conn = dbConnection.openConnection();
+        String query = "SELECT * FROM users WHERE email = ? AND security_answer = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, email);
+            stmt.setString(2, answer);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            dbConnection.closeConnection(conn);
+        }
+    }
+
+    // Update password after security answer is verified
+    public boolean updatePassword(String email, String newPassword) {
+        Connection conn = dbConnection.openConnection();
+        String query = "UPDATE users SET password = ? WHERE email = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, newPassword);
+            stmt.setString(2, email);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            dbConnection.closeConnection(conn);
         }
     }
 
@@ -212,7 +268,7 @@ public class DAO {
     }
 
     // Retrieve user profile by email (assuming email is unique)
-   public User getUserProfile(String email) throws SQLException {
+    public User getUserProfile(String email) throws SQLException {
         User user = null;
         String query = "SELECT full_name, email, date_of_birth, gender FROM users WHERE email = ?";
         
@@ -225,79 +281,106 @@ public class DAO {
                 user = new User();
                 user.setFullName(rs.getString("full_name"));
                 user.setEmail(rs.getString("email"));
-                user.setDateOfBirth(rs.getDate("date_of_birth")); // Use getDate for java.util.Date
+                user.setDateOfBirth(rs.getDate("date_of_birth"));
                 user.setgender(rs.getString("gender"));
-               
             }
         } catch (SQLException e) {
             throw new SQLException("Error retrieving user profile: " + e.getMessage(), e);
         }
         
         return user;
+    }
 
+    public boolean resetPassword(String email, String oldPass, String newPass) {
+        Connection conn = dbConnection.openConnection();
+        String checkQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
+        String updateQuery = "UPDATE users SET password = ? WHERE email = ?";
+
+        try {
+            PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
+            checkStmt.setString(1, email);
+            checkStmt.setString(2, oldPass);
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next()) {
+                PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
+                updateStmt.setString(1, newPass);
+                updateStmt.setString(2, email);
+                return updateStmt.executeUpdate() > 0;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            dbConnection.closeConnection(conn);
+        }
+    }
+
+    public boolean deleteUserAccount(String email) {
+        Connection conn = dbConnection.openConnection();
+        try {
+            conn.setAutoCommit(false);
+
+            // Delete related event bookings
+            PreparedStatement deleteBookings = conn.prepareStatement(
+                "DELETE FROM event_bookings WHERE user_email = ?"
+            );
+            deleteBookings.setString(1, email);
+            deleteBookings.executeUpdate();
+
+            // Delete user record
+            PreparedStatement deleteUser = conn.prepareStatement(
+                "DELETE FROM users WHERE email = ?"
+            );
+            deleteUser.setString(1, email);
+            int rowsAffected = deleteUser.executeUpdate();
+
+            conn.commit();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException ignore) {}
+            e.printStackTrace();
+            return false;
+        } finally {
+            dbConnection.closeConnection(conn);
+        }
     }
     
-   
-    
-    public boolean resetPassword(String email, String oldPass, String newPass) {
+    public void updateProfilePic(String email, String path) {
     Connection conn = dbConnection.openConnection();
-    String checkQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
-    String updateQuery = "UPDATE users SET password = ? WHERE email = ?";
-
+    String query = "UPDATE users SET profile_pic = ? WHERE email = ?";
     try {
-        PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
-        checkStmt.setString(1, email);
-        checkStmt.setString(2, oldPass);
-        ResultSet rs = checkStmt.executeQuery();
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, path);
+        stmt.setString(2, email);
+        stmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        dbConnection.closeConnection(conn);
+    }
+}
 
+// Get profile picture path for a user
+public String getProfilePic(String email) {
+    Connection conn = dbConnection.openConnection();
+    String query = "SELECT profile_pic FROM users WHERE email = ?";
+    try {
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, email);
+        ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
-            updateStmt.setString(1, newPass);
-            updateStmt.setString(2, email);
-            return updateStmt.executeUpdate() > 0;
-        } else {
-            return false;
+            return rs.getString("profile_pic");
         }
     } catch (SQLException e) {
         e.printStackTrace();
-        return false;
     } finally {
         dbConnection.closeConnection(conn);
     }
-
-}
-    
-    public boolean deleteUserAccount(String email) {
-    Connection conn = dbConnection.openConnection();
-    try {
-        conn.setAutoCommit(false);
-
-        // Delete related event bookings
-        PreparedStatement deleteBookings = conn.prepareStatement(
-            "DELETE FROM event_bookings WHERE user_email = ?"
-        );
-        deleteBookings.setString(1, email);
-        deleteBookings.executeUpdate();
-
-        // Delete user record
-        PreparedStatement deleteUser = conn.prepareStatement(
-            "DELETE FROM users WHERE email = ?"
-        );
-        deleteUser.setString(1, email);
-        int rowsAffected = deleteUser.executeUpdate();
-
-        conn.commit();
-        return rowsAffected > 0;
-    } catch (SQLException e) {
-        try {
-            conn.rollback();
-        } catch (SQLException ignore) {}
-        e.printStackTrace();
-        return false;
-    } finally {
-        dbConnection.closeConnection(conn);
-    }
+    return null;
 }
 }
-
-  

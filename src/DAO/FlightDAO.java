@@ -7,27 +7,22 @@ import Model.Flightbooking;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import Database.*;
 /**
  *
  * @author User
  */
-public class FlightDAO {    
+public class FlightDAO {
+    private final MySqlConnection dbConnection = new MySqlConnection();
 
-    
-    private Connection connection;
-
-    public FlightDAO(Connection connection) {
-        this.connection = connection;
-    }
-
-    public boolean saveSelection(Flightbooking flight) {
-        String sql = "INSERT INTO flight_selections (departure, arrival, date) VALUES (?, ?, ?)";
-        
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, flight.getDeparture());
-            stmt.setString(2, flight.getArrival());
-            stmt.setString(3, flight.getDate());
-
+    public boolean saveSelection(Flightbooking flight, String userEmail) {
+        String sql = "INSERT INTO flight_selections (user_email, departure, arrival, date) VALUES (?, ?, ?, ?)";
+        try (Connection connection = dbConnection.openConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, userEmail);
+            stmt.setString(2, flight.getDeparture());
+            stmt.setString(3, flight.getArrival());
+            stmt.setString(4, flight.getDate());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,4 +30,3 @@ public class FlightDAO {
         }
     }
 }
-

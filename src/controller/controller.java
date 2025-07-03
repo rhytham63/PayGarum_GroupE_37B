@@ -4,7 +4,6 @@ import DAO.DAO;
 import Model.User;
 import View.Login_page;
 import View.Registration;
-import View.Reset_Password;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,7 +33,7 @@ public class controller {
             String year = yearBox.getSelectedItem().toString();
             String genderIpt = gender.getText();
 
-            // ✅ Get account type using the getter methods
+            // Get account type using the getter methods
             String accountType = "";
             if (currentFrame instanceof Registration reg) {
                 if (reg.getSavingRadioButton().isSelected()) {
@@ -44,27 +43,38 @@ public class controller {
                 }
             }
 
-            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || accountType.isEmpty()) {
-                showError(currentFrame, "Please fill all fields and select an account type");
+            // Get security question and answer from Registration view
+            String securityQuestion = "";
+            String securityAnswer = "";
+            if (currentFrame instanceof Registration reg) {
+                securityQuestion = reg.getSecurityQuestion();
+                securityAnswer = reg.getSecurityAnswer();
+            }
+
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || accountType.isEmpty() ||
+                securityQuestion.isEmpty() || securityAnswer.isEmpty()) {
+                showError(currentFrame, "Please fill all fields, including security question and answer, and select an account type");
                 return;
             }
 
-            if (register(name, email, password, day, month, year, genderIpt, accountType)) {
+            if (register(name, email, password, day, month, year, genderIpt, accountType, securityQuestion, securityAnswer)) {
                 JOptionPane.showMessageDialog(currentFrame, "Registration successful!");
                 clearForm(nameField, emailField, passField, dayBox, monthBox, yearBox, gender);
                 goToLogin(currentFrame);
             } else {
                 showError(currentFrame, "Registration failed. Email may already exist.");
-                goToLogin(currentFrame);
+                // Do NOT call goToLogin here!
             }
         } catch (Exception e) {
             showError(currentFrame, "Error: " + e.getMessage());
         }
     }
 
+    // Updated register method to include security question and answer
     private boolean register(String name, String email, String password,
                              String day, String month, String year,
-                             String genderIpt, String accountType) {
+                             String genderIpt, String accountType,
+                             String securityQuestion, String securityAnswer) {
         try {
             User newUser = new User();
             newUser.setFullName(name);
@@ -77,7 +87,8 @@ public class controller {
             Date dob = new SimpleDateFormat("dd MMMM yyyy").parse(dateStr);
             newUser.setDateOfBirth(dob);
 
-            return dataAccess.registerUser(newUser);
+            // Pass security question and answer to DAO
+            return dataAccess.registerUser(newUser, securityQuestion, securityAnswer);
         } catch (ParseException e) {
             System.err.println("Date format error: " + e.getMessage());
             return false;
@@ -106,10 +117,5 @@ public class controller {
 
     private void showError(JFrame frame, String msg) {
         JOptionPane.showMessageDialog(frame, msg, "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    public static class ResetPasswordController {
-        public ResetPasswordController(Reset_Password aThis) {
-        }
     }
 }

@@ -40,7 +40,7 @@ public class Login_page extends javax.swing.JFrame {
         password = new javax.swing.JPasswordField();
         loginbutton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        backbtn = new javax.swing.JButton();
+        backBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addFocusListener(new java.awt.event.FocusAdapter() {
@@ -134,11 +134,11 @@ public class Login_page extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logo.png"))); // NOI18N
         jLabel1.setText("jLabel1");
 
-        backbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/previous.png"))); // NOI18N
-        backbtn.setText("Back");
-        backbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/previous.png"))); // NOI18N
+        backBtn.setLabel("Back");
+        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backbtnMouseClicked(evt);
+                backBtnMouseClicked(evt);
             }
         });
 
@@ -153,8 +153,8 @@ public class Login_page extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(FrameBoxLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(279, 279, 279)
+                        .addComponent(backBtn)
+                        .addGap(280, 280, 280)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(311, Short.MAX_VALUE))
         );
@@ -168,7 +168,7 @@ public class Login_page extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(FrameBoxLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -226,9 +226,10 @@ public class Login_page extends javax.swing.JFrame {
           
     }//GEN-LAST:event_loginbuttonMouseClicked
 
-    private void backbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbtnMouseClicked
-this.setVisible(false);        // TODO add your handling code here:
-    }//GEN-LAST:event_backbtnMouseClicked
+    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
+        this.setVisible(false);
+        new Registration().setVisible(true);
+    }//GEN-LAST:event_backBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -267,7 +268,7 @@ this.setVisible(false);        // TODO add your handling code here:
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FrameBox;
-    private javax.swing.JButton backbtn;
+    private javax.swing.JButton backBtn;
     private javax.swing.JTextField email;
     private javax.swing.JLabel greeting;
     private javax.swing.JLabel jLabel1;
